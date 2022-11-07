@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1007522563152",
+    "project_id": "hongseokchun-1f848",
+    "storage_bucket": "hongseokchun-1f848.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1007522563152:android:d8c620e6e4f248569cbd55",
+        "android_client_info": {
+          "package_name": "com.android.example.hongseokchun"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1007522563152-ehi3lrli20lougf6e8c6ookbq4u2571p.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBSvpfMqZYJFe4WTU1oKythJoHXLxC6-l0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1007522563152-ehi3lrli20lougf6e8c6ookbq4u2571p.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
