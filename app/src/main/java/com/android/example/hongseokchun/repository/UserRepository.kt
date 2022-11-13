@@ -14,12 +14,11 @@ class UserRepository {
         val db = Firebase.firestore
         val mutableData = MutableLiveData<User>()
 
-
         db.collection("users").document("hongseokchun@naver.com").get()
             .addOnSuccessListener { documentSnapshot ->
                 val data = documentSnapshot.toObject<User>()
                 mutableData.value=data!!
-                Log.d("ingred repo",data.toString())
+                Log.d("friend repo",data.toString())
             }
             .addOnFailureListener { exception ->
                 Log.d(ContentValues.TAG, "get failed with ", exception)
