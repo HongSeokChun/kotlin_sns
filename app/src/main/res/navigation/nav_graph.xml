@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/friendFragment">
+    app:startDestination="@id/editPostFragment">
 
     <fragment
         android:id="@+id/friendFragment"
@@ -12,18 +12,8 @@
         tools:layout="@layout/fragment_friend_list" />
 
     <fragment
-        android:id="@+id/uploadPostFragment"
-        android:name="com.android.example.hongseokchun.ui.UploadPostFragment"
-        android:label="uploadPostFragment"
-        tools:layout="@layout/fragment_upload_post" >
-        <action
-            android:id="@+id/action_uploadPostFragment_to_editPostFragment"
-            app:destination="@id/editPostFragment" />
-    </fragment>
-
-    <fragment
         android:id="@+id/editPostFragment"
-        android:name="com.android.example.hongseokchun.ui.EditPostFragment"
+        android:name="com.android.example.hongseokchun.ui.UploadPostFragment"
         android:label="editPostFragment"
         tools:layout="@layout/fragment_edit_post" />
 
