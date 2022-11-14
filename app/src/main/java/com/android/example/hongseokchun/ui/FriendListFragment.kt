@@ -1,6 +1,7 @@
 package com.android.example.hongseokchun.ui
 
 
+import android.annotation.SuppressLint
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
@@ -38,6 +39,8 @@ class FriendListFragment : BaseFragment<FragmentFriendListBinding>(R.layout.frag
 
         viewModel.userFriendsLiveData.observe(viewLifecycleOwner) { itemList ->
             friendAdapter.itemList = itemList
+            val n = itemList.size;
+            binding.friendNum.text = "친구 ${n}명"
             Log.d("recipee",itemList.toString())
         }
 
@@ -76,6 +79,7 @@ class FriendListFragment : BaseFragment<FragmentFriendListBinding>(R.layout.frag
 
         //친구삭제
         friendAdapter.setItemClickListener(object: FriendAdapter.OnItemClickListener{
+            @SuppressLint("SuspiciousIndentation")
             override fun onClick(v: View, position: Int) {
                 // 클릭 시 이벤트 작성
                 val friendName = friendAdapter.itemList[position].get("name")
