@@ -1,4 +1,4 @@
-package com.android.example.hongseokchun
+package com.android.example.hongseokchun.ui
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -12,7 +12,8 @@ import com.example.recyclerview.databinding.MyPageItemBinding
 
 class CommentViewHolder(val binding: CommentItemBinding) : RecyclerView.ViewHolder(binding.root)
 
-class CommentAdapter(private val context: Context, private val comments: MutableList<Comment>) : RecyclerView.Adapter<CommentViewHolder>() {
+class CommentAdapter(private val context: Context, private val comments: MutableList<Comment>)
+        : RecyclerView.Adapter<CommentViewHolder>() {
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CommentViewHolder {
                 val inflater = LayoutInflater.from(parent.context)
