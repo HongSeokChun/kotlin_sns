@@ -1,4 +1,4 @@
-package com.android.example.hongseokchun
+package com.android.example.hongseokchun.ui
 
 import android.content.Context
 import android.view.LayoutInflater

@@ -1,12 +1,9 @@
-package com.android.example.hongseokchun
+package com.android.example.hongseokchun.ui
 
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.android.example.hongseokchun.databinding.ItemBinding
-import com.android.example.hongseokchun.databinding.MyPageItemBinding
-
 
 
 class MyViewHolder(val binding: ItemBinding) : RecyclerView.ViewHolder(binding.root)
