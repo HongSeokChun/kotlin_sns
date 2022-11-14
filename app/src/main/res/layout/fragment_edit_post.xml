@@ -8,8 +8,12 @@
 
     <ImageView
         android:id="@+id/upload_image"
-        android:layout_width="319dp"
-        android:layout_height="289dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toBottomOf="@+id/viewPager2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -30,12 +34,12 @@
 
         <TextView
             android:id="@+id/textView"
-            android:layout_width="245dp"
+            android:layout_width="232dp"
             android:layout_height="wrap_content"
             android:drawableLeft="@drawable/ic_baseline_arrow_back_24"
             android:text="새 게시물"
             android:textAlignment="viewEnd"
-            android:textSize="30sp"
+            android:textSize="24sp"
             android:textStyle="bold" />
 
         <TextView
@@ -45,7 +49,7 @@
             android:text="공유"
             android:textAlignment="viewEnd"
             android:textColor="#3F51B5"
-            android:textSize="24sp" />
+            android:textSize="20sp" />
 
     </LinearLayout>
 
@@ -53,13 +57,13 @@
         android:id="@+id/postMessage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="16dp"
         android:hint="글 입력..."
         android:textColorHint="#989797"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/viewPager2" />
+        app:layout_constraintTop_toBottomOf="@+id/layoutIndicators" />
 
     <ProgressBar
         android:id="@+id/progressBar"
@@ -73,17 +77,13 @@
 
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/viewPager2"
-        android:layout_width="349dp"
-        android:layout_height="326dp"
-        android:layout_marginStart="16dp"
+        android:layout_width="421dp"
+        android:layout_height="404dp"
         android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
         android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout"
-        app:layout_constraintVertical_bias="0.104">
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout">
 
     </androidx.viewpager2.widget.ViewPager2>
 
@@ -98,7 +98,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/viewPager2" >
+        app:layout_constraintTop_toBottomOf="@+id/viewPager2">
 
     </LinearLayout>
 

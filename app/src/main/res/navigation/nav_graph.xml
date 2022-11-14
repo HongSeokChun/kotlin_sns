@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/editPostFragment">
+    app:startDestination="@id/friendFragment">
 
     <fragment
         android:id="@+id/friendFragment"
@@ -16,6 +16,5 @@
         android:name="com.android.example.hongseokchun.ui.UploadPostFragment"
         android:label="editPostFragment"
         tools:layout="@layout/fragment_edit_post" />
-
 
 </navigation>
