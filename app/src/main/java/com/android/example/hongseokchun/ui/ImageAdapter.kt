@@ -6,8 +6,11 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.ProgressBar
 import androidx.recyclerview.widget.RecyclerView
 import com.android.example.hongseokchun.databinding.ItemLayoutBinding
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 
 class ImageAdapter(itemList: ArrayList<Uri>)
     : RecyclerView.Adapter<ImageAdapter.ViewHolder>() {
