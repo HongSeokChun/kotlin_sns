@@ -1,10 +1,10 @@
-package com.example.recyclerview
+package com.android.example.hongseokchun
 
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.recyclerview.databinding.MyPageItemBinding
+import com.android.example.hongseokchun.databinding.MyPageItemBinding
 
 //data class Student(val uid: Int, val name: String)
 //data class Post(val uid: Int,val time: String, val like: String, val comment: String)
