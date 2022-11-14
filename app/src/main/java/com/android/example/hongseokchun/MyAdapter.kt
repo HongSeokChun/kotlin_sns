@@ -1,11 +1,11 @@
-package com.example.hongseokchun;
+package com.android.example.hongseokchun
 
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.android.hongseokchun.databinding.ItemBinding
-import com.example.hongseokchun.databinding.MyPageItemBinding
+import com.android.example.hongseokchun.databinding.ItemBinding
+import com.android.example.hongseokchun.databinding.MyPageItemBinding
 
 
 
