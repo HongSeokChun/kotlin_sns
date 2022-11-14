@@ -6,5 +6,6 @@ data class User(
     val date: String= "",
     val question: String ="",
     val answer: String="",
-    val friends: ArrayList<HashMap<String,String>> = ArrayList()
+    val friends: ArrayList<HashMap<String,String>> = ArrayList(),
+    val post : ArrayList<Post> = ArrayList()
 )
