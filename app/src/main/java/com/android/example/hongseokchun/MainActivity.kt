@@ -3,6 +3,7 @@ package com.android.example.hongseokchun
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
+import android.view.View
 import android.widget.RelativeLayout
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -23,7 +24,14 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
 
+        setBottomNav()
+    }
 
+    private fun setBottomNav() {
+        val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
+        val navController = navHostFragment.navController
+        findViewById<BottomNavigationView>(R.id.bottom_nav)
+            .setupWithNavController(navController)
     }
 
 }

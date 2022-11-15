@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 
 class MyViewHolder(val binding: ItemBinding) : RecyclerView.ViewHolder(binding.root)
 
-class MyAdapter(private val context: Context, private val students: MutableList<Student>, private val posts: MutableList<Post>) : RecyclerView.Adapter<MyViewHolder>() {
+class PeedAdapter(private val context: Context, private val students: MutableList<Student>, private val posts: MutableList<Post>) : RecyclerView.Adapter<MyViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val inflater = LayoutInflater.from(parent.context)

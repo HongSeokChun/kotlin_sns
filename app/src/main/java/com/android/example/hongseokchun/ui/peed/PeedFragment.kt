@@ -1,12 +1,13 @@
-package com.android.example.hongseokchun.ui
+package com.android.example.hongseokchun.ui.peed
 
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.android.example.hongseokchun.R
 import com.android.example.hongseokchun.base.BaseFragment
 import com.android.example.hongseokchun.databinding.FragmentPeedBinding
+import com.android.example.hongseokchun.ui.PeedAdapter
 
 class PeedFragment: BaseFragment<FragmentPeedBinding>(R.layout.fragment_peed) {
-    private lateinit var PeedAdapter: MyAdapter
+    private lateinit var PeedAdapter: PeedAdapter
 
     override fun initStartView() {
         super.initStartView()

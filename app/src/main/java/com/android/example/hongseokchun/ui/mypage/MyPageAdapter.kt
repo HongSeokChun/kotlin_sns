@@ -1,4 +1,4 @@
-package com.android.example.hongseokchun.ui
+package com.android.example.hongseokchun.ui.peed
 
 import android.content.Context
 import android.view.LayoutInflater

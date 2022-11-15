@@ -1,4 +1,4 @@
-package com.android.example.hongseokchun.ui
+package com.android.example.hongseokchun.ui.mypage
 
 
 import android.annotation.SuppressLint
@@ -14,7 +14,6 @@ import com.android.example.hongseokchun.viewmodel.UserViewModel
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
-import java.net.URL
 
 class FriendListFragment : BaseFragment<FragmentFriendListBinding>(R.layout.fragment_friend_list) {
     private lateinit var friendAdapter: FriendAdapter
@@ -78,7 +77,7 @@ class FriendListFragment : BaseFragment<FragmentFriendListBinding>(R.layout.frag
 
 
         //친구삭제
-        friendAdapter.setItemClickListener(object: FriendAdapter.OnItemClickListener{
+        friendAdapter.setItemClickListener(object: FriendAdapter.OnItemClickListener {
             @SuppressLint("SuspiciousIndentation")
             override fun onClick(v: View, position: Int) {
                 // 클릭 시 이벤트 작성

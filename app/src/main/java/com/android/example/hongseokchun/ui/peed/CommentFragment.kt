@@ -1,4 +1,4 @@
-package com.android.example.hongseokchun.ui
+package com.android.example.hongseokchun.ui.peed
 
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.android.example.hongseokchun.R

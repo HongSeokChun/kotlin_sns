@@ -1,4 +1,4 @@
-package com.android.example.hongseokchun.ui
+package com.android.example.hongseokchun.ui.mypage
 
 import android.annotation.SuppressLint
 import android.content.ContentValues
@@ -11,15 +11,10 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.content.ContentProviderCompat.requireContext
-import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.android.example.hongseokchun.databinding.FriendListViewBinding
-import com.android.example.hongseokchun.model.User
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
-import com.google.firebase.firestore.ktx.toObject
-import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 
@@ -46,7 +41,7 @@ class FriendAdapter(itemList: ArrayList<HashMap<String,String>>)
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): FriendAdapter.ViewHolder {
+    ): ViewHolder {
         context = parent.context
         return ViewHolder(
             FriendListViewBinding.inflate(
@@ -57,7 +52,7 @@ class FriendAdapter(itemList: ArrayList<HashMap<String,String>>)
         )
     }
     @SuppressLint("RestrictedApi")
-    override fun onBindViewHolder(holder: FriendAdapter.ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.friendName.text =itemList[position].get("name")
         itemList[position].get("profileImg")?.let { loadImage(holder.friendImg, it) }
 

@@ -1,12 +1,10 @@
-package com.android.example.hongseokchun.ui
+package com.android.example.hongseokchun.ui.peed
 
 import android.Manifest
 import android.annotation.SuppressLint
 import android.app.Activity
-import android.content.AsyncQueryHandler
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.database.DatabaseErrorHandler
 import android.net.Uri
 import android.util.Log
 import android.view.View
@@ -14,7 +12,6 @@ import android.view.ViewGroup
 import android.view.WindowManager
 import android.widget.ImageView
 import android.widget.LinearLayout
-import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat

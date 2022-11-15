@@ -1,9 +1,10 @@
-package com.android.example.hongseokchun.ui
+package com.android.example.hongseokchun.ui.mypage
 
 import androidx.recyclerview.widget.GridLayoutManager
 import com.android.example.hongseokchun.R
 import com.android.example.hongseokchun.base.BaseFragment
 import com.android.example.hongseokchun.databinding.FragmentMyPageBinding
+import com.android.example.hongseokchun.ui.peed.MyPageAdapter
 
 class MyPageFragment : BaseFragment<FragmentMyPageBinding>(R.layout.fragment_mypage) {
     private lateinit var myPageAdapter: MyPageAdapter

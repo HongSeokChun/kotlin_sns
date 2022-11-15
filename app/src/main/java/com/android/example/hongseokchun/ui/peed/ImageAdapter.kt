@@ -1,4 +1,4 @@
-package com.android.example.hongseokchun.ui
+package com.android.example.hongseokchun.ui.peed
 
 import android.content.Context
 import android.net.Uri
@@ -6,11 +6,8 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.ProgressBar
 import androidx.recyclerview.widget.RecyclerView
 import com.android.example.hongseokchun.databinding.ItemLayoutBinding
-import com.google.firebase.firestore.ktx.firestore
-import com.google.firebase.ktx.Firebase
 
 class ImageAdapter(itemList: ArrayList<Uri>)
     : RecyclerView.Adapter<ImageAdapter.ViewHolder>() {
@@ -31,7 +28,7 @@ class ImageAdapter(itemList: ArrayList<Uri>)
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): ImageAdapter.ViewHolder {
+    ): ViewHolder {
         context = parent.context
         return ViewHolder(
             ItemLayoutBinding.inflate(
@@ -41,7 +38,7 @@ class ImageAdapter(itemList: ArrayList<Uri>)
             )
         )
     }
-    override fun onBindViewHolder(holder: ImageAdapter.ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.imageView.setImageURI(itemList[position])
     }
 

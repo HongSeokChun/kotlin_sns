@@ -3,18 +3,96 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/friendFragment">
+    app:startDestination="@id/peedFragment">
 
     <fragment
         android:id="@+id/friendFragment"
-        android:name="com.android.example.hongseokchun.ui.FriendListFragment"
+        android:name="com.android.example.hongseokchun.ui.mypage.FriendListFragment"
         android:label="friendFragment"
         tools:layout="@layout/fragment_friend_list" />
 
     <fragment
         android:id="@+id/editPostFragment"
-        android:name="com.android.example.hongseokchun.ui.UploadPostFragment"
+        android:name="com.android.example.hongseokchun.ui.peed.UploadPostFragment"
         android:label="editPostFragment"
         tools:layout="@layout/fragment_edit_post" />
+
+
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.android.example.hongseokchun.ui.info.LoginFragment"
+        android:label="loginFragment"
+        tools:layout="@layout/fragment_login" >
+        <action
+            android:id="@+id/action_loginFragment_to_signUpFragment"
+            app:destination="@id/signUpFragment" />
+        <action
+            android:id="@+id/action_loginFragment_to_userFindLoginIdFragment"
+            app:destination="@id/userFindLoginIdFragment" />
+        <action
+            android:id="@+id/action_loginFragment_to_userFindLoginPwFragment"
+            app:destination="@id/userFindLoginPwFragment" />
+        <action
+            android:id="@+id/action_loginFragment_to_peedFragment"
+            app:destination="@id/peedFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/signUpFragment"
+        android:name="com.android.example.hongseokchun.ui.info.SignUpFragment"
+        android:label="signUpFragment"
+        tools:layout="@layout/fragment_sign_up" />
+
+    <fragment
+        android:id="@+id/userFindLoginIdFragment"
+        android:name="com.android.example.hongseokchun.ui.info.UserFindLoginIdFragment"
+        android:label="userFindLoginIdFragment"
+        tools:layout="@layout/fragment_member_find_login_id" />
+
+    <fragment
+        android:id="@+id/userFindLoginPwFragment"
+        android:name="com.android.example.hongseokchun.ui.info.UserFindLoginPwFragment"
+        android:label="userFindLoginPwFragment"
+        tools:layout="@layout/fragment_member_find_login_pw" />
+
+    <fragment
+        android:id="@+id/myPageFragment"
+        android:name="com.android.example.hongseokchun.ui.mypage.MyPageFragment"
+        android:label="myPageFragment"
+        tools:layout="@layout/fragment_mypage" >
+        <action
+            android:id="@+id/action_myPageFragment_to_friendFragment"
+            app:destination="@id/loginFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/peedFragment"
+        android:name="com.android.example.hongseokchun.ui.peed.PeedFragment"
+        android:label="peedFragment"
+        tools:layout="@layout/fragment_peed" >
+        <action
+            android:id="@+id/action_peedFragment_to_commentFragment"
+            app:destination="@id/commentFragment" />
+        <action
+            android:id="@+id/action_peedFragment_to_editPostFragment"
+            app:destination="@id/editPostFragment" />
+        <action
+            android:id="@+id/action_peedFragment_to_notificationFragment"
+            app:destination="@id/notificationFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/notificationFragment"
+        android:name="com.android.example.hongseokchun.ui.peed.NotificationFragment"
+        android:label="notificationFragment"
+        tools:layout="@layout/fragment_notification" />
+
+    <fragment
+        android:id="@+id/commentFragment"
+        android:name="com.android.example.hongseokchun.ui.peed.CommentFragment"
+        android:label="commentFragment"
+        tools:layout="@layout/fragment_comment" />
+
+
 
 </navigation>
