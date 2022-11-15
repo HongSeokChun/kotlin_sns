@@ -1,17 +1,17 @@
 package com.android.example.hongseokchun.ui.peed
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.recyclerview.databinding.CommentItemBinding
+import com.android.example.hongseokchun.databinding.CommentItemBinding
+import com.android.example.hongseokchun.ui.mypage.Student
 
 //data class Student(val uid: Int, val name: String)
-//data class Post(val uid: Int,val time: String, val like: String, val comment: String)
+data class Comment(val uid: Student, val time: String, val like: String, val comment: String)
 
 class CommentViewHolder(val binding: CommentItemBinding) : RecyclerView.ViewHolder(binding.root)
 
-class CommentAdapter(private val context: Context, private val comments: MutableList<Comment>)
+class CommentAdapter(private val comments: MutableList<Comment>)
         : RecyclerView.Adapter<CommentViewHolder>() {
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CommentViewHolder {
@@ -23,9 +23,9 @@ class CommentAdapter(private val context: Context, private val comments: Mutable
         override fun onBindViewHolder(holder: CommentViewHolder, position: Int) {
                 val comment = comments[position]
 
-                holder.binding.commentviewitemTextviewComment.text = comment.message
-                holder.binding.commentviewitemTextviewProfile.text = comment.User.name;
-                holder.binding.commentviewitemImageviewProfile.setImageResource(R.drawable.sample);
+//                holder.binding.commentviewitemTextviewComment.text = comment.message
+//                holder.binding.commentviewitemTextviewProfile.text = comment.User.name;
+//                holder.binding.commentviewitemImageviewProfile.setImageResource(R.drawable.sample);
         }
 
         override fun getItemCount(): Int {

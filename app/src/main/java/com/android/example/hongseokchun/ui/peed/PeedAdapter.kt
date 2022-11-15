@@ -4,15 +4,18 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.android.example.hongseokchun.R
+import com.android.example.hongseokchun.databinding.PeedPostItemBinding
+import com.android.example.hongseokchun.ui.mypage.Post
+import com.android.example.hongseokchun.ui.mypage.Student
 
+class MyViewHolder(val binding: PeedPostItemBinding) : RecyclerView.ViewHolder(binding.root)
 
-class MyViewHolder(val binding: ItemBinding) : RecyclerView.ViewHolder(binding.root)
-
-class PeedAdapter(private val context: Context, private val students: MutableList<Student>, private val posts: MutableList<Post>) : RecyclerView.Adapter<MyViewHolder>() {
+class PeedAdapter( private val students: MutableList<Student>, private val posts: MutableList<Post>) : RecyclerView.Adapter<MyViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val inflater = LayoutInflater.from(parent.context)
-        val binding = ItemBinding.inflate(inflater, parent, false)
+        val binding = PeedPostItemBinding.inflate(inflater, parent, false)
         return MyViewHolder(binding)
     }
 
@@ -28,6 +31,7 @@ class PeedAdapter(private val context: Context, private val students: MutableLis
 //            students.removeAt(holder.adapterPosition)
 //            notifyItemRemoved(holder.adapterPosition)
 //        }
+
         holder.binding.detailviewitemProfileTextview.text = student.uid.toString()
         holder.binding.detailviewitemProfileImage.setImageResource(R.drawable.sample)
         holder.binding.detailviewitemCommentImageview.setImageResource(R.drawable.sample)
