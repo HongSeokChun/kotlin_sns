@@ -18,7 +18,7 @@ class PostViewModel : ViewModel(){
     fun getPosts() {
         repo.getData().observeForever{
             _postLiveData.value = it.postArray
-            Log.d("ingred vm", _postLiveData.value.toString())
+            Log.d("post vm", _postLiveData.value.toString())
         }
     }
 

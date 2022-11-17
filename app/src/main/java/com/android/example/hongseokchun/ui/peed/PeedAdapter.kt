@@ -18,9 +18,9 @@ import com.google.firebase.storage.StorageReference
 
 class MyViewHolder(val binding: PeedPostItemBinding) : RecyclerView.ViewHolder(binding.root)
 
-class PeedAdapter(itemList: ArrayList<PostContent>) : RecyclerView.Adapter<MyViewHolder>() {
+class PeedAdapter(itemList: List<PostContent>) : RecyclerView.Adapter<MyViewHolder>() {
     lateinit var context: Context
-    var itemList: ArrayList<PostContent> = itemList
+    var itemList: List<PostContent> = itemList
         set(value) {
             field = value
             notifyDataSetChanged()

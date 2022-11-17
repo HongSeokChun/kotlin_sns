@@ -18,7 +18,7 @@ class UserViewModel : ViewModel(){
         repo.getData().observeForever{
             _userFriendsLiveData.value = it.friends
             // .sortWith(compareBy<Ingredient>{it.added}.thenBy{it.name})
-            Log.d("ingred vm", _userFriendsLiveData.value.toString())
+            Log.d("user vm", _userFriendsLiveData.value.toString())
         }
     }
 
