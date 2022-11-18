@@ -34,4 +34,18 @@ class MainActivity : AppCompatActivity() {
             .setupWithNavController(navController)
     }
 
+    fun setNavShow(tag: String){
+        when (tag) {
+            "none" -> {
+                binding.bottomNav.visibility = View.VISIBLE
+            }
+            "none2" -> {
+                binding.bottomNav.visibility = View.GONE
+            }
+            else -> {
+                binding.bottomNav.visibility = View.VISIBLE
+            }
+        }
+    }
+
 }
