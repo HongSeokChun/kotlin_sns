@@ -7,6 +7,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(R.layout.fragment_login
 
     override fun initStartView() {
         super.initStartView()
+
     }
 
     override fun initDataBinding() {
@@ -15,6 +16,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(R.layout.fragment_login
 
         //회원가입 버튼 이벤트
         binding.signUpBtn.setOnClickListener{
+
         }
     }
 

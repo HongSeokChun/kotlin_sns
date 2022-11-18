@@ -23,7 +23,7 @@
             android:layout_marginRight="20dp">
 
             <EditText
-                android:id="@+id/id_email"
+                android:id="@+id/tv_email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="25dp"
@@ -38,7 +38,7 @@
             android:layout_marginRight="20dp">
 
             <EditText
-                android:id="@+id/name"
+                android:id="@+id/tv_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="25dp"
@@ -47,6 +47,7 @@
 
 
         <Button
+            android:id="@+id/btn_findPW2"
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:layout_marginLeft="20dp"
@@ -56,7 +57,7 @@
             android:bottomLeftRadius="30dp"
             android:bottomRightRadius="30dp"
             android:text="비밀번호 변경 이메일 보내기기"
-           android:topLeftRadius="30dp"
+            android:topLeftRadius="30dp"
             android:topRightRadius="30dp" />
 
     </LinearLayout>

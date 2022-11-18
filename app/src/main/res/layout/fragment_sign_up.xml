@@ -24,7 +24,7 @@
             android:layout_marginRight="20dp">
 
             <EditText
-                android:id="@+id/id_email"
+                android:id="@+id/tv_email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="25dp"
@@ -39,7 +39,7 @@
             android:layout_marginRight="20dp">
 
             <EditText
-                android:id="@+id/name"
+                android:id="@+id/tv_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="25dp"
@@ -53,7 +53,7 @@
             android:layout_marginRight="20dp">
 
             <EditText
-                android:id="@+id/pw"
+                android:id="@+id/tv_pw"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="25dp"
@@ -67,7 +67,7 @@
             android:layout_marginRight="20dp">
 
             <EditText
-                android:id="@+id/pw_check"
+                android:id="@+id/tv_pwcheck"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="25dp"
@@ -81,7 +81,7 @@
             android:layout_marginRight="20dp">
 
             <EditText
-                android:id="@+id/born"
+                android:id="@+id/tv_borndate"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="25dp"
@@ -95,7 +95,7 @@
             android:layout_marginRight="20dp">
 
             <EditText
-                android:id="@+id/findID_Q"
+                android:id="@+id/tv_findIDQ"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="25dp"
@@ -109,7 +109,7 @@
             android:layout_marginRight="20dp">
 
             <EditText
-                android:id="@+id/findID_A"
+                android:id="@+id/tv_findIDA"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="25dp"
@@ -118,6 +118,7 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <Button
+            android:id="@+id/btn_singup"
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:layout_marginLeft="20dp"
