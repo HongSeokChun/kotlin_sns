@@ -17,7 +17,9 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
+import androidx.navigation.NavController
 import androidx.viewpager2.widget.ViewPager2.OnPageChangeCallback
+import com.android.example.hongseokchun.MainActivity
 import com.android.example.hongseokchun.R
 import com.android.example.hongseokchun.base.BaseFragment
 import com.android.example.hongseokchun.databinding.FragmentEditPostBinding
@@ -46,7 +48,7 @@ class UploadPostFragment : BaseFragment<FragmentEditPostBinding>(R.layout.fragme
     @SuppressLint("SimpleDateFormat", "SuspiciousIndentation")
     override fun initDataBinding() {
         super.initDataBinding()
-
+        (activity as MainActivity).setNavShow("none2")
 
         imageAdapter = ImageAdapter(imageUrlList)
         binding.viewPager2.adapter = imageAdapter
@@ -110,6 +112,11 @@ class UploadPostFragment : BaseFragment<FragmentEditPostBinding>(R.layout.fragme
                 }
         }
 
+
+        // 뒤로가기
+        binding.btnBack.setOnClickListener {
+            navController.navigate(R.id.action_editPostFragment_to_peedFragment)
+        }
     }
 
     override fun initAfterBinding() {

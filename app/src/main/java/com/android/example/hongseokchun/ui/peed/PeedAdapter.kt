@@ -6,6 +6,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.ImageView
+import androidx.navigation.NavController
 import androidx.recyclerview.widget.RecyclerView
 import com.android.example.hongseokchun.R
 import com.android.example.hongseokchun.databinding.PeedPostItemBinding
@@ -44,7 +45,6 @@ class PeedAdapter(itemList: ArrayList<PostContent>) : RecyclerView.Adapter<MyVie
 //        loadImage(holder.binding.detailviewitemImageviewContent,imgName)
         loadImage(holder.binding.detailviewitemImageviewContent, itemList[position].imageNames[0])
 
-
        // val postid = itemList[position].
 //        holder.binding.textView1.text = student.id.toString()
 //        holder.binding.textView2.text = student.name
@@ -63,6 +63,7 @@ class PeedAdapter(itemList: ArrayList<PostContent>) : RecyclerView.Adapter<MyVie
         holder.binding.detailviewitemExplainTextview.text = mainText
         holder.binding.detailviewitemFavoritecounterTextview.text = like;
 //        holder.binding.detailviewitemImageviewContent.setImageResource(R.drawable.sample)
+
     }
 
     fun loadImage(imageView: ImageView, fileName: String){

@@ -1,6 +1,8 @@
 package com.android.example.hongseokchun.ui.peed
 
+import android.annotation.SuppressLint
 import android.util.Log
+import android.view.View
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.android.example.hongseokchun.R
@@ -9,9 +11,11 @@ import com.android.example.hongseokchun.databinding.FragmentPeedBinding
 import com.android.example.hongseokchun.model.PostContent
 import com.android.example.hongseokchun.model.Posts
 import com.android.example.hongseokchun.ui.PeedAdapter
+import com.android.example.hongseokchun.ui.mypage.FriendAdapter
 
 import com.android.example.hongseokchun.viewmodel.PostViewModel
 import com.android.example.hongseokchun.viewmodel.UserViewModel
+import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
@@ -40,7 +44,7 @@ class PeedFragment: BaseFragment<FragmentPeedBinding>(R.layout.fragment_peed) {
 
         binding.recyclerview.adapter = peedAdapter
 
-        //이렇게 짜면 안되는데.. 일단은
+        //이렇게 짜면 안되는데.. 일단은 <-??????
         viewModel.postLiveData.observe(viewLifecycleOwner) { itemList ->
 //            friendViewModel.userFriendsLiveData.observe(viewLifecycleOwner) { friendList ->
 //                for (post in itemList) {
@@ -55,10 +59,17 @@ class PeedFragment: BaseFragment<FragmentPeedBinding>(R.layout.fragment_peed) {
 
         }
 
+        binding.addPost.setOnClickListener{
+            navController.navigate(R.id.action_peedFragment_to_editPostFragment)
+        }
+
+        binding.notification.setOnClickListener {
+            navController.navigate(R.id.action_peedFragment_to_notificationFragment)
+        }
+
         binding.recyclerview.setHasFixedSize(true)
         binding.recyclerview.layoutManager = LinearLayoutManager(context)
 //        binding.recyclerview.adapter = peedAdapter
-
 
     }
 

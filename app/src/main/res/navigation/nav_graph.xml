@@ -15,7 +15,11 @@
         android:id="@+id/editPostFragment"
         android:name="com.android.example.hongseokchun.ui.peed.UploadPostFragment"
         android:label="editPostFragment"
-        tools:layout="@layout/fragment_edit_post" />
+        tools:layout="@layout/fragment_edit_post" >
+        <action
+            android:id="@+id/action_editPostFragment_to_peedFragment"
+            app:destination="@id/peedFragment" />
+    </fragment>
 
 
     <fragment
@@ -41,25 +45,37 @@
         android:id="@+id/signUpFragment"
         android:name="com.android.example.hongseokchun.ui.info.SignUpFragment"
         android:label="signUpFragment"
-        tools:layout="@layout/fragment_sign_up" />
+        tools:layout="@layout/fragment_sign_up" >
+        <action
+            android:id="@+id/action_signUpFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/userFindLoginIdFragment"
         android:name="com.android.example.hongseokchun.ui.info.UserFindLoginIdFragment"
         android:label="userFindLoginIdFragment"
-        tools:layout="@layout/fragment_member_find_login_id" />
+        tools:layout="@layout/fragment_member_find_login_id" >
+        <action
+            android:id="@+id/action_userFindLoginIdFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/userFindLoginPwFragment"
         android:name="com.android.example.hongseokchun.ui.info.UserFindLoginPwFragment"
         android:label="userFindLoginPwFragment"
-        tools:layout="@layout/fragment_member_find_login_pw" />
+        tools:layout="@layout/fragment_member_find_login_pw" >
+        <action
+            android:id="@+id/action_userFindLoginPwFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/myPageFragment"
         android:name="com.android.example.hongseokchun.ui.mypage.MyPageFragment"
         android:label="myPageFragment"
-        tools:layout="@layout/fragment_mypage" >
+        tools:layout="@layout/fragment_my_page" >
         <action
             android:id="@+id/action_myPageFragment_to_friendFragment"
             app:destination="@id/loginFragment" />
@@ -85,7 +101,7 @@
         android:id="@+id/notificationFragment"
         android:name="com.android.example.hongseokchun.ui.peed.NotificationFragment"
         android:label="notificationFragment"
-        tools:layout="@layout/fragment_notification" />
+        tools:layout="@layout/fragment_notification_list" />
 
     <fragment
         android:id="@+id/commentFragment"

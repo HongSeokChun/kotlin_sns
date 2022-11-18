@@ -7,6 +7,7 @@ import android.text.TextWatcher
 import android.util.Log
 import android.view.View
 import androidx.lifecycle.ViewModelProvider
+import com.android.example.hongseokchun.MainActivity
 import com.android.example.hongseokchun.R
 import com.android.example.hongseokchun.base.BaseFragment
 import com.android.example.hongseokchun.databinding.FragmentFriendListBinding
@@ -25,6 +26,7 @@ class FriendListFragment : BaseFragment<FragmentFriendListBinding>(R.layout.frag
 
     override fun initStartView() {
         super.initStartView()
+        (activity as MainActivity).setNavShow("view")
     }
 
 

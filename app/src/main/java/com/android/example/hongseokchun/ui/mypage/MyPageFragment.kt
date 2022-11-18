@@ -1,6 +1,7 @@
 package com.android.example.hongseokchun.ui.mypage
 
 import androidx.recyclerview.widget.GridLayoutManager
+import com.android.example.hongseokchun.MainActivity
 import com.android.example.hongseokchun.R
 import com.android.example.hongseokchun.base.BaseFragment
 import com.android.example.hongseokchun.databinding.FragmentMyPageBinding
@@ -12,6 +13,7 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>(R.layout.fragment_my_
 
     override fun initStartView() {
         super.initStartView()
+        (activity as MainActivity).setNavShow("view")
     }
 
     override fun initDataBinding() {
