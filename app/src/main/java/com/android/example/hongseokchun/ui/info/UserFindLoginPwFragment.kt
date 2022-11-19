@@ -18,7 +18,7 @@ class UserFindLoginPwFragment  : BaseFragment<FragmentMemberFindLoginPwBinding>(
 
     override fun initStartView() {
         super.initStartView()
-        (activity as MainActivity).setNavShow("none2")
+        (activity as MainActivity).setNavShow("비밀번호 찾기")
     }
 
     override fun initDataBinding() {

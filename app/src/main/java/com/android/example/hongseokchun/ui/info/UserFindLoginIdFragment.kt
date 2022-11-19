@@ -17,7 +17,7 @@ class UserFindLoginIdFragment : BaseFragment<FragmentMemberFindLoginIdBinding>(R
 
     override fun initStartView() {
         super.initStartView()
-        (activity as MainActivity).setNavShow("none2")
+        (activity as MainActivity).setNavShow("아이디찾기")
     }
 
     override fun initDataBinding() {

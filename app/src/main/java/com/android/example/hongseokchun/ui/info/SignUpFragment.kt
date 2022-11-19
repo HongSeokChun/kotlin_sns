@@ -18,7 +18,7 @@ class SignUpFragment : BaseFragment<FragmentSignUpBinding>(R.layout.fragment_sig
 
     override fun initStartView() {
         super.initStartView()
-        (activity as MainActivity).setNavShow("none2")
+        (activity as MainActivity).setNavShow("회원가입")
         auth = Firebase.auth
     }
 

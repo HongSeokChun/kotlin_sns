@@ -44,12 +44,12 @@
 
         <android.widget.Button
             android:id="@+id/btn_delete"
-            android:layout_width="44dp"
-            android:layout_height="24dp"
+            android:layout_width="60dp"
+            android:layout_height="26dp"
             android:layout_marginEnd="20dp"
             android:background="@drawable/delete_button"
             android:backgroundTintMode="add"
-            android:text="삭제"
+            android:text="팔로잉"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

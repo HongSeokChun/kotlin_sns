@@ -89,12 +89,12 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(R.layout.fragment_login
     }
 
         //아이디찾기 버튼
-        binding.btnFindID1.setOnClickListener{
+        binding.tvFindId.setOnClickListener{
             navController.navigate(R.id.action_loginFragment_to_userFindLoginIdFragment)
         }
 
         //비밀번호찾기 버튼
-        binding.btnFindPW1.setOnClickListener{
+        binding.tvFindPw.setOnClickListener{
             navController.navigate(R.id.action_loginFragment_to_userFindLoginPwFragment)
         }
 
