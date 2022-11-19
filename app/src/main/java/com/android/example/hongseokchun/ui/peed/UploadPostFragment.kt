@@ -48,7 +48,7 @@ class UploadPostFragment : BaseFragment<FragmentEditPostBinding>(R.layout.fragme
     @SuppressLint("SimpleDateFormat", "SuspiciousIndentation")
     override fun initDataBinding() {
         super.initDataBinding()
-        (activity as MainActivity).setNavShow("none2")
+        (activity as MainActivity).setNavShow("새 게시물")
 
         imageAdapter = ImageAdapter(imageUrlList)
         binding.viewPager2.adapter = imageAdapter
@@ -86,37 +86,34 @@ class UploadPostFragment : BaseFragment<FragmentEditPostBinding>(R.layout.fragme
             }
         })
 
-        //공유 클릭시
-        binding.share.setOnClickListener {
-            val message :String = binding.postMessage.text.toString()
-            val now = Date()
-            val dateFormat = SimpleDateFormat("yyyy년 MM월 dd일 HH시 mm분 ss초")
-            val date= dateFormat.format(now)
+//        //공유 클릭시
+//        binding.share.setOnClickListener {
+//            val message :String = binding.postMessage.text.toString()
+//            val now = Date()
+//            val dateFormat = SimpleDateFormat("yyyy년 MM월 dd일 HH시 mm분 ss초")
+//            val date= dateFormat.format(now)
+//
+//
+//                showProgressBar()
+//                if (imageUrlList.size > 0) {
+//                    uploadPhoto(date,message,
+//                        mSuccessHandler = {
+//                            hideProgressBar()
+//                            Toast.makeText(context, "게시글 업로드 성공", Toast.LENGTH_SHORT).show()
+//                        },
+//                        mErrorHandler = {
+//                            Toast.makeText(context, "게시글 업로드에 실패했습니다", Toast.LENGTH_SHORT).show()
+//                        }
+//                    )
+//                } else {
+//                    // 이미지 uri가 존재하지 않는 경우
+//                    Toast.makeText(context, "사진을 선택해주세요.",Toast.LENGTH_SHORT).show()
+//                    hideProgressBar()
+//                }
+//        }
 
 
-                showProgressBar()
-                if (imageUrlList.size > 0) {
-                    uploadPhoto(date,message,
-                        mSuccessHandler = {
-                            hideProgressBar()
-                            Toast.makeText(context, "게시글 업로드 성공", Toast.LENGTH_SHORT).show()
-                        },
-                        mErrorHandler = {
-                            Toast.makeText(context, "게시글 업로드에 실패했습니다", Toast.LENGTH_SHORT).show()
-                        }
-                    )
-                } else {
-                    // 이미지 uri가 존재하지 않는 경우
-                    Toast.makeText(context, "사진을 선택해주세요.",Toast.LENGTH_SHORT).show()
-                    hideProgressBar()
-                }
-        }
 
-
-        // 뒤로가기
-        binding.btnBack.setOnClickListener {
-            navController.navigate(R.id.action_editPostFragment_to_peedFragment)
-        }
     }
 
     override fun initAfterBinding() {

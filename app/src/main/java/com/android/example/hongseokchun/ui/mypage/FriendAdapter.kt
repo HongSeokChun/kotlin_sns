@@ -12,6 +12,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
+import com.android.example.hongseokchun.R
 import com.android.example.hongseokchun.databinding.FriendListViewBinding
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
@@ -51,7 +52,7 @@ class FriendAdapter(itemList: ArrayList<HashMap<String,String>>)
             )
         )
     }
-    @SuppressLint("RestrictedApi")
+    @SuppressLint("RestrictedApi", "ResourceAsColor")
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.friendName.text =itemList[position].get("name")
         itemList[position].get("profileImg")?.let { loadImage(holder.friendImg, it) }
@@ -59,12 +60,21 @@ class FriendAdapter(itemList: ArrayList<HashMap<String,String>>)
         // (1) 리스트 내 항목 클릭 시 onClick() 호출
         holder.deleteBtn.setOnClickListener {
             Log.d("clickk adapter","눌림")
-            itemClickListener?.onClick(it, position)
+            if(holder.deleteBtn.text == "팔로잉") {
+                holder.deleteBtn.text = "팔로우"
+                holder.deleteBtn.setBackgroundResource(R.drawable.follow_button)
+            }
+            else {
+                holder.deleteBtn.text = "팔로잉"
+                holder.deleteBtn.setBackgroundResource(R.drawable.following_button)
+
+            }
+            itemClickListener?.onClick(holder.deleteBtn.text.toString(), position)
         }
     }
     // (2) 리스너 인터페이스
     interface OnItemClickListener {
-        fun onClick(v: View, position: Int)
+        fun onClick(btn:String, position: Int)
     }
     // (3) 외부에서 클릭 시 이벤트 설정
     fun setItemClickListener(onItemClickListener: OnItemClickListener) {
