@@ -69,11 +69,19 @@
 
             <Button
                 android:id="@+id/account_btn_follow_signout"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
+                android:layout_width="258dp"
+                android:layout_height="30dp"
                 android:layout_alignParentBottom="true"
+                android:layout_marginStart="28dp"
+                android:layout_marginLeft="28dp"
+                android:layout_marginBottom="6dp"
+                android:layout_toEndOf="@+id/account_iv_profile"
                 android:layout_toRightOf="@id/account_iv_profile"
-                android:text="follow"
+                android:background="@drawable/login_button"
+                android:text="팔로우"
+                android:textColor="#FFFFFF"
+                android:textSize="16sp"
+                android:textStyle="bold"
                 tools:ignore="TouchTargetSizeCheck" />
 
             <LinearLayout

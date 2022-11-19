@@ -34,16 +34,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/layoutIndicators" />
 
-    <ProgressBar
-        android:id="@+id/progressBar"
-        style="?android:attr/progressBarStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="300dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
-
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/viewPager2"
         android:layout_width="421dp"
@@ -70,6 +60,19 @@
         app:layout_constraintTop_toBottomOf="@+id/viewPager2">
 
     </LinearLayout>
+
+    <Button
+        android:id="@+id/btn_share"
+        android:layout_width="0dp"
+        android:layout_height="54dp"
+        android:background="@color/bok"
+        android:text="공유하기"
+        android:textColor="#FFFFFF"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

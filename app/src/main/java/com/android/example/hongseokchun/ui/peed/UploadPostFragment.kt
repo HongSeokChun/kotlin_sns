@@ -54,8 +54,6 @@ class UploadPostFragment : BaseFragment<FragmentEditPostBinding>(R.layout.fragme
         binding.viewPager2.adapter = imageAdapter
         layoutIndicator = binding.layoutIndicators
 
-        //프로그래스바 숨기기
-        binding.progressBar.visibility=View.INVISIBLE
 
         // 갤러리에서 이미지 선택 클릭시
         binding.uploadImage.setOnClickListener {
@@ -86,31 +84,28 @@ class UploadPostFragment : BaseFragment<FragmentEditPostBinding>(R.layout.fragme
             }
         })
 
-//        //공유 클릭시
-//        binding.share.setOnClickListener {
-//            val message :String = binding.postMessage.text.toString()
-//            val now = Date()
-//            val dateFormat = SimpleDateFormat("yyyy년 MM월 dd일 HH시 mm분 ss초")
-//            val date= dateFormat.format(now)
-//
-//
-//                showProgressBar()
-//                if (imageUrlList.size > 0) {
-//                    uploadPhoto(date,message,
-//                        mSuccessHandler = {
-//                            hideProgressBar()
-//                            Toast.makeText(context, "게시글 업로드 성공", Toast.LENGTH_SHORT).show()
-//                        },
-//                        mErrorHandler = {
-//                            Toast.makeText(context, "게시글 업로드에 실패했습니다", Toast.LENGTH_SHORT).show()
-//                        }
-//                    )
-//                } else {
-//                    // 이미지 uri가 존재하지 않는 경우
-//                    Toast.makeText(context, "사진을 선택해주세요.",Toast.LENGTH_SHORT).show()
-//                    hideProgressBar()
-//                }
-//        }
+        //공유 클릭시
+        binding.btnShare.setOnClickListener {
+            val message :String = binding.postMessage.text.toString()
+            val now = Date()
+            val dateFormat = SimpleDateFormat("yyyy년 MM월 dd일 HH시 mm분 ss초")
+            val date= dateFormat.format(now)
+
+
+                if (imageUrlList.size > 0) {
+                    uploadPhoto(date,message,
+                        mSuccessHandler = {
+                            Toast.makeText(context, "게시글 업로드 성공", Toast.LENGTH_SHORT).show()
+                        },
+                        mErrorHandler = {
+                            Toast.makeText(context, "게시글 업로드에 실패했습니다", Toast.LENGTH_SHORT).show()
+                        }
+                    )
+                } else {
+                    // 이미지 uri가 존재하지 않는 경우
+                    Toast.makeText(context, "사진을 선택해주세요.",Toast.LENGTH_SHORT).show()
+                }
+        }
 
 
 
@@ -242,27 +237,5 @@ class UploadPostFragment : BaseFragment<FragmentEditPostBinding>(R.layout.fragme
 //        // 파이어베이스에 게시물정보 저장
 //                db.collection("users").document("hongseokchun@naver.com")
 //                   .update("post", FieldValue.arrayUnion(newPost))
-    }
-
-    //프로그레스바 보이기
-    private fun showProgressBar() {
-        blockLayoutTouch()
-        binding.progressBar.isVisible = true
-    }
-
-    // 프로그레스바 숨기기
-    private fun hideProgressBar() {
-        clearBlockLayoutTouch()
-        binding.progressBar.isVisible = false
-    }
-
-    // 화면 터치 막기
-    private fun blockLayoutTouch() {
-        activity?.window?.addFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-    }
-
-    // 화면 터치 풀기
-    private fun clearBlockLayoutTouch() {
-        activity?.window?.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
     }
 }
