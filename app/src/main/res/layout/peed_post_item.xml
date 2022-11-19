@@ -45,8 +45,8 @@
             android:id="@+id/detailviewitem_favorite_imageview"
             android:layout_width="39dp"
             android:layout_height="30dp"
-            app:srcCompat="@drawable/like"
-            android:contentDescription="like" />
+            android:contentDescription="like"
+            app:srcCompat="@drawable/ic_baseline_favorite_24" />
 
         <ImageView
             android:id="@+id/detailviewitem_comment_imageview"
@@ -59,14 +59,14 @@
         android:id="@+id/detailviewitem_favoritecounter_textview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="8dp"
+        android:layout_marginLeft="16dp"
         tools:text="좋아요 0개" />
 
     <TextView
         android:id="@+id/detailviewitem_explain_textview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="8dp"
+        android:layout_marginLeft="16dp"
         android:layout_marginBottom="35dp"
         tools:text="사진 내용" />
 </LinearLayout>

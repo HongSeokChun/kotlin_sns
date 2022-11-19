@@ -14,7 +14,6 @@ import com.google.firebase.ktx.Firebase
 
 class LoginFragment : BaseFragment<FragmentLoginBinding>(R.layout.fragment_login) {
     private lateinit var auth: FirebaseAuth
-    private var rememberUser : Boolean = false
 
     override fun initStartView() {
         super.initStartView()
@@ -23,11 +22,11 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(R.layout.fragment_login
         auth = Firebase.auth
 
 //        로그인 되어있는지 확인
-        if (rememberUser == true){
+        if (binding.checkId.isChecked) {
             val currentUser = auth.currentUser
-//        if(currentUser != null) {
-//            navController.navigate(R.id.action_loginFragment_to_peedFragment)
-//        }
+            if (currentUser != null) {
+                navController.navigate(R.id.action_loginFragment_to_peedFragment)
+            }
         }
     }
 
@@ -71,13 +70,12 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(R.layout.fragment_login
             auth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener { task ->
                     if (task.isSuccessful) {
-                        if(binding.checkId.isChecked){
-                            //preferences에 유저 이메일 저장
-                            // prefs.setString("email",email)
-                            rememberUser = true
-
-                        }
-                        setName(email)
+//                        if(binding.checkId.isChecked){
+//                            //preferences에 유저 이메일 저장
+//                            // prefs.setString("email",email)
+//
+//                        }
+                       // setName(email)
                         Toast.makeText(context, "로그인 성공", Toast.LENGTH_SHORT).show()
 
                         navController.navigate(R.id.action_loginFragment_to_peedFragment)
@@ -102,7 +100,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(R.layout.fragment_login
         binding.signUpBtn.setOnClickListener{
             navController.navigate(R.id.action_loginFragment_to_signUpFragment)
         }
-}
+    }
 
 
     override fun initAfterBinding() {
