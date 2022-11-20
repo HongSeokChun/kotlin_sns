@@ -40,7 +40,7 @@ class PeedAdapter(itemList: List<Posts>) : RecyclerView.Adapter<MyViewHolder>() 
         val like = cpItemList[position].like
         val userName = cpItemList[position].postAdmin
 
-        loadImage(holder.binding.detailviewitemImageviewContent, itemList[position].imageNames[0])
+        loadImage(holder.binding.detailviewitemImageviewContent, itemList[position].imageNames[0] , userName)
 
         holder.binding.detailviewitemProfileTextview.text = userName
         holder.binding.detailviewitemExplainTextview.text = mainText
@@ -48,11 +48,11 @@ class PeedAdapter(itemList: List<Posts>) : RecyclerView.Adapter<MyViewHolder>() 
     }
 
     //image 불러오기
-    fun loadImage(imageView: ImageView, fileName: String) {
+    fun loadImage(imageView: ImageView, fileName: String, userName: String) {
         val storage: FirebaseStorage =
             FirebaseStorage.getInstance("gs://hongseokchun-1f848.appspot.com")
         val storageRef: StorageReference = storage.reference
-        storageRef.child("postImage/hong@hong.hong/post_img1.jpg").downloadUrl.addOnCompleteListener { task ->
+        storageRef.child("postImage/${userName}/${fileName}.jpg").downloadUrl.addOnCompleteListener { task ->
             if (task.isSuccessful) {
                 Glide.with(context)
                     .load(task.result)

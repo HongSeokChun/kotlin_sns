@@ -52,7 +52,7 @@ class PeedFragment : BaseFragment<FragmentPeedBinding>(R.layout.fragment_peed) {
             if (itemList != null) {
                 for (friend in itemList)
                     friend.get("name")?.let { friendsNames.add(it) }
-                peedViewModel.getPosts((friendsNames))
+                peedViewModel.getPosts(friendsNames)
                 Log.d("friendsNames", friendsNames.toString())
             }
         }
