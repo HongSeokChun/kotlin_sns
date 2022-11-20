@@ -50,12 +50,13 @@ class PeedFragment : BaseFragment<FragmentPeedBinding>(R.layout.fragment_peed) {
         var friendsNames: ArrayList<String> = ArrayList()
         swipe = binding.swipe
 
-
+        var myName = "hong@hong.hong";
         friendViewModel.getUserFriends()
         friendViewModel.userFriendsLiveData.observe(viewLifecycleOwner) { itemList ->
             if (itemList != null) {
                 for (friend in itemList)
                     friend.get("name")?.let { friendsNames.add(it) }
+                friendsNames.add(myName);
                 peedViewModel.getPosts(friendsNames)
                 Log.d("friendsNames", friendsNames.toString())
             }
