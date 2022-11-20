@@ -10,6 +10,6 @@
         android:icon="@drawable/friend_list"/>
     <item
         android:id="@+id/myPageFragment"
-        android:title="마이"
-        android:icon="@drawable/setting"/>
+        android:title="프로필"
+        android:icon="@drawable/ic_baseline_person_24"/>
 </menu>

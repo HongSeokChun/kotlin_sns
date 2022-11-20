@@ -27,7 +27,7 @@
                 android:layout_gravity="center"
                 android:layout_marginTop="8dp"
                 android:buttonTint="@color/bok"
-                android:checked="true"
+                android:checked="false"
                 android:minHeight="48dp"
                 android:text="아이디 저장"
                 app:layout_constraintEnd_toEndOf="parent"
