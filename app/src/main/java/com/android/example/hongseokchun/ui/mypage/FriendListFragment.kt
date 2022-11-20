@@ -7,6 +7,7 @@ import android.text.TextWatcher
 import android.util.Log
 import android.view.View
 import androidx.lifecycle.ViewModelProvider
+import com.android.example.hongseokchun.MainActivity
 import com.android.example.hongseokchun.R
 import com.android.example.hongseokchun.base.BaseFragment
 import com.android.example.hongseokchun.databinding.FragmentFriendListBinding
@@ -25,6 +26,7 @@ class FriendListFragment : BaseFragment<FragmentFriendListBinding>(R.layout.frag
 
     override fun initStartView() {
         super.initStartView()
+        (activity as MainActivity).setNavShow("view")
     }
 
 
@@ -76,19 +78,27 @@ class FriendListFragment : BaseFragment<FragmentFriendListBinding>(R.layout.frag
         })
 
 
-        //친구삭제
+        //팔로우,팔로잉 버튼 클릭
         friendAdapter.setItemClickListener(object: FriendAdapter.OnItemClickListener {
             @SuppressLint("SuspiciousIndentation")
-            override fun onClick(v: View, position: Int) {
+            override fun onClick(btn: String, position: Int) {
                 // 클릭 시 이벤트 작성
                 val friendName = friendAdapter.itemList[position].get("name")
                 val dataOrigin = friendAdapter.itemList[position]
 
+                if(btn =="팔로우") {
+                    // 원래 친구목록에 있으면 삭제
                     db.collection("users").document("hongseokchun@naver.com")
                         .update("friends", FieldValue.arrayRemove(dataOrigin))
-                    viewModel.getUserFriends()
+                }
+                else {
+                    //없으면 추가
+                    db.collection("users").document("hongseokchun@naver.com")
+                        .update("friends", FieldValue.arrayUnion(dataOrigin))
 
+                }
             }
+
         })
     }
 

@@ -6,8 +6,8 @@ import android.view.View
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.android.example.hongseokchun.MainActivity
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.android.example.hongseokchun.R
 import com.android.example.hongseokchun.base.BaseFragment
 import com.android.example.hongseokchun.databinding.FragmentMyPageBinding
@@ -30,6 +30,7 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>(R.layout.fragment_my_
 
     override fun initStartView() {
         super.initStartView()
+        (activity as MainActivity).setNavShow("view")
     }
 
     override fun initDataBinding() {
@@ -67,7 +68,7 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>(R.layout.fragment_my_
         }
 
         binding.accountBtnProfileEdit.setOnClickListener {
-            
+
         }
     }
 
