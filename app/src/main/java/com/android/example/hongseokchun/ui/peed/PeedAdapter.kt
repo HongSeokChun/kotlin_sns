@@ -35,7 +35,7 @@ class PeedAdapter(itemList: List<Posts>) : RecyclerView.Adapter<MyViewHolder>() 
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        val cpItemList = itemList.reversed() //최신 게시물이 위로
+        val cpItemList = itemList.reversed() //최신 게시물이 위로, 시간비교해서 정렬해야함
 
         val mainText = cpItemList[position].mainText
         val like = cpItemList[position].like

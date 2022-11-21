@@ -76,6 +76,8 @@ class PeedFragment : BaseFragment<FragmentPeedBinding>(R.layout.fragment_peed) {
             navController.navigate(R.id.action_peedFragment_to_notificationFragment)
         }
 
+
+
         binding.recyclerview.setHasFixedSize(true)
         binding.recyclerview.layoutManager = LinearLayoutManager(context)
 

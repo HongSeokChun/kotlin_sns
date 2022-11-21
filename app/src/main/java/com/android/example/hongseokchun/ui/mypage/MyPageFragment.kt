@@ -40,7 +40,7 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>(R.layout.fragment_my_
         myPageAdapter = MyPageAdapter(mutableListOf())
 
         val currentUserName = ArrayList<String>()
-        currentUserName.add("cart@naver.com")
+        currentUserName.add("hong@hong.hong")
         peedViewModel.getPosts(currentUserName)//현재 user email
 
         peedViewModel.peedLiveData.observe(viewLifecycleOwner) { itemList ->
