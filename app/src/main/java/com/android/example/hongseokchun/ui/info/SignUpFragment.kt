@@ -1,10 +1,17 @@
 package com.android.example.hongseokchun.ui.info
 
 import android.util.Patterns
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.ArrayAdapter
+import android.widget.Spinner
 import android.widget.Toast
+import androidx.viewbinding.ViewBindings
 import com.android.example.hongseokchun.MainActivity
 import com.android.example.hongseokchun.R
 import com.android.example.hongseokchun.base.BaseFragment
+import com.android.example.hongseokchun.databinding.ActivityMainBinding
 import com.android.example.hongseokchun.databinding.FragmentSignUpBinding
 import com.android.example.hongseokchun.model.User
 import com.google.firebase.auth.FirebaseAuth
@@ -36,8 +43,18 @@ class SignUpFragment : BaseFragment<FragmentSignUpBinding>(R.layout.fragment_sig
             val password = binding.tvPw.text.toString()
             val passwordCheck=binding.tvPwcheck.text.toString()
             val birth = binding.tvBorndate.text.toString()
-            val findIdQ = binding.tvFindIDA.text.toString()
-            val findIdA = binding.tvFindIDQ.text.toString()
+
+            val findIdA = binding.tvFindIDA.text.toString()
+//            val spinner = binding.spinner.adapter.toString()
+            val spinner = resources.getStringArray(R.array.spinner_data)
+            val adapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_dropdown_item,spinner)
+
+            binding.spinner.adapter = adapter
+            val findIdQ = binding.spinner.adapter.toString()
+
+
+
+
 
 
             // 유효성 검사
@@ -100,5 +117,6 @@ class SignUpFragment : BaseFragment<FragmentSignUpBinding>(R.layout.fragment_sig
     override fun initAfterBinding() {
         super.initAfterBinding()
     }
+
 
 }

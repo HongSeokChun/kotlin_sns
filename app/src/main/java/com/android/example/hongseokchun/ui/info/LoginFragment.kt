@@ -1,5 +1,6 @@
 package com.android.example.hongseokchun.ui.info
 
+import android.content.Intent
 import android.util.Log
 import android.util.Patterns
 import android.widget.Toast
@@ -26,6 +27,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(R.layout.fragment_login
             val currentUser = auth.currentUser
             if (currentUser != null) {
                 navController.navigate(R.id.action_loginFragment_to_peedFragment)
+
             }
         }
     }

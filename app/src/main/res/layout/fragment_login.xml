@@ -66,6 +66,7 @@
                 tools:ignore="TouchTargetSizeCheck" />
 
             <EditText
+                android:inputType="textPassword"
                 android:id="@+id/tv_pw"
                 android:layout_width="330dp"
                 android:layout_height="45dp"
