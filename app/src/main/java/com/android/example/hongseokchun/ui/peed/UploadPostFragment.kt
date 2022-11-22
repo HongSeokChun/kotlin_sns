@@ -47,7 +47,7 @@ class UploadPostFragment : BaseFragment<FragmentEditPostBinding>(R.layout.fragme
     @SuppressLint("SimpleDateFormat", "SuspiciousIndentation")
     override fun initDataBinding() {
         super.initDataBinding()
-        (activity as MainActivity).setNavShow("새 게시물")
+        (activity as MainActivity).setNavShow("view")
 
         imageAdapter = ImageAdapter(imageUrlList)
         binding.viewPager2.adapter = imageAdapter

@@ -28,7 +28,7 @@ class FindUserFragment : BaseFragment<FragmentFindUserBinding>(R.layout.fragment
 
     override fun initStartView() {
         super.initStartView()
-        (activity as MainActivity).setNavShow("친구찾기")
+        (activity as MainActivity).setNavShow("view")
     }
 
     override fun initDataBinding() {

@@ -5,6 +5,14 @@
         android:title="홈"
         android:icon="@drawable/home"/>
     <item
+        android:id="@+id/findUserFragment"
+        android:title="검색"
+        android:icon="@drawable/ic_baseline_search_24"/>
+    <item
+        android:id="@+id/editPostFragment"
+        android:title="업로드"
+        android:icon="@drawable/ic_baseline_photo_camera_24"/>
+    <item
         android:id="@+id/friendFragment"
         android:title="친구"
         android:icon="@drawable/friend_list"/>

@@ -10,6 +10,7 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.navigation.Navigator
 import androidx.recyclerview.widget.RecyclerView
 import com.android.example.hongseokchun.R
 import com.android.example.hongseokchun.databinding.FriendListViewBinding
@@ -76,6 +77,7 @@ class FriendAdapter(itemList: ArrayList<HashMap<String,String>>)
             }
             itemClickListener?.onClick(holder.deleteBtn.text.toString(), position)
         }
+
     }
     // (2) 리스너 인터페이스
     interface OnItemClickListener {

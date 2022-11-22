@@ -61,9 +61,6 @@ class PeedFragment : BaseFragment<FragmentPeedBinding>(R.layout.fragment_peed) {
         }
 
         binding.recyclerview.adapter = peedAdapter
-        binding.addPost.setOnClickListener{
-            navController.navigate(R.id.action_peedFragment_to_editPostFragment)
-        }
 
         binding.notification.setOnClickListener {
             navController.navigate(R.id.action_peedFragment_to_notificationFragment)
@@ -74,10 +71,6 @@ class PeedFragment : BaseFragment<FragmentPeedBinding>(R.layout.fragment_peed) {
         binding.recyclerview.setHasFixedSize(true)
         binding.recyclerview.layoutManager = LinearLayoutManager(context)
 
-
-        binding.btnSearchUser.setOnClickListener {
-            navController.navigate(R.id.action_peedFragment_to_findUserFragment)
-        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
