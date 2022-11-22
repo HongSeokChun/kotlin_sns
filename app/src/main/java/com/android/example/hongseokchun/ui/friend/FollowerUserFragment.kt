@@ -89,11 +89,18 @@ class FollowerUserFragment  : BaseFragment<FragmentFollowerListBinding>(R.layout
                     db.collection("users").document("cart@naver.com")
                         .update("following", FieldValue.arrayRemove(dataOrigin))
                 }
-                else {
+                else if(btn=="팔로잉") {
                     //없으면 추가
                     db.collection("users").document("cart@naver.com")
                         .update("following", FieldValue.arrayUnion(dataOrigin))
 
+                }
+                else{
+                    parentFragmentManager.beginTransaction().apply{
+                        replace(R.id.container, FriendPageFragment())
+                        addToBackStack(null)
+                        commit()
+                    }
                 }
             }
 

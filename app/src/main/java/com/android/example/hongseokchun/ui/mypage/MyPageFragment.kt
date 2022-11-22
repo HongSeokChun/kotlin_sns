@@ -6,6 +6,7 @@ import android.util.Log
 import android.view.View
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
+import androidx.navigation.Navigator
 import androidx.recyclerview.widget.GridLayoutManager
 import com.android.example.hongseokchun.MainActivity
 //import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
@@ -63,17 +64,6 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>(R.layout.fragment_my_
         val mActivity = activity as MainActivity
 
         getFollowNum()
-
-//        userViewModel.followingUserLiveData.observe(viewLifecycleOwner) { itemList ->
-//            binding.accountTvFollowingCount.text = itemList.size.toString()
-//            Log.d("following itemList",itemList.toString())
-//        }
-//
-//        userViewModel.followerUserLiveData.observe(viewLifecycleOwner) { itemList ->
-//            binding.accountTvFollowerCount.text = itemList.size.toString()
-//            Log.d("follower itemList",itemList.toString())
-//        }
-
 
 
     }

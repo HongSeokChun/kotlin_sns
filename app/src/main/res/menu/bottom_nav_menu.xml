@@ -7,7 +7,7 @@
     <item
         android:id="@+id/findUserFragment"
         android:title="검색"
-        android:icon="@drawable/ic_baseline_search_24"/>
+        android:icon="@drawable/search"/>
     <item
         android:id="@+id/editPostFragment"
         android:title="업로드"
@@ -19,5 +19,5 @@
     <item
         android:id="@+id/myPageFragment"
         android:title="프로필"
-        android:icon="@drawable/ic_baseline_person_24"/>
+        android:icon="@drawable/ic_baseline_account_circle_24"/>
 </menu>

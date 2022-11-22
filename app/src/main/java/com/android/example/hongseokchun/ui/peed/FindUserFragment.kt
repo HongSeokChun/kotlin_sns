@@ -12,6 +12,7 @@ import com.android.example.hongseokchun.base.BaseFragment
 import com.android.example.hongseokchun.databinding.FragmentFindUserBinding
 import com.android.example.hongseokchun.model.User
 import com.android.example.hongseokchun.ui.friend.FriendAdapter
+import com.android.example.hongseokchun.ui.friend.FriendPageFragment
 import com.android.example.hongseokchun.viewmodel.UserViewModel
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.ktx.firestore
@@ -90,11 +91,18 @@ class FindUserFragment : BaseFragment<FragmentFindUserBinding>(R.layout.fragment
                     db.collection("users").document("cart@naver.com")
                         .update("following", FieldValue.arrayRemove(dataOrigin))
                 }
-                else {
+                else if(btn=="팔로잉"){
                     //없으면 추가
                     db.collection("users").document("cart@naver.com")
                         .update("following", FieldValue.arrayUnion(dataOrigin))
 
+                }
+                else{
+                    parentFragmentManager.beginTransaction().apply{
+                        replace(R.id.container, FriendPageFragment())
+                        addToBackStack(null)
+                        commit()
+                    }
                 }
             }
 

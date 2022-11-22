@@ -63,6 +63,10 @@ class FriendAdapter(itemList: ArrayList<HashMap<String,String>>)
         itemList[position].get("profileImg")?.let { loadImage(holder.friendImg, it) }
         itemList[position].get("name")?.let { setFollowingBtn(it,holder) }
 
+        holder.friendImg.setOnClickListener {
+            itemClickListener?.onClick("", position)
+        }
+
         // (1) 리스트 내 항목 클릭 시 onClick() 호출
         holder.deleteBtn.setOnClickListener {
             Log.d("clickk adapter","눌림")
@@ -122,6 +126,7 @@ class FriendAdapter(itemList: ArrayList<HashMap<String,String>>)
                     if(name in followingList){
                         holder.deleteBtn.text = "팔로잉"
                         holder.deleteBtn.setBackgroundResource(R.drawable.following_button)
+
                     }else{
                         holder.deleteBtn.text = "팔로우"
                         holder.deleteBtn.setBackgroundResource(R.drawable.follow_button)

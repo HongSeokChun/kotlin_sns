@@ -85,6 +85,9 @@
         <action
             android:id="@+id/action_myPageFragment_to_friendFragment"
             app:destination="@id/loginFragment" />
+        <action
+            android:id="@+id/action_myPageFragment_to_friendFragment2"
+            app:destination="@id/friendFragment" />
     </fragment>
 
     <fragment
