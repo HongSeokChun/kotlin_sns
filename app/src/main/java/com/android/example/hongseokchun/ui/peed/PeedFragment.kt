@@ -1,36 +1,24 @@
 package com.android.example.hongseokchun.ui.peed
 
 import android.os.Bundle
-import android.os.Handler
-import android.annotation.SuppressLint
 import android.util.Log
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.android.example.hongseokchun.MainActivity
 import com.android.example.hongseokchun.R
 import com.android.example.hongseokchun.base.BaseFragment
 import com.android.example.hongseokchun.databinding.FragmentPeedBinding
-import com.android.example.hongseokchun.model.Posts
-import com.android.example.hongseokchun.model.PostContent
 import com.android.example.hongseokchun.ui.PeedAdapter
 import com.android.example.hongseokchun.viewmodel.PeedViewModel
-import com.android.example.hongseokchun.ui.mypage.FriendAdapter
 
-import com.android.example.hongseokchun.viewmodel.PostViewModel
 import com.android.example.hongseokchun.viewmodel.UserViewModel
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
 class PeedFragment : BaseFragment<FragmentPeedBinding>(R.layout.fragment_peed) {
     private lateinit var peedAdapter: PeedAdapter
-    private lateinit var swipe: SwipeRefreshLayout
+//    private lateinit var swipe: SwipeRefreshLayout
     val db = Firebase.firestore
 
     private val friendViewModel by lazy {
@@ -50,14 +38,14 @@ class PeedFragment : BaseFragment<FragmentPeedBinding>(R.layout.fragment_peed) {
         super.initDataBinding()
         peedAdapter = PeedAdapter(ArrayList())
         var friendsNames: ArrayList<String> = ArrayList()
-        swipe = binding.swipe
+//        swipe = binding.swipe
 
-        viewModel.getPosts()
+//        peedViewModel.getPosts()
 //        friendViewModel.getUserFriends()
 
         var myName = "hong@hong.hong";
-        friendViewModel.getUserFriends()
-        friendViewModel.userFriendsLiveData.observe(viewLifecycleOwner) { itemList ->
+        friendViewModel.getflollowingUsers()
+        friendViewModel.followingUserLiveData.observe(viewLifecycleOwner) { itemList ->
             if (itemList != null) {
                 for (friend in itemList)
                     friend.get("name")?.let { friendsNames.add(it) }
@@ -90,13 +78,13 @@ class PeedFragment : BaseFragment<FragmentPeedBinding>(R.layout.fragment_peed) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        swipe.setOnRefreshListener {
-            val ft = parentFragmentManager.beginTransaction()
-            ft.detach(this).attach(this).commit()
-            initDataBinding()
-
-            swipe.isRefreshing = false
-        }
+//        swipe.setOnRefreshListener {
+//            val ft = parentFragmentManager.beginTransaction()
+//            ft.detach(this).attach(this).commit()
+//            initDataBinding()
+//
+////            swipe.isRefreshing = false
+//        }
     }
 
     override fun initAfterBinding() {

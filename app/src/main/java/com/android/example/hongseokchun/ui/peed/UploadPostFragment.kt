@@ -21,8 +21,7 @@ import com.android.example.hongseokchun.MainActivity
 import com.android.example.hongseokchun.R
 import com.android.example.hongseokchun.base.BaseFragment
 import com.android.example.hongseokchun.databinding.FragmentEditPostBinding
-import com.android.example.hongseokchun.model.PostContent
-import com.google.firebase.firestore.FieldValue
+import com.android.example.hongseokchun.model.Posts
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
@@ -233,7 +232,7 @@ class UploadPostFragment : BaseFragment<FragmentEditPostBinding>(R.layout.fragme
                     }
                 }
         }
-        val newPost = PostContent("",fileNames,HashMap(),date,"0",message,"")
+        val newPost = Posts("",fileNames,HashMap(),date,"0",message)
         // 파이어베이스에 게시물정보 저장
                 db.collection("users").document("hongseokchun@naver.com")
                     .collection("Post").add(newPost)

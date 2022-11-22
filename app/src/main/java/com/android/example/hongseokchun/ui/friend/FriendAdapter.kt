@@ -13,8 +13,13 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.android.example.hongseokchun.R
 import com.android.example.hongseokchun.databinding.FriendListViewBinding
+import com.android.example.hongseokchun.model.User
+import com.android.example.hongseokchun.ui.MyViewHolder
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.firestore.ktx.toObject
+import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 
@@ -55,6 +60,7 @@ class FriendAdapter(itemList: ArrayList<HashMap<String,String>>)
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.friendName.text =itemList[position].get("name")
         itemList[position].get("profileImg")?.let { loadImage(holder.friendImg, it) }
+        itemList[position].get("name")?.let { setFollowingBtn(it,holder) }
 
         // (1) 리스트 내 항목 클릭 시 onClick() 호출
         holder.deleteBtn.setOnClickListener {
@@ -100,6 +106,29 @@ class FriendAdapter(itemList: ArrayList<HashMap<String,String>>)
                 Log.d(ContentValues.TAG, "get failed with ", exception)
 
         }
+    }
+
+    fun setFollowingBtn(name:String, holder:ViewHolder){
+        var followingList : String = ""
+        val db = Firebase.firestore
+
+        db.collection("users").document("cart@naver.com").get()
+            .addOnSuccessListener { documentSnapshot ->
+                val data = documentSnapshot.toObject<User>()
+                if (data != null) {
+                    followingList = data.following.toString()
+                    if(name in followingList){
+                        holder.deleteBtn.text = "팔로잉"
+                        holder.deleteBtn.setBackgroundResource(R.drawable.following_button)
+                    }else{
+                        holder.deleteBtn.text = "팔로우"
+                        holder.deleteBtn.setBackgroundResource(R.drawable.follow_button)
+                    }
+                }
+            }
+            .addOnFailureListener { exception ->
+                Log.d(ContentValues.TAG, "get failed with ", exception)
+            }
     }
 
     override fun getItemCount(): Int = itemList.size

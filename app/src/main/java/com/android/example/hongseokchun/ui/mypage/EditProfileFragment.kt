@@ -12,7 +12,6 @@ import androidx.lifecycle.ViewModelProvider
 import com.android.example.hongseokchun.R
 import com.android.example.hongseokchun.base.BaseFragment
 import com.android.example.hongseokchun.databinding.FragmentEditProfileBinding
-import com.android.example.hongseokchun.databinding.FragmentFriendListBinding
 import com.android.example.hongseokchun.viewmodel.UserViewModel
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
@@ -23,7 +22,7 @@ import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 
 class EditProfileFragment :
-    BaseFragment<FragmentEditProfileBinding>(R.layout.fragment_friend_list) {
+    BaseFragment<FragmentEditProfileBinding>(R.layout.fragment_edit_profile) {
     val db = Firebase.firestore
 
 

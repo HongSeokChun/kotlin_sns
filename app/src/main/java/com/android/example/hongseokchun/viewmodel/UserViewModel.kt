@@ -28,9 +28,6 @@ class UserViewModel : ViewModel(){
 
     fun getflollowerUsers() {
         repo.getData().observeForever{
-            _userFriendsLiveData.value = it.friends
-            // .sortWith(compareBy<Ingredient>{it.added}.thenBy{it.name})
-            Log.d("user vm", _userFriendsLiveData.value.toString())
             _followerUserLiveData.value = it.follower
             Log.d("follower user", _followerUserLiveData.value.toString())
         }
