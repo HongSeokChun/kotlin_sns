@@ -86,13 +86,13 @@ class FollowingUserFragment  : BaseFragment<FragmentFollowingListBinding>(R.layo
 
                 if(btn =="팔로우") {
                     // 원래 친구목록에 있으면 삭제
-                    db.collection("users").document("hongseokchun@naver.com")
-                        .update("friends", FieldValue.arrayRemove(dataOrigin))
+                    db.collection("users").document("cart@naver.com")
+                        .update("following", FieldValue.arrayRemove(dataOrigin))
                 }
                 else {
                     //없으면 추가
-                    db.collection("users").document("hongseokchun@naver.com")
-                        .update("friends", FieldValue.arrayUnion(dataOrigin))
+                    db.collection("users").document("cart@naver.com")
+                        .update("following", FieldValue.arrayUnion(dataOrigin))
 
                 }
             }

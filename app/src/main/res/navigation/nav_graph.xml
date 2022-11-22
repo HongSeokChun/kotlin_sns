@@ -12,6 +12,12 @@
         tools:layout="@layout/fragment_friend" />
 
     <fragment
+        android:id="@+id/findUserFragment"
+        android:name="com.android.example.hongseokchun.ui.peed.FindUserFragment"
+        android:label="findUserFragment"
+        tools:layout="@layout/fragment_find_user" />
+
+    <fragment
         android:id="@+id/editPostFragment"
         android:name="com.android.example.hongseokchun.ui.peed.UploadPostFragment"
         android:label="editPostFragment"
@@ -95,6 +101,9 @@
         <action
             android:id="@+id/action_peedFragment_to_notificationFragment"
             app:destination="@id/notificationFragment" />
+        <action
+            android:id="@+id/action_peedFragment_to_findUserFragment"
+            app:destination="@id/findUserFragment" />
     </fragment>
 
     <fragment
