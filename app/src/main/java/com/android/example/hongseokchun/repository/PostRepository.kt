@@ -12,11 +12,12 @@ import com.google.firebase.ktx.Firebase
 
 
 class PostRepository {
+
     fun getData(): LiveData<Posts> {
         val db = Firebase.firestore
         val mutableData = MutableLiveData<Posts>()
 
-        db.collection("Posts").document("hong@hong.hong").get()
+        db.collection("Posts").document("cart@naver.com").get()
             .addOnSuccessListener { documentSnapshot ->
                 val data = documentSnapshot.toObject<Posts>()
                 mutableData.value=data!!

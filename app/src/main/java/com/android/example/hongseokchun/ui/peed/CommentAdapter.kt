@@ -4,10 +4,9 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.android.example.hongseokchun.databinding.CommentItemBinding
-import com.android.example.hongseokchun.ui.mypage.Student
+import com.android.example.hongseokchun.model.Comment
 
 //data class Student(val uid: Int, val name: String)
-data class Comment(val uid: Student, val time: String, val like: String, val comment: String)
 
 class CommentViewHolder(val binding: CommentItemBinding) : RecyclerView.ViewHolder(binding.root)
 
