@@ -1,5 +1,6 @@
 package com.android.example.hongseokchun.ui.peed
 
+import android.annotation.SuppressLint
 import android.content.ContentValues.TAG
 import android.text.Editable
 import android.text.TextWatcher
@@ -12,6 +13,7 @@ import com.android.example.hongseokchun.databinding.FragmentFindUserBinding
 import com.android.example.hongseokchun.model.User
 import com.android.example.hongseokchun.ui.friend.FriendAdapter
 import com.android.example.hongseokchun.viewmodel.UserViewModel
+import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
@@ -73,6 +75,29 @@ class FindUserFragment : BaseFragment<FragmentFindUserBinding>(R.layout.fragment
                     binding.recyclerView.adapter = friendAdapter
                 }
             }
+        })
+
+        //팔로우,팔로잉 버튼 클릭
+        friendAdapter.setItemClickListener(object: FriendAdapter.OnItemClickListener {
+            @SuppressLint("SuspiciousIndentation")
+            override fun onClick(btn: String, position: Int) {
+                // 클릭 시 이벤트 작성
+                val friendName = friendAdapter.itemList[position].get("name")
+                val dataOrigin = friendAdapter.itemList[position]
+
+                if(btn =="팔로우") {
+                    // 원래 친구목록에 있으면 삭제
+                    db.collection("users").document("cart@naver.com")
+                        .update("following", FieldValue.arrayRemove(dataOrigin))
+                }
+                else {
+                    //없으면 추가
+                    db.collection("users").document("cart@naver.com")
+                        .update("following", FieldValue.arrayUnion(dataOrigin))
+
+                }
+            }
+
         })
 
 
