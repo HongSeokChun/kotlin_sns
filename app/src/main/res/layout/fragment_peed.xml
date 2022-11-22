@@ -21,7 +21,7 @@
         android:layout_marginTop="16dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/title" />
+        app:srcCompat="@drawable/logo" />
 
     <View
         android:id="@+id/view"
@@ -56,7 +56,7 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerview"
         android:layout_width="416dp"
-        android:layout_height="745dp"
+        android:layout_height="0dp"
         android:layout_marginTop="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"

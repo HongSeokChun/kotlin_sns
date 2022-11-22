@@ -7,9 +7,9 @@
 
     <fragment
         android:id="@+id/friendFragment"
-        android:name="com.android.example.hongseokchun.ui.mypage.FriendListFragment"
+        android:name="com.android.example.hongseokchun.ui.friend.FriendFragment"
         android:label="friendFragment"
-        tools:layout="@layout/fragment_friend_list" />
+        tools:layout="@layout/fragment_friend" />
 
     <fragment
         android:id="@+id/editPostFragment"

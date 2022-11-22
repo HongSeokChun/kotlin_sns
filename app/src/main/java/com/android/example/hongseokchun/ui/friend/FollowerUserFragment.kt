@@ -1,22 +1,20 @@
-package com.android.example.hongseokchun.ui.mypage
-
+package com.android.example.hongseokchun.ui.friend
 
 import android.annotation.SuppressLint
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
-import android.view.View
 import androidx.lifecycle.ViewModelProvider
 import com.android.example.hongseokchun.MainActivity
 import com.android.example.hongseokchun.R
 import com.android.example.hongseokchun.base.BaseFragment
-import com.android.example.hongseokchun.databinding.FragmentFriendListBinding
+import com.android.example.hongseokchun.databinding.FragmentFollowerListBinding
 import com.android.example.hongseokchun.viewmodel.UserViewModel
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
-class FriendListFragment : BaseFragment<FragmentFriendListBinding>(R.layout.fragment_friend_list) {
+class FollowerUserFragment  : BaseFragment<FragmentFollowerListBinding>(R.layout.fragment_follower_list) {
     private lateinit var friendAdapter: FriendAdapter
     val db = Firebase.firestore
 
@@ -34,14 +32,14 @@ class FriendListFragment : BaseFragment<FragmentFriendListBinding>(R.layout.frag
         super.initDataBinding()
         friendAdapter= FriendAdapter(ArrayList())
 
-        viewModel.getUserFriends()
+        viewModel.getflollowerUsers()
 
         binding.recyclerView.adapter=friendAdapter
 
-        viewModel.userFriendsLiveData.observe(viewLifecycleOwner) { itemList ->
+        viewModel.followerUserLiveData.observe(viewLifecycleOwner) { itemList ->
             friendAdapter.itemList = itemList
             val n = itemList.size;
-            binding.friendNum.text = "친구 ${n}명"
+            binding.friendNum.text = "${n}명"
             Log.d("recipee",itemList.toString())
         }
 
@@ -60,7 +58,7 @@ class FriendListFragment : BaseFragment<FragmentFriendListBinding>(R.layout.frag
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 val searchItemList: ArrayList<HashMap<String,String>> = ArrayList<HashMap<String,String>>()
                 val searchString = binding.etSearchFriend.text
-                viewModel.userFriendsLiveData.observe(viewLifecycleOwner) { itemList ->
+                viewModel.followerUserLiveData.observe(viewLifecycleOwner) { itemList ->
                     for (item in itemList){
                         if(item.get("name")?.contains(searchString) == true){
                             searchItemList.add(item)
@@ -69,7 +67,7 @@ class FriendListFragment : BaseFragment<FragmentFriendListBinding>(R.layout.frag
                     friendAdapter.itemList = searchItemList
 
                     if (binding.etSearchFriend.text.isEmpty()) {
-                        viewModel.userFriendsLiveData.observe(viewLifecycleOwner) { itemList ->
+                        viewModel.followerUserLiveData.observe(viewLifecycleOwner) { itemList ->
                             friendAdapter.itemList = itemList
                         }
                     }

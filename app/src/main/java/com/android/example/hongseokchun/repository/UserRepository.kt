@@ -14,7 +14,7 @@ class UserRepository {
         val db = Firebase.firestore
         val mutableData = MutableLiveData<User>()
 
-        db.collection("users").document("hongseokchun@naver.com").get()
+        db.collection("users").document("cart@naver.com").get()
             .addOnSuccessListener { documentSnapshot ->
                 val data = documentSnapshot.toObject<User>()
                 mutableData.value=data!!

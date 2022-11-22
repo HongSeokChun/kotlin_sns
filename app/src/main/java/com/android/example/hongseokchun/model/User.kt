@@ -6,9 +6,8 @@ data class User(
     val birth: String= "",
     val question: String ="",
     val answer: String="",
-    val friends: ArrayList<HashMap<String,String>> = ArrayList(),
     val profile_img: String = "",
-    val following :ArrayList<String> = ArrayList(),
-    val follower : ArrayList<String> = ArrayList(),
+    val following :ArrayList<HashMap<String,String>> = ArrayList(),
+    val follower : ArrayList<HashMap<String,String>> = ArrayList(),
     val post : ArrayList<Posts> = ArrayList()
 )

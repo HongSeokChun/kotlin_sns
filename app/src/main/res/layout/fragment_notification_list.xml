@@ -6,7 +6,7 @@
     <data>
         <variable
             name="info"
-            type="com.android.example.hongseokchun.ui.mypage.FriendAdapter" />
+            type="com.android.example.hongseokchun.ui.friend.FriendAdapter" />
     </data>
 
 

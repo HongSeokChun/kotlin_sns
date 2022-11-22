@@ -18,11 +18,13 @@ import com.android.example.hongseokchun.R
 import com.android.example.hongseokchun.base.BaseFragment
 import com.android.example.hongseokchun.databinding.FragmentPeedBinding
 import com.android.example.hongseokchun.model.Posts
+import com.android.example.hongseokchun.model.PostContent
 import com.android.example.hongseokchun.ui.PeedAdapter
 import com.android.example.hongseokchun.viewmodel.PeedViewModel
 import com.android.example.hongseokchun.ui.mypage.FriendAdapter
+
+import com.android.example.hongseokchun.viewmodel.PostViewModel
 import com.android.example.hongseokchun.viewmodel.UserViewModel
-import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
@@ -49,6 +51,9 @@ class PeedFragment : BaseFragment<FragmentPeedBinding>(R.layout.fragment_peed) {
         peedAdapter = PeedAdapter(ArrayList())
         var friendsNames: ArrayList<String> = ArrayList()
         swipe = binding.swipe
+
+        viewModel.getPosts()
+//        friendViewModel.getUserFriends()
 
         var myName = "hong@hong.hong";
         friendViewModel.getUserFriends()
@@ -97,4 +102,5 @@ class PeedFragment : BaseFragment<FragmentPeedBinding>(R.layout.fragment_peed) {
     override fun initAfterBinding() {
         super.initAfterBinding()
     }
+
 }
