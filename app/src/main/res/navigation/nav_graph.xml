@@ -12,6 +12,23 @@
         tools:layout="@layout/fragment_friend" />
 
     <fragment
+        android:id="@+id/editProfileFragment"
+        android:name="com.android.example.hongseokchun.ui.mypage.EditProfileFragment"
+        android:label="editProfileFragment"
+        tools:layout="@layout/fragment_edit_profile" />
+
+    <fragment
+        android:id="@+id/changePasswordFragment"
+        android:name="com.android.example.hongseokchun.ui.mypage.ChangePasswordFragment"
+        android:label="changePasswordFragment"
+        tools:layout="@layout/fragment_change_password" >
+        <action
+            android:id="@+id/action_changePasswordFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+    </fragment>
+
+
+    <fragment
         android:id="@+id/findUserFragment"
         android:name="com.android.example.hongseokchun.ui.friend.FindUserFragment"
         android:label="findUserFragment"
@@ -83,11 +100,17 @@
         android:label="myPageFragment"
         tools:layout="@layout/fragment_my_page" >
         <action
-            android:id="@+id/action_myPageFragment_to_friendFragment"
+            android:id="@+id/action_myPageFragment_to_loginFragment"
             app:destination="@id/loginFragment" />
         <action
             android:id="@+id/action_myPageFragment_to_friendFragment2"
             app:destination="@id/friendFragment" />
+        <action
+            android:id="@+id/action_myPageFragment_to_editProfileFragment"
+            app:destination="@id/editProfileFragment" />
+        <action
+            android:id="@+id/action_myPageFragment_to_changePasswordFragment"
+            app:destination="@id/changePasswordFragment" />
     </fragment>
 
     <fragment
