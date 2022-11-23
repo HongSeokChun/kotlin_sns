@@ -38,7 +38,7 @@ abstract class BaseBottomDialogFragment <B: ViewDataBinding> (@LayoutRes private
         setHasOptionsMenu(true)
 
         // false : 화면 밖 터치 혹은 뒤로가기 버튼 누를 시 dismiss 안됨
-        isCancelable = false
+        isCancelable = true
     }
 
     override fun onCreateView(
@@ -84,7 +84,7 @@ abstract class BaseBottomDialogFragment <B: ViewDataBinding> (@LayoutRes private
     }
 
     private fun getBottomSheetDialogDefaultHeight(): Int {
-        return getWindowHeight() * 85 / 100
+        return getWindowHeight() * 30 / 100
     }
 
     private fun getWindowHeight(): Int {

@@ -67,6 +67,11 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>(R.layout.fragment_my_
 
         getFollowNum()
 
+        binding.btnSetting.setOnClickListener {
+            SettingDialog().show(parentFragmentManager, "preference")
+        }
+
+
 
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
