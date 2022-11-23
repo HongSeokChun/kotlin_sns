@@ -5,6 +5,7 @@ import android.util.Log
 import android.util.Patterns
 import android.widget.Toast
 import com.android.example.hongseokchun.MainActivity
+import com.android.example.hongseokchun.MyApplication.Companion.prefs
 import com.android.example.hongseokchun.R
 import com.android.example.hongseokchun.base.BaseFragment
 import com.android.example.hongseokchun.databinding.FragmentLoginBinding
@@ -14,13 +15,11 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
 class LoginFragment : BaseFragment<FragmentLoginBinding>(R.layout.fragment_login) {
-    private lateinit var auth: FirebaseAuth
+    private var auth: FirebaseAuth = Firebase.auth
 
     override fun initStartView() {
         super.initStartView()
         (activity as MainActivity).setNavShow("none2")
-
-        auth = Firebase.auth
 
 //        로그인 되어있는지 확인
 //        if (binding.checkId.isChecked) {
@@ -38,6 +37,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(R.layout.fragment_login
 
         //로그인 버튼 이벤트
         binding.btnLogin.setOnClickListener{
+            binding.btnLogin.isEnabled=false
         val ToastText = mutableListOf<String>()
         var isGoToLogin = true
         val email = binding.tvEmail.text.toString()
@@ -47,22 +47,26 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(R.layout.fragment_login
         if (email.isEmpty() and !password.isEmpty()) {
             Toast.makeText(context, "이메일을 입력해주세요.", Toast.LENGTH_LONG).show()
             isGoToLogin = false
+            binding.btnLogin.isEnabled=true
         }
 
         if (password.isEmpty() and !email.isEmpty()) {
             Toast.makeText(context, "비밀번호를 입력해주세요.", Toast.LENGTH_LONG).show()
             isGoToLogin = false
+            binding.btnLogin.isEnabled=true
         }
 
         if (email.isEmpty() and password.isEmpty()){
             Toast.makeText(context, "이메일과 비밀번호를 입력해주세요.", Toast.LENGTH_LONG).show()
             isGoToLogin = false
+            binding.btnLogin.isEnabled=true
         }
 
         if (!email.isEmpty() and !password.isEmpty() and !Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
             Toast.makeText(context, "이메일 형식이 아닙니다.", Toast.LENGTH_SHORT).show()
             binding.tvEmail.setText("")
             isGoToLogin = false
+            binding.btnLogin.isEnabled=true
         }
 
 
@@ -72,17 +76,15 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(R.layout.fragment_login
             auth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener { task ->
                     if (task.isSuccessful) {
-//                        if(binding.checkId.isChecked){
-//                            //preferences에 유저 이메일 저장
-//                            // prefs.setString("email",email)
-//
-//                        }
-                       // setName(email)
+                        //preferences에 유저 이메일 저장
+                        prefs.setString("email",email)
+                        Log.d("prefs",prefs.readAll().toString())
                         Toast.makeText(context, "로그인 성공", Toast.LENGTH_SHORT).show()
 
                         navController.navigate(R.id.action_loginFragment_to_peedFragment)
                     } else {
                         Toast.makeText(context, "로그인 실패", Toast.LENGTH_SHORT).show()
+                        binding.btnLogin.isEnabled=true
                     }
                 }
         }
@@ -108,18 +110,18 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(R.layout.fragment_login
     override fun initAfterBinding() {
         super.initAfterBinding()
     }
-
-    private fun setName(email:String) {
-        val db = Firebase.firestore
-        // 앱 저장소에 이름 저장
-        db.collection("users").document(email).get()
-            .addOnSuccessListener { document ->
-                var name = document.get("name").toString()
-//                prefs.setString("name", name)
-            }
-            .addOnFailureListener{
-                Log.d("error LoginFragment", "null")
-            }
-    }
-
+//
+//    private fun setName(email:String) {
+//        val db = Firebase.firestore
+//        // 앱 저장소에 이름 저장
+//        db.collection("users").document(email).get()
+//            .addOnSuccessListener { document ->
+//                var name = document.get("name").toString()
+////                prefs.setString("name", name)
+//            }
+//            .addOnFailureListener{
+//                Log.d("error LoginFragment", "null")
+//            }
+//    }
+//
 }

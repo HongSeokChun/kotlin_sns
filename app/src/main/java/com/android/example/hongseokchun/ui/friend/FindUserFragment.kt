@@ -1,4 +1,4 @@
-package com.android.example.hongseokchun.ui.peed
+package com.android.example.hongseokchun.ui.friend
 
 import android.annotation.SuppressLint
 import android.content.ContentValues.TAG
@@ -7,12 +7,10 @@ import android.text.TextWatcher
 import android.util.Log
 import androidx.lifecycle.ViewModelProvider
 import com.android.example.hongseokchun.MainActivity
+import com.android.example.hongseokchun.MyApplication.Companion.prefs
 import com.android.example.hongseokchun.R
 import com.android.example.hongseokchun.base.BaseFragment
 import com.android.example.hongseokchun.databinding.FragmentFindUserBinding
-import com.android.example.hongseokchun.model.User
-import com.android.example.hongseokchun.ui.friend.FriendAdapter
-import com.android.example.hongseokchun.ui.friend.FriendPageFragment
 import com.android.example.hongseokchun.viewmodel.UserViewModel
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.ktx.firestore
@@ -22,10 +20,6 @@ class FindUserFragment : BaseFragment<FragmentFindUserBinding>(R.layout.fragment
     private lateinit var friendAdapter: FriendAdapter
     val db = Firebase.firestore
     val UserList : ArrayList<HashMap<String,String>> = ArrayList()
-
-    private val viewModel by lazy {
-        ViewModelProvider(this)[UserViewModel::class.java]
-    }
 
     override fun initStartView() {
         super.initStartView()
@@ -37,7 +31,6 @@ class FindUserFragment : BaseFragment<FragmentFindUserBinding>(R.layout.fragment
 
         friendAdapter= FriendAdapter(ArrayList())
 
-        viewModel.getflollowerUsers()
         binding.recyclerView.adapter=friendAdapter
 
 
@@ -88,12 +81,12 @@ class FindUserFragment : BaseFragment<FragmentFindUserBinding>(R.layout.fragment
 
                 if(btn =="팔로우") {
                     // 원래 친구목록에 있으면 삭제
-                    db.collection("users").document("cart@naver.com")
+                    db.collection("users").document(prefs.getString("email","null"))
                         .update("following", FieldValue.arrayRemove(dataOrigin))
                 }
                 else if(btn=="팔로잉"){
                     //없으면 추가
-                    db.collection("users").document("cart@naver.com")
+                    db.collection("users").document(prefs.getString("email","null"))
                         .update("following", FieldValue.arrayUnion(dataOrigin))
 
                 }
@@ -128,6 +121,7 @@ class FindUserFragment : BaseFragment<FragmentFindUserBinding>(R.layout.fragment
             .addOnFailureListener { exception ->
                 Log.d(TAG, "Error getting documents: ", exception) }
     }
+
     override fun initAfterBinding() {
         super.initAfterBinding()
     }

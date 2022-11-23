@@ -4,6 +4,7 @@ import android.content.ContentValues
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.android.example.hongseokchun.MyApplication
 import com.android.example.hongseokchun.model.User
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.toObject
@@ -14,15 +15,20 @@ class UserRepository {
         val db = Firebase.firestore
         val mutableData = MutableLiveData<User>()
 
-        db.collection("users").document("cart@naver.com").get()
+        val email = MyApplication.prefs.getString("email","null")
+
+        db.collection("users").document(email).get()
             .addOnSuccessListener { documentSnapshot ->
                 val data = documentSnapshot.toObject<User>()
                 mutableData.value=data!!
+                MyApplication.prefs.setString("name",data.name)
+                MyApplication.prefs.setString("profileImg",data.profile_img)
                 Log.d("friend repo",data.toString())
             }
             .addOnFailureListener { exception ->
                 Log.d(ContentValues.TAG, "get failed with ", exception)
             }
+
 
         return mutableData
     }

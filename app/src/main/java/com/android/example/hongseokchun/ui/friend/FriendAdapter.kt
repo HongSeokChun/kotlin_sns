@@ -12,6 +12,7 @@ import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.navigation.Navigator
 import androidx.recyclerview.widget.RecyclerView
+import com.android.example.hongseokchun.MyApplication.Companion.prefs
 import com.android.example.hongseokchun.R
 import com.android.example.hongseokchun.databinding.FriendListViewBinding
 import com.android.example.hongseokchun.model.User
@@ -63,7 +64,9 @@ class FriendAdapter(itemList: ArrayList<HashMap<String,String>>)
         itemList[position].get("profileImg")?.let { loadImage(holder.friendImg, it) }
         itemList[position].get("name")?.let { setFollowingBtn(it,holder) }
 
+        // 친구 프로필 사진 클릭시
         holder.friendImg.setOnClickListener {
+            itemList[position].get("email")?.let { it1 -> prefs.setString("watchUser", it1) }
             itemClickListener?.onClick("", position)
         }
 
@@ -79,6 +82,7 @@ class FriendAdapter(itemList: ArrayList<HashMap<String,String>>)
                 holder.deleteBtn.setBackgroundResource(R.drawable.following_button)
 
             }
+            itemList[position].get("email")?.let { it1 -> prefs.setString("watchUser", it1) }
             itemClickListener?.onClick(holder.deleteBtn.text.toString(), position)
         }
 
@@ -114,11 +118,12 @@ class FriendAdapter(itemList: ArrayList<HashMap<String,String>>)
         }
     }
 
+    // 팔로우버튼 모양 정하기
     fun setFollowingBtn(name:String, holder:ViewHolder){
         var followingList : String = ""
         val db = Firebase.firestore
 
-        db.collection("users").document("cart@naver.com").get()
+        db.collection("users").document(prefs.getString("email","null")).get()
             .addOnSuccessListener { documentSnapshot ->
                 val data = documentSnapshot.toObject<User>()
                 if (data != null) {

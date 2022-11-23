@@ -13,7 +13,7 @@
 
     <fragment
         android:id="@+id/findUserFragment"
-        android:name="com.android.example.hongseokchun.ui.peed.FindUserFragment"
+        android:name="com.android.example.hongseokchun.ui.friend.FindUserFragment"
         android:label="findUserFragment"
         tools:layout="@layout/fragment_find_user" />
 

@@ -6,9 +6,11 @@ import android.text.TextWatcher
 import android.util.Log
 import androidx.lifecycle.ViewModelProvider
 import com.android.example.hongseokchun.MainActivity
+import com.android.example.hongseokchun.MyApplication
 import com.android.example.hongseokchun.R
 import com.android.example.hongseokchun.base.BaseFragment
 import com.android.example.hongseokchun.databinding.FragmentFollowingListBinding
+import com.android.example.hongseokchun.model.FollowUser
 import com.android.example.hongseokchun.viewmodel.UserViewModel
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.ktx.firestore
@@ -17,6 +19,7 @@ import com.google.firebase.ktx.Firebase
 class FollowingUserFragment  : BaseFragment<FragmentFollowingListBinding>(R.layout.fragment_following_list) {
     private lateinit var friendAdapter: FriendAdapter
     val db = Firebase.firestore
+    val loginUser = MyApplication.prefs.getString("email","null")
 
     private val viewModel by lazy {
         ViewModelProvider(this)[UserViewModel::class.java]
@@ -86,13 +89,15 @@ class FollowingUserFragment  : BaseFragment<FragmentFollowingListBinding>(R.layo
 
                 if(btn =="팔로우") {
                     // 원래 친구목록에 있으면 삭제
-                    db.collection("users").document("cart@naver.com")
+                    db.collection("users").document(loginUser)
                         .update("following", FieldValue.arrayRemove(dataOrigin))
+                    changeFollowState(false)
                 }
                 else if(btn=="팔로잉"){
                     //없으면 추가
-                    db.collection("users").document("cart@naver.com")
+                    db.collection("users").document(loginUser)
                         .update("following", FieldValue.arrayUnion(dataOrigin))
+                    changeFollowState(true)
 
                 }
                 else{
@@ -105,6 +110,20 @@ class FollowingUserFragment  : BaseFragment<FragmentFollowingListBinding>(R.layo
             }
 
         })
+    }
+    fun changeFollowState(following:Boolean){
+        val myProfile = FollowUser(loginUser, MyApplication.prefs.getString("name","null"), MyApplication.prefs.getString("profileImg","null"))
+
+        if(following) {
+            // 친구 팔로워 목록에 내 정보 업로드 -> 팔로잉
+            db.collection("users").document(MyApplication.prefs.getString("watchUser", "null"))
+                .update("follower", FieldValue.arrayUnion(myProfile))
+
+        }else {
+            // 친구 팔로워 목록에 내 정보 삭제 -> 팔로잉 취소
+            db.collection("users").document(MyApplication.prefs.getString("watchUser", "null"))
+                .update("follower", FieldValue.arrayRemove(myProfile))
+        }
     }
 
     override fun initAfterBinding() {

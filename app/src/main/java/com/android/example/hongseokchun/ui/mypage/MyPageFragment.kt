@@ -9,6 +9,8 @@ import androidx.navigation.Navigation
 import androidx.navigation.Navigator
 import androidx.recyclerview.widget.GridLayoutManager
 import com.android.example.hongseokchun.MainActivity
+import com.android.example.hongseokchun.MyApplication.Companion.prefs
+import com.android.example.hongseokchun.MySharedPreferences
 //import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.android.example.hongseokchun.R
 import com.android.example.hongseokchun.base.BaseFragment
@@ -86,15 +88,15 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>(R.layout.fragment_my_
         super.initAfterBinding()
     }
 
-
     // 팔로우 팔로워 수 가져오기
     fun getFollowNum(){
-        db.collection("users").document("cart@naver.com").get()
+        db.collection("users").document(prefs.getString("email","null")).get()
             .addOnSuccessListener { documentSnapshot ->
                 val data = documentSnapshot.toObject<User>()
                 if (data != null) {
                     binding.accountTvFollowingCount.text = data.following.size.toString()
                     binding.accountTvFollowerCount.text = data.follower.size.toString()
+                    binding.userName.text=data.name
                 }
             }
             .addOnFailureListener { exception ->

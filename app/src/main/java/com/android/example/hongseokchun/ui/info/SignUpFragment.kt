@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.Spinner
 import android.widget.Toast
+import androidx.core.view.get
 import androidx.viewbinding.ViewBindings
 import com.android.example.hongseokchun.MainActivity
 import com.android.example.hongseokchun.R
@@ -50,12 +51,7 @@ class SignUpFragment : BaseFragment<FragmentSignUpBinding>(R.layout.fragment_sig
             val adapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_dropdown_item,spinner)
 
             binding.spinner.adapter = adapter
-            val findIdQ = binding.spinner.adapter.toString()
-
-
-
-
-
+            val findIdQ = binding.spinner.id.toString()
 
             // 유효성 검사
             if(name.isEmpty())
