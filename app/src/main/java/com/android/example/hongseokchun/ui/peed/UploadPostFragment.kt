@@ -9,26 +9,27 @@ import android.net.Uri
 import android.util.Log
 import android.view.View
 import android.view.ViewGroup
-import android.view.WindowManager
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.navigation.NavController
 import androidx.viewpager2.widget.ViewPager2.OnPageChangeCallback
 import com.android.example.hongseokchun.MainActivity
+import com.android.example.hongseokchun.MyApplication.Companion.prefs
 import com.android.example.hongseokchun.R
 import com.android.example.hongseokchun.base.BaseFragment
 import com.android.example.hongseokchun.databinding.FragmentEditPostBinding
 import com.android.example.hongseokchun.model.Posts
+import com.android.example.hongseokchun.ui.friend.FriendPageFragment
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import java.text.SimpleDateFormat
 import java.util.*
-import kotlin.collections.ArrayList
 
 
 class UploadPostFragment : BaseFragment<FragmentEditPostBinding>(R.layout.fragment_edit_post) {
@@ -85,6 +86,7 @@ class UploadPostFragment : BaseFragment<FragmentEditPostBinding>(R.layout.fragme
 
         //공유 클릭시
         binding.btnShare.setOnClickListener {
+            binding.btnShare.isEnabled=false
             val message :String = binding.postMessage.text.toString()
             val now = Date()
             val dateFormat = SimpleDateFormat("yyyy년 MM월 dd일 HH시 mm분 ss초")
@@ -94,19 +96,23 @@ class UploadPostFragment : BaseFragment<FragmentEditPostBinding>(R.layout.fragme
                 if (imageUrlList.size > 0) {
                     uploadPhoto(date,message,
                         mSuccessHandler = {
-                            Toast.makeText(context, "게시글 업로드 성공", Toast.LENGTH_SHORT).show()
+//                            Toast.makeText(context, "게시글 업로드 성공", Toast.LENGTH_SHORT).show()
                         },
                         mErrorHandler = {
-                            Toast.makeText(context, "게시글 업로드에 실패했습니다", Toast.LENGTH_SHORT).show()
+//                            Toast.makeText(context, "게시글 업로드에 실패했습니다", Toast.LENGTH_SHORT).show()
                         }
                     )
                 } else {
                     // 이미지 uri가 존재하지 않는 경우
                     Toast.makeText(context, "사진을 선택해주세요.",Toast.LENGTH_SHORT).show()
+                    binding.btnShare.isEnabled=true
                 }
+            binding.btnShare.isEnabled=true
+            binding.postMessage.text.clear()
+
+            navController.navigate(R.id.action_editPostFragment_self)
+
         }
-
-
 
     }
 
@@ -205,6 +211,7 @@ class UploadPostFragment : BaseFragment<FragmentEditPostBinding>(R.layout.fragme
         }
     }
 
+    // 게시물 업로드
     private fun uploadPhoto(
         date: String,
         message: String,
@@ -215,12 +222,12 @@ class UploadPostFragment : BaseFragment<FragmentEditPostBinding>(R.layout.fragme
         for((i,uri) in imageUrlList.withIndex()) {
             val fileName = "${date}_${i}"
             fileNames.add(fileName)
-            storage.reference.child("postImage/hongseokchun").child(fileName)
+            storage.reference.child("postImage/${prefs.getString("email","null")}").child(fileName)
                 .putFile(uri)
                 .addOnCompleteListener {
                     if (it.isSuccessful) {
                         // 파일 업로드에 성공했기 때문에 파일을 다시 받아 오도록 해야함
-                        storage.reference.child("postImage/hongseokchun")
+                        storage.reference.child("postImage/${prefs.getString("email","null")}")
                             .child(fileName).downloadUrl
                             .addOnSuccessListener { uri ->
                                 mSuccessHandler(uri.toString())
@@ -232,9 +239,9 @@ class UploadPostFragment : BaseFragment<FragmentEditPostBinding>(R.layout.fragme
                     }
                 }
         }
-        val newPost = Posts("",fileNames,HashMap(),date,"0",message)
+        val newPost = Posts("",fileNames,HashMap(),date,0,message)
         // 파이어베이스에 게시물정보 저장
-                db.collection("users").document("hongseokchun@naver.com")
+                db.collection("users").document(prefs.getString("email","null"))
                     .collection("Post").add(newPost)
     }
 }

@@ -100,22 +100,27 @@ class FriendAdapter(itemList: ArrayList<HashMap<String,String>>)
     private var itemClickListener : OnItemClickListener? = null
 
     // firebase storage에서 이미지 불러오기
-    fun loadImage(imageView: ImageView, fileName: String){
-        val storage: FirebaseStorage = FirebaseStorage.getInstance("gs://hongseokchun-1f848.appspot.com")
-        val storageRef: StorageReference = storage.reference
-        storageRef.child("userProfileImage/$fileName").downloadUrl.addOnCompleteListener { task ->
-            if (task.isSuccessful) {
-                Glide.with(context)
-                    .load(task.result)
-                    .fitCenter()
-                    .diskCacheStrategy(DiskCacheStrategy.NONE)
-                    .into(imageView)
-            }
-        }
-            .addOnFailureListener { exception ->
-                Log.d(ContentValues.TAG, "get failed with ", exception)
-
-        }
+    fun loadImage(imageView: ImageView, url: String){
+//        val storage: FirebaseStorage = FirebaseStorage.getInstance("gs://hongseokchun-1f848.appspot.com")
+//        val storageRef: StorageReference = storage.reference
+//        storageRef.child("userProfileImage/$fileName").downloadUrl.addOnCompleteListener { task ->
+//            if (task.isSuccessful) {
+//                Glide.with(context)
+//                    .load(task.result)
+//                    .fitCenter()
+//                    .diskCacheStrategy(DiskCacheStrategy.NONE)
+//                    .into(imageView)
+//            }
+//        }
+//            .addOnFailureListener { exception ->
+//                Log.d(ContentValues.TAG, "get failed with ", exception)
+//
+//        }
+        Glide.with(context)
+            .load(url)
+            .fitCenter()
+            .diskCacheStrategy(DiskCacheStrategy.NONE)
+            .into(imageView)
     }
 
     // 팔로우버튼 모양 정하기

@@ -79,4 +79,11 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
+    fun changeFragment(fragment: Fragment) {
+        supportFragmentManager
+            .beginTransaction()
+            .replace(R.id.nav_host_fragment, fragment)
+            .commit()
+    }
+
 }

@@ -16,6 +16,7 @@ import com.google.firebase.ktx.Firebase
 
 class LoginFragment : BaseFragment<FragmentLoginBinding>(R.layout.fragment_login) {
     private var auth: FirebaseAuth = Firebase.auth
+    
 
     override fun initStartView() {
         super.initStartView()
@@ -78,7 +79,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(R.layout.fragment_login
                     if (task.isSuccessful) {
                         //preferences에 유저 이메일 저장
                         prefs.setString("email",email)
-                        Log.d("prefs",prefs.readAll().toString())
+//                        Log.d("prefs",prefs.readAll().toString())
                         Toast.makeText(context, "로그인 성공", Toast.LENGTH_SHORT).show()
 
                         navController.navigate(R.id.action_loginFragment_to_peedFragment)

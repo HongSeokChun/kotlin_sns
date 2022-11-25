@@ -6,7 +6,7 @@ data class Posts (
     val imageNames : ArrayList<String> = ArrayList(),
     val comments  : HashMap<String,String> = HashMap(),
     val uploadDate: String="",
-    val like: String ="",
+    val like: Int =0,
     val mainText : String = "",
 
 )

@@ -42,6 +42,12 @@
         <action
             android:id="@+id/action_editPostFragment_to_peedFragment"
             app:destination="@id/peedFragment" />
+        <action
+            android:id="@+id/action_editPostFragment_to_peedFragment2"
+            app:destination="@id/peedFragment" />
+        <action
+            android:id="@+id/action_editPostFragment_self"
+            app:destination="@id/editPostFragment" />
     </fragment>
 
 
@@ -72,6 +78,9 @@
         <action
             android:id="@+id/action_signUpFragment_to_loginFragment"
             app:destination="@id/loginFragment" />
+        <action
+            android:id="@+id/action_signUpFragment_self"
+            app:destination="@id/signUpFragment" />
     </fragment>
 
     <fragment

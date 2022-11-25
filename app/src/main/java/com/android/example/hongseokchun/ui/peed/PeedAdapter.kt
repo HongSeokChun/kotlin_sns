@@ -45,7 +45,7 @@ class PeedAdapter(itemList: List<Posts>) : RecyclerView.Adapter<MyViewHolder>() 
 
         holder.binding.detailviewitemProfileTextview.text = userName
         holder.binding.detailviewitemExplainTextview.text = mainText
-        holder.binding.detailviewitemFavoritecounterTextview.text = like;
+        holder.binding.detailviewitemFavoritecounterTextview.text = like.toString();
     }
 
     //image 불러오기
