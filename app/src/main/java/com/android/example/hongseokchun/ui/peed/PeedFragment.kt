@@ -1,31 +1,29 @@
 package com.android.example.hongseokchun.ui.peed
 
-import android.annotation.SuppressLint
+import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.ImageView
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.android.example.hongseokchun.MainActivity
 import com.android.example.hongseokchun.R
+import com.android.example.hongseokchun.R.*
 import com.android.example.hongseokchun.base.BaseFragment
 import com.android.example.hongseokchun.databinding.FragmentPeedBinding
-import com.android.example.hongseokchun.model.AlarmDTO
-import com.android.example.hongseokchun.model.User
 import com.android.example.hongseokchun.ui.PeedAdapter
-import com.android.example.hongseokchun.ui.friend.FriendAdapter
 import com.android.example.hongseokchun.viewmodel.PeedViewModel
-
 import com.android.example.hongseokchun.viewmodel.UserViewModel
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.FirebaseFirestore
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.target.Target
 import com.google.firebase.auth.ktx.auth
-import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
-class PeedFragment : BaseFragment<FragmentPeedBinding>(R.layout.fragment_peed) {
+
+class PeedFragment : BaseFragment<FragmentPeedBinding>(layout.fragment_peed) {
     private lateinit var peedAdapter: PeedAdapter
     private lateinit var swipe: SwipeRefreshLayout
     val db = Firebase.firestore
@@ -41,6 +39,9 @@ class PeedFragment : BaseFragment<FragmentPeedBinding>(R.layout.fragment_peed) {
     override fun initStartView() {
         super.initStartView()
         (activity as MainActivity).setNavShow("view")
+
+        val logo: ImageView = binding.imageView2
+        Glide.with(this).load(raw.logo).into(logo)
     }
 
     override fun initDataBinding() {

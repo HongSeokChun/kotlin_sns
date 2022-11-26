@@ -90,11 +90,11 @@ class MyPageAdapter(itemList: List<Posts>) : RecyclerView.Adapter<MyPageViewHold
                                                 it.findNavController().navigate(action)
                                             }
                                             else {
-                                                val action =
-                                                    FriendPageFragmentDirections.actionFriendPagrFragmentToOnePostFragment(
-                                                        usernameANDpostid.toTypedArray()
-                                                    )
-                                                it.findNavController().navigate(action)
+//                                                val action =
+//                                                    FriendPageFragmentDirections.actionFriendPagrFragmentToOnePostFragment(
+//                                                        usernameANDpostid.toTypedArray()
+//                                                    )
+//                                                it.findNavController().navigate(action)
                                             }
                                         }
                                     }

@@ -79,7 +79,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="16dp"
-            android:layout_marginBottom="0dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:textColor="#000000"
+            android:textSize="16sp"
             tools:text="사진 내용" />
 
         <TextView
@@ -96,6 +99,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="16dp"
             android:layout_marginBottom="35dp"
+            android:textSize="12sp"
             tools:text="일자" />
 
 

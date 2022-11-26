@@ -66,7 +66,7 @@ class OnePostFragment : BaseFragment<FragmentOnePostBinding>(R.layout.fragment_o
                    detailviewitemFavoritecounterTextview.setText("좋아요 "+data!!.like.toString()+"개")
                    detailviewitemExplainTextview.setText(data!!.mainText)
                    detailviewitemExplainTextview3.setText(data!!.uploadDate.substring(0,13))
-                   detailviewitemCommentCOuntTextview.setText("댓글 "+data!!.commentCount.toString()+ "개 모두 보기")
+                   detailviewitemCommentCountTextview.setText("댓글 "+data!!.commentCount.toString()+ "개 모두 보기")
 
                    //Post속성 중 좋아요 누른 멤버리스트에서 현재유저가 있는지 확인
                    for (likeMemeber in data!!.likes) {
@@ -86,7 +86,7 @@ class OnePostFragment : BaseFragment<FragmentOnePostBinding>(R.layout.fragment_o
                    }
 
 //댓글 모두보기 누르면
-                   binding.detailviewitemCommentCOuntTextview.setOnClickListener {
+                   binding.detailviewitemCommentCountTextview.setOnClickListener {
                        //navController.navigate(R.id.action_peedFragment_to_commentFragment)
                        var usernameANDpostid = listOf<String>()
                        CoroutineScope(Dispatchers.IO).launch {
