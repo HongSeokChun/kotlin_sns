@@ -1,8 +1,11 @@
 package com.android.example.hongseokchun.ui.mypage
 
+import android.content.ContentValues
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.ImageView
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.GridLayoutManager
@@ -11,18 +14,30 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.android.example.hongseokchun.R
 import com.android.example.hongseokchun.base.BaseFragment
 import com.android.example.hongseokchun.databinding.FragmentMyPageBinding
+import com.android.example.hongseokchun.model.User
 import com.android.example.hongseokchun.ui.PeedAdapter
 import com.android.example.hongseokchun.viewmodel.PeedViewModel
 import com.android.example.hongseokchun.viewmodel.UserViewModel
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.StorageReference
 
 class MyPageFragment : BaseFragment<FragmentMyPageBinding>(R.layout.fragment_my_page) {
     private lateinit var myPageAdapter: MyPageAdapter
     private lateinit var swipe: SwipeRefreshLayout
     val db = Firebase.firestore
+    private var cuurentUserEmail: String? = null
+    lateinit var mainActivity: MainActivity
 
-
+    private val userViewModel by lazy {
+        ViewModelProvider(this)[UserViewModel::class.java]
+    }
 
     private val peedViewModel by lazy {
         ViewModelProvider(this)[PeedViewModel::class.java]
@@ -36,24 +51,61 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>(R.layout.fragment_my_
     override fun initDataBinding() {
         super.initDataBinding()
         swipe = binding.swipe
-
+        cuurentUserEmail = Firebase.auth.currentUser?.email
+        cuurentUserEmail?.let { Log.d("currentUserEamil", it) }
         myPageAdapter = MyPageAdapter(mutableListOf())
 
+
+
         val currentUserName = ArrayList<String>()
-        currentUserName.add("hong@hong.hong")
+        cuurentUserEmail?.let {
+            currentUserName.add(it) //Peed Livedata 때매 list
+            userViewModel.getUser(it)
+        }
+        userViewModel.userLiveData.observe(viewLifecycleOwner){
+            loadProfileImage(binding.accountIvProfile,it.profileUrl)
+            Log.d("it.profileUrl",it.profileUrl)
+        }
+
+
+        var ref = db.collection("users").document(cuurentUserEmail!!)//currentUserName.get(0))
+        ref.get()
+            .addOnSuccessListener { document->
+                val data = document.toObject<User>()
+                if (data != null) {
+                    binding.accountTvFollowingCount.setText(data.following.size.toString())
+                    binding.accountTvFollowerCount.setText(data.follower.size.toString())
+                    binding.profileName.setText(data.name)
+                }
+            }
+
+
+
+        ref.collection("Post")
+            .get()
+            .addOnSuccessListener { documents->
+                binding.accountTvPostCount.setText(documents.size().toString())
+            }
+
         peedViewModel.getPosts(currentUserName)//현재 user email
 
         peedViewModel.peedLiveData.observe(viewLifecycleOwner) { itemList ->
             myPageAdapter.itemList = itemList
+
             Log.d("peeditemList", itemList.toString())
         }
 
+        Log.d("point1","")
         binding.accountRecyclerview.setHasFixedSize(true)
+        Log.d("point2","")
         binding.accountRecyclerview.layoutManager = GridLayoutManager(context, 3)
+        Log.d("point3","")
         binding.accountRecyclerview.adapter = myPageAdapter
 
-        binding.accountIvProfile.setImageResource(R.drawable.sample) //user profile
-        val mActivity = activity as MainActivity
+
+
+
+        Log.d("point4","")
 
 
     }
@@ -65,13 +117,38 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>(R.layout.fragment_my_
             initDataBinding()
 
             swipe.isRefreshing = false
+            Log.d("point5","")
         }
 
-        binding.accountBtnProfileEdit.setOnClickListener {
 
+    }
+    fun loadProfileImage(imageView: ImageView, fileName: String) {
+        val storage: FirebaseStorage =
+            FirebaseStorage.getInstance("gs://hongseokchun-1f848.appspot.com")
+        val storageRef: StorageReference = storage.reference
+        if (fileName != null) {
+            storageRef.child("userProfileImage/${fileName}").downloadUrl.addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    Log.d("userProfileImage2", "userProfileImage3/${fileName}")
+                    Glide.with(mainActivity)
+                        .load(task.result)
+                        .fitCenter()
+                        .diskCacheStrategy(DiskCacheStrategy.NONE)
+                        .into(imageView)
+                }
+            }
+                .addOnFailureListener { exception ->
+                    Log.d(ContentValues.TAG, "get failed with ", exception)
+
+                }
         }
     }
 
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        mainActivity = context as MainActivity
+    }
     override fun initAfterBinding() {
         super.initAfterBinding()
     }

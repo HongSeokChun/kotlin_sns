@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools" >
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:id="@+id/onePostView">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="632dp"
+            android:orientation="vertical"
+            tools:ignore="MissingConstraints">
+
+            <!-- Title Layout -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <!--        <de.hdodenhof.circleimageview.CircleImageView-->
+                <ImageView
+                    android:id="@+id/detailviewitem_profile_image"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginBottom="8dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.0" />
+
+                <TextView
+                    android:id="@+id/detailviewitem_profile_textview"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    tools:text="" />
+            </LinearLayout>
+            <!-- Content ImageView -->
+            <ImageView
+                android:id="@+id/detailviewitem_imageview_content"
+                android:layout_width="match_parent"
+                android:layout_height="405dp"
+                android:scaleType="fitXY" />
+            <!--android:src="@color/com_facebook_blue" />-->
+
+            <!-- favorite & comment -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginLeft="8dp">
+
+                <ImageView
+                    android:id="@+id/detailviewitem_favorite_imageview"
+                    android:layout_width="39dp"
+                    android:layout_height="30dp"
+                    android:contentDescription="like"
+                    app:srcCompat="@drawable/ic_baseline_favorite_border_24" />
+
+                <ImageView
+                    android:id="@+id/detailviewitem_comment_imageview"
+                    android:layout_width="42dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/comment" />
+            </LinearLayout>
+
+
+            <TextView
+                android:id="@+id/detailviewitem_favoritecounter_textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                tools:text="좋아요 0개" />
+
+            <TextView
+                android:id="@+id/detailviewitem_explain_textview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:layout_marginBottom="0dp"
+                tools:text="사진 내용" />
+            <TextView
+                android:id="@+id/detailviewitem_commentCOunt_textview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:layout_marginBottom="0dp"
+                tools:text="댓글 수" />
+            <TextView
+                android:id="@+id/detailviewitem_explain_textview3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:layout_marginBottom="35dp"
+                tools:text="일자" />
+
+
+        </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</layout>

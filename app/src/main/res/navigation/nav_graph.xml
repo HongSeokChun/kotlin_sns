@@ -76,9 +76,13 @@
         android:name="com.android.example.hongseokchun.ui.mypage.MyPageFragment"
         android:label="myPageFragment"
         tools:layout="@layout/fragment_my_page" >
+
         <action
             android:id="@+id/action_myPageFragment_to_friendFragment"
             app:destination="@id/loginFragment" />
+        <action
+            android:id="@+id/action_myPageFragment_to_onePostFragment"
+            app:destination="@id/onePostFragment" />
     </fragment>
 
     <fragment
@@ -107,8 +111,23 @@
         android:id="@+id/commentFragment"
         android:name="com.android.example.hongseokchun.ui.peed.CommentFragment"
         android:label="commentFragment"
-        tools:layout="@layout/fragment_comment" />
+        tools:layout="@layout/fragment_comment" >
+        <argument
+            android:name="nameANDpostId"
+            app:argType="string[]"/>
 
+    </fragment>
+    <fragment
+        android:id="@+id/onePostFragment"
+        android:name="com.android.example.hongseokchun.ui.mypage.OnePostFragment"
+        android:label="OnePostFragment" >
+    <argument
+        android:name="nameANDpostId2"
+        app:argType="string[]"/>
+        <action
+            android:id="@+id/action_onePostFragment_to_commentFragment"
+            app:destination="@id/commentFragment" />
+    </fragment>
 
 
 </navigation>

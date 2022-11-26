@@ -4,6 +4,8 @@ import android.util.Log
 import android.util.Patterns
 import android.widget.Toast
 import com.android.example.hongseokchun.MainActivity
+import com.android.example.hongseokchun.MyApplication
+import com.android.example.hongseokchun.MyApplication.Companion.prefs
 import com.android.example.hongseokchun.R
 import com.android.example.hongseokchun.base.BaseFragment
 import com.android.example.hongseokchun.databinding.FragmentLoginBinding
@@ -113,7 +115,9 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(R.layout.fragment_login
         db.collection("users").document(email).get()
             .addOnSuccessListener { document ->
                 var name = document.get("name").toString()
-//                prefs.setString("name", name)
+                MyApplication.prefs.setString("name", name)
+                var profileUrl = document.get("profileUrl").toString()
+                MyApplication.prefs.setString("profileUrl",profileUrl)
             }
             .addOnFailureListener{
                 Log.d("error LoginFragment", "null")

@@ -1,5 +1,6 @@
 package com.android.example.hongseokchun.ui.peed
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -7,10 +8,8 @@ import com.android.example.hongseokchun.databinding.CommentItemBinding
 import com.android.example.hongseokchun.model.Comment
 
 //data class Student(val uid: Int, val name: String)
-
 class CommentViewHolder(val binding: CommentItemBinding) : RecyclerView.ViewHolder(binding.root)
-
-class CommentAdapter(private val comments: MutableList<Comment>)
+class CommentAdapter( val comments: ArrayList<Comment>)
         : RecyclerView.Adapter<CommentViewHolder>() {
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CommentViewHolder {
@@ -20,10 +19,13 @@ class CommentAdapter(private val comments: MutableList<Comment>)
         }
 
         override fun onBindViewHolder(holder: CommentViewHolder, position: Int) {
-                val comment = comments[position]
+                val _comments = comments.sortedBy { it.uploadDate }
+                val comment = _comments[position]
 
-//                holder.binding.commentviewitemTextviewComment.text = comment.message
-//                holder.binding.commentviewitemTextviewProfile.text = comment.User.name;
+                holder.binding.commentviewitemTextviewComment.text = comment.comment
+                holder.binding.commentviewitemTextviewProfile.text = comment.name;
+                Log.d("comment",comment.comment)
+                Log.d("name",comment.name)
 //                holder.binding.commentviewitemImageviewProfile.setImageResource(R.drawable.sample);
         }
 

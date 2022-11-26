@@ -12,11 +12,23 @@ class UserViewModel : ViewModel(){
             = MutableLiveData()
     val userFriendsLiveData: LiveData<ArrayList<HashMap<String,String>>>
         get() = _userFriendsLiveData
+
+    private val _userLiveData: MutableLiveData<User>
+            = MutableLiveData()
+    val userLiveData: LiveData<User>
+        get() = _userLiveData
     private val repo = UserRepository()
 
     fun getUserFriends() {
         repo.getData().observeForever{
-            _userFriendsLiveData.value = it.friends
+            _userFriendsLiveData.value = it.following
+            // .sortWith(compareBy<Ingredient>{it.added}.thenBy{it.name})
+            Log.d("user vm", _userFriendsLiveData.value.toString())
+        }
+    }
+    fun getUser(currentUserEmail: String){
+        repo.getCurrentUserData(currentUserEmail).observeForever{
+            _userLiveData.value = it
             // .sortWith(compareBy<Ingredient>{it.added}.thenBy{it.name})
             Log.d("user vm", _userFriendsLiveData.value.toString())
         }
