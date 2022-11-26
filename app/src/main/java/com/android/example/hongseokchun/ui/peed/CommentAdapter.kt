@@ -42,16 +42,7 @@ class CommentAdapter( val comments: ArrayList<Comment>)
         override fun getItemCount(): Int {
                 return comments.size
         }
-        //글 달았을때 알람 기능
-        fun commentAlarm(destinationUid : String, message : String){
-                var alarmDTO = AlarmDTO()
-                alarmDTO.destinationUid = destinationUid
-                alarmDTO.userId = FirebaseAuth.getInstance().currentUser?.email
-                alarmDTO.uid = FirebaseAuth.getInstance().currentUser?.uid
-                alarmDTO.timestamp = System.currentTimeMillis()
-                alarmDTO.message = message
-                FirebaseFirestore.getInstance().collection("alarm").document().set(alarmDTO)
-        }
+
         //image 불러오기
         fun loadImage(imageView: ImageView, url: String){
                 context?.let {

@@ -10,17 +10,21 @@ import androidx.navigation.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.android.example.hongseokchun.MainActivity
+import com.android.example.hongseokchun.MyApplication
 import com.android.example.hongseokchun.R
 import com.android.example.hongseokchun.base.BaseFragment
 import com.android.example.hongseokchun.databinding.FragmentOnePostBinding
+import com.android.example.hongseokchun.model.AlarmDTO
 import com.android.example.hongseokchun.model.Notify
 import com.android.example.hongseokchun.model.Posts
 import com.android.example.hongseokchun.ui.peed.CommentFragmentArgs
 import com.android.example.hongseokchun.ui.peed.PeedFragmentDirections
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FieldValue
+import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
@@ -175,20 +179,21 @@ class OnePostFragment : BaseFragment<FragmentOnePostBinding>(R.layout.fragment_o
                                "좋아요 " + (data.like + 1).toString() + "개" //피드 좋아요 개수 없데이트
 
                            //알림 생성
+                           //피드에서 좋아요 알림림 이 기능을 좋아요 카운트 하는곳에 넣어줌
+
+
                            //좋아요 최초 1회 눌렀을때만 알림 생성
                            if (firstLiking == true) {
                                //알림 생성
-
-                               var notificationPost =
-                                   Notify(/*  prefernce 써보기 */
-                                       "mySharedPreferences.prefs.getSt",
-                                       "MyApplication.prefs.getString",
-                                       "notifyPostMessage(MyApplication.prefs.getString"
-                                   )
-                               Log.d("NotfiyLog",notificationPost.toString())
-                               db.collection("users").document(data.postAdmin)
-                                   .collection("Notification")
-                                   .document().set(notificationPost)
+                               var alarmDTO = AlarmDTO()
+                               alarmDTO.destinationUid =userName
+                               alarmDTO.userId = FirebaseAuth.getInstance().currentUser?.email
+                               alarmDTO.uid = FirebaseAuth.getInstance().currentUser?.uid
+                               alarmDTO.kind = 0
+                               alarmDTO.message ="${MyApplication.prefs.getString("name","")}님이 좋아요를 눌렀습니다."
+                               alarmDTO.timestamp = System.currentTimeMillis()
+                               FirebaseFirestore.getInstance().collection("users").document(userName)
+                                   .collection("Alarm").document().set(alarmDTO)
                            }
                        } else {// 좋아요가 눌려있으면
                            //좋아요 상태 fasle

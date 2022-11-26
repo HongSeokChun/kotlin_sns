@@ -52,7 +52,7 @@ class PeedFragment : BaseFragment<FragmentPeedBinding>(R.layout.fragment_peed) {
         userViewModel.followingUserLiveData.observe(viewLifecycleOwner) { itemList ->
             if (itemList != null) {
                 for (friend in itemList)
-                    friend.get("name")?.let { friendsNames.add(it) }
+                    friend.get("email")?.let { friendsNames.add(it) }
                 friendsNames.add(currentUserEmail!!);
                 peedViewModel.getPosts(friendsNames)//친구 + 나의 Post 가져오기
                 Log.d("friendsNames", friendsNames.toString())
@@ -64,10 +64,6 @@ class PeedFragment : BaseFragment<FragmentPeedBinding>(R.layout.fragment_peed) {
             peedAdapter.itemList = itemList
         }
 
-        binding.addPost.setOnClickListener{
-            navController.navigate(R.id.action_peedFragment_to_editPostFragment)
-        }
-        binding.recyclerview.adapter = peedAdapter
 
         binding.notification.setOnClickListener {
             navController.navigate(R.id.action_peedFragment_to_notificationFragment)
@@ -96,15 +92,5 @@ class PeedFragment : BaseFragment<FragmentPeedBinding>(R.layout.fragment_peed) {
         super.initAfterBinding()
     }
 
-    //피드에서 좋아요 알림림 이 기능을 좋아요 카운트 하는곳에 넣어줌
 
-   fun favoriteAlarm(destinationUid : String){
-        var alarmDTO = AlarmDTO()
-        alarmDTO.destinationUid = destinationUid
-        alarmDTO.userId = FirebaseAuth.getInstance().currentUser?.email
-        alarmDTO.uid = FirebaseAuth.getInstance().currentUser?.uid
-        alarmDTO.kind = 0
-        alarmDTO.timestamp = System.currentTimeMillis()
-        FirebaseFirestore.getInstance().collection("alarms").document().set(alarmDTO)
-    }
 }

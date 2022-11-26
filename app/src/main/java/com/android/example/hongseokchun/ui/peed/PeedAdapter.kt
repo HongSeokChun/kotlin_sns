@@ -12,6 +12,7 @@ import com.android.example.hongseokchun.MyApplication
 import com.android.example.hongseokchun.MyApplication.Companion.prefs
 import com.android.example.hongseokchun.R
 import com.android.example.hongseokchun.databinding.PeedPostItemBinding
+import com.android.example.hongseokchun.model.AlarmDTO
 import com.android.example.hongseokchun.model.Notify
 import com.android.example.hongseokchun.model.Posts
 import com.android.example.hongseokchun.model.User
@@ -20,8 +21,10 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.google.common.net.InetAddresses.decrement
 import com.google.firebase.FirebaseException
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FieldValue
+import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
@@ -178,6 +181,8 @@ class PeedAdapter(itemList: List<Posts>) : RecyclerView.Adapter<MyViewHolder>() 
                 //좋아요 상태 true
                 liking = true
 
+
+
                 //이미지 변경
                 holder.binding.detailviewitemFavoriteImageview.setImageResource(R.drawable.ic_baseline_favorite_24)
 
@@ -190,16 +195,16 @@ class PeedAdapter(itemList: List<Posts>) : RecyclerView.Adapter<MyViewHolder>() 
                 if (firstLiking == true) {
                     //알림 생성
 
-                    var notificationPost =
-                        Notify(/*  prefernce 써보기 */
-                            "mySharedPreferences.prefs.getSt",
-                            "MyApplication.prefs.getString",
-                            "notifyPostMessage(MyApplication.prefs.getString"
-                        )
-                    Log.d("NotfiyLog",notificationPost.toString())
-                    db.collection("users").document(cpItemList[position].postAdmin)
-                        .collection("Notification")
-                        .document().set(notificationPost)
+                    //피드에서 좋아요 알림림 이 기능을 좋아요 카운트 하는곳에 넣어줌
+                    var alarmDTO = AlarmDTO()
+                    alarmDTO.destinationUid =postAdminEmail
+                    alarmDTO.userId = FirebaseAuth.getInstance().currentUser?.email
+                    alarmDTO.uid = FirebaseAuth.getInstance().currentUser?.uid
+                    alarmDTO.kind = 0
+                    alarmDTO.message ="${prefs.getString("name","")}님이 좋아요를 눌렀습니다."
+                    alarmDTO.timestamp = System.currentTimeMillis()
+                    FirebaseFirestore.getInstance().collection("users").document(postAdminEmail)
+                        .collection("Alarm").document().set(alarmDTO)
                 }
             } else {// 좋아요가 눌려있으면
                 //좋아요 상태 fasle

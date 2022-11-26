@@ -109,6 +109,17 @@ class FollowerUserFragment  : BaseFragment<FragmentFollowerListBinding>(R.layout
                     // 친구 DB에 반영
                     changeFollowState(true)
 
+                    // 팔로우 알람
+                    var alarmDTO = AlarmDTO()
+                    alarmDTO.destinationUid =prefs.getString("watchUser", "null")
+                    alarmDTO.userId = FirebaseAuth.getInstance().currentUser?.email
+                    alarmDTO.uid = FirebaseAuth.getInstance().currentUser?.uid
+                    alarmDTO.kind = 0
+                    alarmDTO.message ="${prefs.getString("name","")}님이 팔로우 하였습니다."
+                    alarmDTO.timestamp = System.currentTimeMillis()
+                    FirebaseFirestore.getInstance().collection("users").document(prefs.getString("watchUser", "null"))
+                        .collection("Alarm").document().set(alarmDTO)
+
 
                 }
                 else{
@@ -136,15 +147,5 @@ class FollowerUserFragment  : BaseFragment<FragmentFollowerListBinding>(R.layout
     }
     override fun initAfterBinding() {
         super.initAfterBinding()
-    }
-    // 팔로워 추가 했을 때 알람 기능
-    fun followerAlarm(destinationUid : String){
-        var alarmDTO = AlarmDTO()
-        alarmDTO.destinationUid = destinationUid
-        alarmDTO.userId = auth?.currentUser?.email
-        alarmDTO.uid = auth?.currentUser?.uid
-        alarmDTO.timestamp = System.currentTimeMillis()
-        FirebaseFirestore.getInstance().collection("alarms").document().set(alarmDTO)
-
     }
 }

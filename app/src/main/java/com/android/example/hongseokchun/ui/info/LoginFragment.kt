@@ -26,10 +26,10 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(R.layout.fragment_login
         (activity as MainActivity).setNavShow("none2")
 //
 //        로그인 되어있는지 확인
-//            val currentUser = auth.currentUser
-//            if (currentUser != null) {
-//                navController.navigate(R.id.action_loginFragment_to_peedFragment)
-//            }
+            val currentUser = auth.currentUser
+            if (currentUser != null) {
+                navController.navigate(R.id.action_loginFragment_to_peedFragment)
+            }
     }
 
     override fun initDataBinding() {

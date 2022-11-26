@@ -11,18 +11,22 @@ import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.android.example.hongseokchun.MainActivity
+import com.android.example.hongseokchun.MyApplication
 import com.android.example.hongseokchun.R
 import com.android.example.hongseokchun.base.BaseFragment
 import com.android.example.hongseokchun.databinding.FragmentCommentBinding
 import com.android.example.hongseokchun.databinding.PeedPostItemBinding
+import com.android.example.hongseokchun.model.AlarmDTO
 import com.android.example.hongseokchun.model.Comment
 import com.android.example.hongseokchun.model.Notify
 import com.android.example.hongseokchun.ui.MyViewHolder
 import com.android.example.hongseokchun.ui.PeedAdapter
 import com.android.example.hongseokchun.viewmodel.PeedViewModel
 import com.android.example.hongseokchun.viewmodel.UserViewModel
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FieldValue
+import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
@@ -107,17 +111,16 @@ class CommentFragment : BaseFragment<FragmentCommentBinding>(R.layout.fragment_c
                     .document().set(newComment)
                 binding.commentEditMessage.setText("") //댓글 입력창 초기화
 
-                //알림 구성
-                var notificationPost =
-                    Notify(
-                        currentUserProfileUrl,
-                        currentUserName,
-                        notifyCommentMessage(currentUserName)
-                    )
-                //알림 생성
-                db.collection("users").document(userName).collection("Notification")
-                    .document()
-                    .set(notificationPost)
+                //피드에서 좋아요 알림림 이 기능을 좋아요 카운트 하는곳에 넣어줌
+                var alarmDTO = AlarmDTO()
+                alarmDTO.destinationUid =userName
+                alarmDTO.userId = FirebaseAuth.getInstance().currentUser?.email
+                alarmDTO.uid = FirebaseAuth.getInstance().currentUser?.uid
+                alarmDTO.kind = 0
+                alarmDTO.message ="${MyApplication.prefs.getString("name","")}님이 댓글을 달았습니다."
+                alarmDTO.timestamp = System.currentTimeMillis()
+                FirebaseFirestore.getInstance().collection("users").document(userName)
+                    .collection("Alarm").document().set(alarmDTO)
             }
 
             //해당 post에 댓글 수 증가
