@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.View
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.android.example.hongseokchun.MainActivity
 import com.android.example.hongseokchun.R
 import com.android.example.hongseokchun.base.BaseFragment
@@ -23,7 +24,7 @@ import com.google.firebase.ktx.Firebase
 
 class PeedFragment : BaseFragment<FragmentPeedBinding>(R.layout.fragment_peed) {
     private lateinit var peedAdapter: PeedAdapter
-//    private lateinit var swipe: SwipeRefreshLayout
+    private lateinit var swipe: SwipeRefreshLayout
     val db = Firebase.firestore
     val currentUserEmail = Firebase.auth.currentUser?.email
     private val userViewModel by lazy {
@@ -41,7 +42,7 @@ class PeedFragment : BaseFragment<FragmentPeedBinding>(R.layout.fragment_peed) {
 
     override fun initDataBinding() {
         super.initDataBinding()
-//        swipe = binding.swipe //당겨 새로고침
+        swipe = binding.swipe //당겨 새로고침
         peedAdapter = PeedAdapter(ArrayList())
 
         var friendsNames: ArrayList<String> = ArrayList()
@@ -81,13 +82,14 @@ class PeedFragment : BaseFragment<FragmentPeedBinding>(R.layout.fragment_peed) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-//        swipe.setOnRefreshListener {
-//            val ft = parentFragmentManager.beginTransaction()
-//            ft.detach(this).attach(this).commit()
-//            initDataBinding()
+        swipe.setOnRefreshListener {
+            val ft = parentFragmentManager.beginTransaction()
+            ft.detach(this).attach(this).commit()
+            initDataBinding()
 
-//            swipe.isRefreshing = false
+            swipe.isRefreshing = false
         }
+    }
 
 
     override fun initAfterBinding() {

@@ -10,6 +10,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import androidx.navigation.Navigator
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.android.example.hongseokchun.MainActivity
 import com.android.example.hongseokchun.MyApplication.Companion.prefs
 import com.android.example.hongseokchun.MySharedPreferences
@@ -33,7 +34,7 @@ import com.google.firebase.storage.StorageReference
 
 class MyPageFragment : BaseFragment<FragmentMyPageBinding>(R.layout.fragment_my_page) {
     private lateinit var myPageAdapter: MyPageAdapter
-//    private lateinit var swipe: SwipeRefreshLayout
+    private lateinit var swipe: SwipeRefreshLayout
     val db = Firebase.firestore
     private var cuurentUserEmail: String? = null
     lateinit var mainActivity: MainActivity
@@ -55,7 +56,7 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>(R.layout.fragment_my_
     override fun initDataBinding() {
         super.initDataBinding()
 
-//        swipe = binding.swipe
+        swipe = binding.swipe
         cuurentUserEmail = Firebase.auth.currentUser?.email
         cuurentUserEmail?.let { Log.d("currentUserEamil", it) }
         myPageAdapter = MyPageAdapter(mutableListOf())
@@ -124,15 +125,15 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>(R.layout.fragment_my_
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-//        swipe.setOnRefreshListener {
-//            val ft = parentFragmentManager.beginTransaction()
-//            ft.detach(this).attach(this).commit()
-//            initDataBinding()
-//
-//            swipe.isRefreshing = false
-//        }
+        swipe.setOnRefreshListener {
+            val ft = parentFragmentManager.beginTransaction()
+            ft.detach(this).attach(this).commit()
+            initDataBinding()
 
-//            swipe.isRefreshing = false
+            swipe.isRefreshing = false
+        }
+
+            swipe.isRefreshing = false
             Log.d("point5","")
         }
 
