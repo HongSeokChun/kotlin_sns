@@ -6,74 +6,73 @@
         android:id="@+id/swipe"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-<RelativeLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    >
 
-    <!-- Toolbar -->
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/my_toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="35dp"
-        android:layout_alignParentTop="true"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-        app:contentInsetStart="0dp"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
-
-        <ImageView
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_margin="3dp"
-            android:contentDescription="@string/app_name"
-            android:src="@drawable/sample" />
+            android:layout_height="match_parent">
 
-    </androidx.appcompat.widget.Toolbar>
+            <!-- Toolbar -->
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/my_toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+                app:contentInsetStart="0dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
 
-    <LinearLayout
-        android:id="@+id/toolbar_division"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_below="@id/my_toolbar"
-        android:background="#000000"
-        android:orientation="horizontal" />
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="3dp"
+                    android:contentDescription="@string/app_name"
+                    android:src="@drawable/logo" />
 
-    <!-- Contents -->
+            </androidx.appcompat.widget.Toolbar>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/comment_recyclerview"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/toolbar_division"
-        android:layout_marginBottom="30dp"
-        android:minHeight="300dp"
-        android:layout_marginTop="8dp" />
+            <LinearLayout
+                android:id="@+id/toolbar_division"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#000000"
+                android:orientation="horizontal"
+                app:layout_constraintBottom_toBottomOf="@+id/my_toolbar" />
 
-    <Button
-        android:id="@+id/comment_btn_send"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/comment_recyclerview"
-        android:layout_alignParentRight="true"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginBottom="10dp"
-        android:text="send" />
+            <!-- Contents -->
 
-    <EditText
-        android:id="@+id/comment_edit_message"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/comment_recyclerview"
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/comment_recyclerview"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:minHeight="300dp"
+                app:layout_constraintBottom_toTopOf="@+id/comment_edit_message"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/my_toolbar" />
 
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginBottom="10dp"
-        android:layout_toLeftOf="@id/comment_btn_send" />
+            <Button
+                android:id="@+id/comment_btn_send"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="10dp"
+                android:text="send"
+                app:layout_constraintBottom_toBottomOf="@+id/comment_edit_message"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+            <EditText
+                android:id="@+id/comment_edit_message"
+                android:layout_width="0dp"
+                android:layout_height="46dp"
+
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="5dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/comment_btn_send"
+                app:layout_constraintStart_toStartOf="parent" />
 
 
-</RelativeLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 </layout>
