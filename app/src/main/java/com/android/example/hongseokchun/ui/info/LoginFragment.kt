@@ -1,5 +1,6 @@
 package com.android.example.hongseokchun.ui.info
 
+import android.content.Context.MODE_PRIVATE
 import android.content.Intent
 import android.util.Log
 import android.util.Patterns
@@ -28,6 +29,10 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(R.layout.fragment_login
                 navController.navigate(R.id.action_loginFragment_to_peedFragment)
             }
     }
+
+//    fun saveData(loginEmail: Stirng){
+//        val edit =
+//    }
 
     override fun initDataBinding() {
         super.initDataBinding()
