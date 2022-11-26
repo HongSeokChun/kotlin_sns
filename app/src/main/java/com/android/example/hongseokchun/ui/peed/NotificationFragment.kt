@@ -75,16 +75,16 @@ class NotificationFragment : BaseFragment<FragmentNotificationListBinding>(R.lay
                 .document(alarmDTOList[position].userId!!).get().addOnCompleteListener { task ->
                 if(task.isSuccessful){
                     val url = task.result!!["image"]
-                    Glide.with(view.context).load(url).apply(RequestOptions().circleCrop()).into(view.commentviewitem_imageview_profile)
+//                    Glide.with(view.context).load(url).apply(RequestOptions().circleCrop()).into(view.commentviewitem_imageview_profile)
                 }
             }
             when(alarmDTOList[position].kind){
                 0 -> {
                     val str_0 = alarmDTOList[position].userId + getString(R.string.alarm_favorite)
-                    view.commentviewitem_textview
+//                    view.commentviewitem_textview
                 }
             }
-            view.commentviewitem_textview_comment.visibility = View.INVISIBLE
+//            view.commentviewitem_textview_comment.visibility = View.INVISIBLE
         }
 
 

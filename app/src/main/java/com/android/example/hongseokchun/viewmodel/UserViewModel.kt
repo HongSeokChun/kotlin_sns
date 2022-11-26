@@ -4,19 +4,22 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.android.example.hongseokchun.model.User
 import com.android.example.hongseokchun.repository.UserRepository
 
 class UserViewModel : ViewModel(){
 
     private val _followingUserLiveData: MutableLiveData<ArrayList<HashMap<String,String>>>
             = MutableLiveData()
-    val userFriendsLiveData: LiveData<ArrayList<HashMap<String,String>>>
-        get() = _userFriendsLiveData
+
+//    val userFriendsLiveData: LiveData<ArrayList<HashMap<String,String>>>
+//        get() = _followingUserLiveData
 
     private val _userLiveData: MutableLiveData<User>
             = MutableLiveData()
     val userLiveData: LiveData<User>
         get() = _userLiveData
+
     val followingUserLiveData: LiveData<ArrayList<HashMap<String,String>>>
         get() = _followingUserLiveData
     private val repo = UserRepository()
@@ -25,6 +28,13 @@ class UserViewModel : ViewModel(){
         repo.getData().observeForever{
             _followingUserLiveData.value = it.following
             Log.d("following user", _followingUserLiveData.value.toString())
+        }
+    }
+
+    fun getflollowerUsers() {
+        repo.getData().observeForever{
+            _followerUserLiveData.value = it.follower
+            Log.d("following user", _followerUserLiveData.value.toString())
         }
     }
 
@@ -37,9 +47,7 @@ class UserViewModel : ViewModel(){
         repo.getCurrentUserData(currentUserEmail).observeForever{
             _userLiveData.value = it
             // .sortWith(compareBy<Ingredient>{it.added}.thenBy{it.name})
-            Log.d("user vm", _userFriendsLiveData.value.toString())
             _followerUserLiveData.value = it.follower
-            Log.d("follower user", _followerUserLiveData.value.toString())
         }
     }
 

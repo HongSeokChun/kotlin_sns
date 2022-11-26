@@ -30,6 +30,7 @@ import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.collections.ArrayList
 
 
 class UploadPostFragment : BaseFragment<FragmentEditPostBinding>(R.layout.fragment_edit_post) {
@@ -240,7 +241,11 @@ class UploadPostFragment : BaseFragment<FragmentEditPostBinding>(R.layout.fragme
                     }
                 }
         }
-        val newPost = Posts("",fileNames,HashMap(),date,0,message)
+//        val newPost = Posts("",fileNames,HashMap(),date,0,message)
+        val newPost = Posts(prefs.getString("email","null")
+            ,fileNames,date,0,message,0,prefs.getString("profileImg","null"),
+            ArrayList()
+        )
         // 파이어베이스에 게시물정보 저장
                 db.collection("users").document(prefs.getString("email","null"))
                     .collection("Post").add(newPost)

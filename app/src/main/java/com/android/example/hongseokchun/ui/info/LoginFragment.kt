@@ -78,7 +78,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(R.layout.fragment_login
                 .addOnCompleteListener { task ->
                     if (task.isSuccessful) {
                         //preferences에% 유저 이메일 저장
-                        prefs.setString("email",email)
+                        MyApplication.prefs.setString("email",email)
 //                        Log.d("prefs",prefs.readAll().toString())
                         Toast.makeText(context, "로그인 성공", Toast.LENGTH_SHORT).show()
 

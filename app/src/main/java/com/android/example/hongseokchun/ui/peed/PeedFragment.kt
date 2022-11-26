@@ -41,14 +41,14 @@ class PeedFragment : BaseFragment<FragmentPeedBinding>(R.layout.fragment_peed) {
 
     override fun initDataBinding() {
         super.initDataBinding()
-        swipe = binding.swipe //당겨 새로고침
+//        swipe = binding.swipe //당겨 새로고침
         peedAdapter = PeedAdapter(ArrayList())
 
         var friendsNames: ArrayList<String> = ArrayList()
 
         //친구+내 이메일로 post 가져오기
-        userViewModel.getUserFriends()
-        userViewModel.userFriendsLiveData.observe(viewLifecycleOwner) { itemList ->
+        userViewModel.getflollowingUsers()
+        userViewModel.followingUserLiveData.observe(viewLifecycleOwner) { itemList ->
             if (itemList != null) {
                 for (friend in itemList)
                     friend.get("name")?.let { friendsNames.add(it) }
@@ -81,14 +81,14 @@ class PeedFragment : BaseFragment<FragmentPeedBinding>(R.layout.fragment_peed) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        swipe.setOnRefreshListener {
-            val ft = parentFragmentManager.beginTransaction()
-            ft.detach(this).attach(this).commit()
-            initDataBinding()
+//        swipe.setOnRefreshListener {
+//            val ft = parentFragmentManager.beginTransaction()
+//            ft.detach(this).attach(this).commit()
+//            initDataBinding()
 
-            swipe.isRefreshing = false
+//            swipe.isRefreshing = false
         }
-    }
+
 
     override fun initAfterBinding() {
         super.initAfterBinding()

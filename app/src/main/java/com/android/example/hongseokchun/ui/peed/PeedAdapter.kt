@@ -15,7 +15,6 @@ import com.android.example.hongseokchun.databinding.PeedPostItemBinding
 import com.android.example.hongseokchun.model.Notify
 import com.android.example.hongseokchun.model.Posts
 import com.android.example.hongseokchun.model.User
-import com.android.example.hongseokchun.ui.peed.PeedFragmentDirections
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.google.common.net.InetAddresses.decrement
@@ -118,11 +117,11 @@ class PeedAdapter(itemList: List<Posts>) : RecyclerView.Adapter<MyViewHolder>() 
                                             Log.d("postId2", document.id)
                                             usernameANDpostid = listOf(userdocument.id, document.id) //userEmail, postid
                                             Log.d("postId3", usernameANDpostid.toString())
-                                            val action =
-                                                PeedFragmentDirections.actionPeedFragmentToCommentFragment(
-                                                    usernameANDpostid.toTypedArray()
-                                                )
-                                            it.findNavController().navigate(action)
+//                                            val action =
+//                                                PeedFragmentDirections.actionPeedFragmentToCommentFragment(
+//                                                    usernameANDpostid.toTypedArray()
+//                                                )
+//                                            it.findNavController().navigate(action)
                                         }
                                     }
                             }
@@ -152,11 +151,11 @@ class PeedAdapter(itemList: List<Posts>) : RecyclerView.Adapter<MyViewHolder>() 
                                             Log.d("postId2", document.id)
                                             usernameANDpostid = listOf(userdocument.id, document.id) //userEmail, postid
                                             Log.d("postId3", usernameANDpostid.toString())
-                                            val action =
-                                                PeedFragmentDirections.actionPeedFragmentToCommentFragment(
-                                                    usernameANDpostid.toTypedArray()
-                                                )
-                                            it.findNavController().navigate(action)
+//                                            val action =
+//                                                PeedFragmentDirections.actionPeedFragmentToCommentFragment(
+//                                                    usernameANDpostid.toTypedArray()
+//                                                )
+//                                            it.findNavController().navigate(action)
                                         }
                                     }
                             }

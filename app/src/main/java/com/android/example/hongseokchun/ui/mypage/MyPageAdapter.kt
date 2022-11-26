@@ -11,7 +11,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.android.example.hongseokchun.R
 import com.android.example.hongseokchun.databinding.MyPageItemBinding
 import com.android.example.hongseokchun.model.Posts
-import com.android.example.hongseokchun.ui.peed.PeedFragmentDirections
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.google.firebase.firestore.ktx.firestore
@@ -53,7 +52,7 @@ class MyPageAdapter(itemList: List<Posts>) : RecyclerView.Adapter<MyPageViewHold
         holder.binding.myPagePostTitle.text = "좋아요 ${countOfLikes}개"
         holder.binding.myPagePostComment.text = "댓글 ${countOfComments}개"
 
-        holder.binding.myPagePostImage.setOnClickListener{
+        holder.binding.myPagePostImage.setOnClickListener {
             //navController.navigate(R.id.action_peedFragment_to_commentFragment)
             var usernameANDpostid = listOf<String>()
             CoroutineScope(Dispatchers.IO).launch {
@@ -62,19 +61,26 @@ class MyPageAdapter(itemList: List<Posts>) : RecyclerView.Adapter<MyPageViewHold
                         .addOnSuccessListener { userdocuments ->
                             for (userdocument in userdocuments) {
                                 Log.d("document.id", userdocument.id)
-                                db.collection("users").document(userdocument.id).collection("Post") //모든 유저 포스트에서
-                                    .whereEqualTo("uploadDate", cpItemList[position].uploadDate)//uploadDate가 같은, 즉 해당 position 포스트
+                                db.collection("users").document(userdocument.id)
+                                    .collection("Post") //모든 유저 포스트에서
+                                    .whereEqualTo(
+                                        "uploadDate",
+                                        cpItemList[position].uploadDate
+                                    )//uploadDate가 같은, 즉 해당 position 포스트
                                     .get()//가져와서
                                     .addOnSuccessListener { documents ->
                                         for (document in documents) { //for-in 이지만 포스트 하나임
                                             Log.d("postId2", document.id)
-                                            usernameANDpostid = listOf(userdocument.id, document.id) //userEmail, postid
+                                            usernameANDpostid = listOf(
+                                                userdocument.id,
+                                                document.id
+                                            ) //userEmail, postid
                                             Log.d("postId3", usernameANDpostid.toString())
-                                            val action =
-                                                MyPageFragmentDirections.actionMyPageFragmentToOnePostFragment(
-                                                    usernameANDpostid.toTypedArray()
-                                                )
-                                            it.findNavController().navigate(action)
+//                                            val action =
+//                                                MyPageFragmentDirections.actionMyPageFragmentToOnePostFragment(
+//                                                    usernameANDpostid.toTypedArray()
+//                                                )
+//                                            it.findNavController().navigate(action)
                                         }
                                     }
                             }
@@ -104,10 +110,12 @@ class MyPageAdapter(itemList: List<Posts>) : RecyclerView.Adapter<MyPageViewHold
             .addOnFailureListener { exception ->
                 Log.d(ContentValues.TAG, "get failed with ", exception)
 
-
+            }
+    }
 
 
     override fun getItemCount(): Int {
         return itemList.size
     }
 }
+
