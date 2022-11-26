@@ -80,11 +80,11 @@ class MyPageAdapter(itemList: List<Posts>) : RecyclerView.Adapter<MyPageViewHold
                                                 document.id
                                             ) //userEmail, postid
                                             Log.d("postId3", usernameANDpostid.toString())
-//                                            val action =
-//                                                MyPageFragmentDirections.actionMyPageFragmentToOnePostFragment(
-//                                                    usernameANDpostid.toTypedArray()
-//                                                )
-//                                            it.findNavController().navigate(action)
+                                            val action =
+                                                MyPageFragmentDirections.actionMyPageFragmentToOnePostFragment(
+                                                    usernameANDpostid.toTypedArray()
+                                                )
+                                            it.findNavController().navigate(action)
                                         }
                                     }
                             }
