@@ -24,7 +24,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(R.layout.fragment_login
     override fun initStartView() {
         super.initStartView()
         (activity as MainActivity).setNavShow("none2")
-
+//
 //        로그인 되어있는지 확인
             val currentUser = auth.currentUser
             if (currentUser != null) {

@@ -93,27 +93,6 @@ class MyPageAdapter(itemList: List<Posts>) : RecyclerView.Adapter<MyPageViewHold
         }
     }
 
-    //image 불러오기
-    fun loadImage(imageView: ImageView, fileName: String, userName: String) {
-        val storage: FirebaseStorage =
-            FirebaseStorage.getInstance("gs://hongseokchun-1f848.appspot.com")
-        val storageRef: StorageReference = storage.reference
-        storageRef.child("postImage/${userName}/${fileName}").downloadUrl.addOnCompleteListener { task ->
-            if (task.isSuccessful) {
-                Glide.with(context)
-                    .load(task.result)
-                    .fitCenter()
-                    .diskCacheStrategy(DiskCacheStrategy.NONE)
-                    .into(imageView)
-            }
-        }
-            .addOnFailureListener { exception ->
-                Log.d(ContentValues.TAG, "get failed with ", exception)
-
-            }
-    }
-
-
     override fun getItemCount(): Int {
         return itemList.size
     }
