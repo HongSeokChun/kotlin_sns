@@ -103,8 +103,10 @@ class PeedAdapter(itemList: List<Posts>) : RecyclerView.Adapter<MyViewHolder>() 
 
         // 친구 프로필 사진 클릭시
         holder.binding.detailviewitemProfileImage.setOnClickListener {
-            prefs.setString("watchUser", postAdminEmail)
-            itemClickListener?.onClick("", position)
+            if(postAdminEmail != currentUserEamil) {
+                prefs.setString("watchUser", postAdminEmail)
+                itemClickListener?.onClick("", position)
+            }
         }
 
         //댓글 모두보기 누르면

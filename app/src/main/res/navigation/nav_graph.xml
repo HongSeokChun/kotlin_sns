@@ -28,6 +28,9 @@
         <action
             android:id="@+id/action_friendPageFragment_to_followingUserFragment"
             app:destination="@id/followingUserFragment" />
+        <action
+            android:id="@+id/action_friendPageFragment_to_onePostFragment"
+            app:destination="@id/onePostFragment" />
     </fragment>
 
 

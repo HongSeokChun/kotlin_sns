@@ -8,9 +8,11 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
+import com.android.example.hongseokchun.MyApplication.Companion.prefs
 import com.android.example.hongseokchun.R
 import com.android.example.hongseokchun.databinding.MyPageItemBinding
 import com.android.example.hongseokchun.model.Posts
+import com.android.example.hongseokchun.ui.friend.FriendPageFragment
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.google.firebase.firestore.ktx.firestore
@@ -80,11 +82,20 @@ class MyPageAdapter(itemList: List<Posts>) : RecyclerView.Adapter<MyPageViewHold
                                                 document.id
                                             ) //userEmail, postid
                                             Log.d("postId3", usernameANDpostid.toString())
-//                                            val action =
-//                                                MyPageFragmentDirections.actionMyPageFragmentToOnePostFragment(
-//                                                    usernameANDpostid.toTypedArray()
-//                                                )
-//                                            it.findNavController().navigate(action)
+                                            if(cpItemList[position].postAdmin == prefs.getString("email","")){
+                                                val action =
+                                                    MyPageFragmentDirections.actionMyPageFragmentToOnePostFragment(
+                                                        usernameANDpostid.toTypedArray()
+                                                    )
+                                                it.findNavController().navigate(action)
+                                            }
+                                            else {
+                                                val action =
+                                                    FriendPageFragmentDirections.actionFriendPagrFragmentToOnePostFragment(
+                                                        usernameANDpostid.toTypedArray()
+                                                    )
+                                                it.findNavController().navigate(action)
+                                            }
                                         }
                                     }
                             }
