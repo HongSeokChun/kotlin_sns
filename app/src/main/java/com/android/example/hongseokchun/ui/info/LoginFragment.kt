@@ -7,6 +7,8 @@ import android.util.Patterns
 import android.widget.Toast
 import com.android.example.hongseokchun.MainActivity
 import com.android.example.hongseokchun.MyApplication.Companion.prefs
+import com.android.example.hongseokchun.MyApplication
+import com.android.example.hongseokchun.MyApplication.Companion.prefs
 import com.android.example.hongseokchun.R
 import com.android.example.hongseokchun.base.BaseFragment
 import com.android.example.hongseokchun.databinding.FragmentLoginBinding
@@ -17,7 +19,7 @@ import com.google.firebase.ktx.Firebase
 
 class LoginFragment : BaseFragment<FragmentLoginBinding>(R.layout.fragment_login) {
     private var auth: FirebaseAuth = Firebase.auth
-    
+
 
     override fun initStartView() {
         super.initStartView()
@@ -29,10 +31,6 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(R.layout.fragment_login
                 navController.navigate(R.id.action_loginFragment_to_peedFragment)
             }
     }
-
-//    fun saveData(loginEmail: Stirng){
-//        val edit =
-//    }
 
     override fun initDataBinding() {
         super.initDataBinding()
@@ -113,18 +111,6 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(R.layout.fragment_login
     override fun initAfterBinding() {
         super.initAfterBinding()
     }
-//
-//    private fun setName(email:String) {
-//        val db = Firebase.firestore
-//        // 앱 저장소에 이름 저장
-//        db.collection("users").document(email).get()
-//            .addOnSuccessListener { document ->
-//                var name = document.get("name").toString()
-////                prefs.setString("name", name)
-//            }
-//            .addOnFailureListener{
-//                Log.d("error LoginFragment", "null")
-//            }
-//    }
-//
+
+
 }
