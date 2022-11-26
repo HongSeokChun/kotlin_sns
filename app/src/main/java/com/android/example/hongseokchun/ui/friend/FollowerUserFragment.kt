@@ -12,10 +12,14 @@ import com.android.example.hongseokchun.MyApplication.Companion.prefs
 import com.android.example.hongseokchun.R
 import com.android.example.hongseokchun.base.BaseFragment
 import com.android.example.hongseokchun.databinding.FragmentFollowerListBinding
+import com.android.example.hongseokchun.model.AlarmDTO
 import com.android.example.hongseokchun.model.FollowUser
 import com.android.example.hongseokchun.model.User
 import com.android.example.hongseokchun.viewmodel.UserViewModel
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FieldValue
+import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
@@ -24,7 +28,7 @@ class FollowerUserFragment  : BaseFragment<FragmentFollowerListBinding>(R.layout
     private lateinit var friendAdapter: FriendAdapter
     val db = Firebase.firestore
     val loginUser = prefs.getString("email","null")
-
+    var auth: FirebaseAuth = Firebase.auth
     private val viewModel by lazy {
         ViewModelProvider(this)[UserViewModel::class.java]
     }
@@ -136,5 +140,15 @@ class FollowerUserFragment  : BaseFragment<FragmentFollowerListBinding>(R.layout
     }
     override fun initAfterBinding() {
         super.initAfterBinding()
+    }
+    // 팔로워 추가 했을 때 알람 기능
+    fun followerAlarm(destinationUid : String){
+        var alarmDTO = AlarmDTO()
+        alarmDTO.destinationUid = destinationUid
+        alarmDTO.userId = auth?.currentUser?.email
+        alarmDTO.uid = auth?.currentUser?.uid
+        alarmDTO.timestamp = System.currentTimeMillis()
+        FirebaseFirestore.getInstance().collection("alarms").document().set(alarmDTO)
+
     }
 }

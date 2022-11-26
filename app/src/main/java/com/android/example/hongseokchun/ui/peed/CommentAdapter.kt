@@ -4,7 +4,10 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.android.example.hongseokchun.databinding.CommentItemBinding
+import com.android.example.hongseokchun.model.AlarmDTO
 import com.android.example.hongseokchun.model.Comment
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 
 //data class Student(val uid: Int, val name: String)
 
@@ -29,5 +32,15 @@ class CommentAdapter(private val comments: MutableList<Comment>)
 
         override fun getItemCount(): Int {
                 return comments.size
+        }
+        //글 달았을때 알람 기능
+        fun commentAlarm(destinationUid : String, message : String){
+                var alarmDTO = AlarmDTO()
+                alarmDTO.destinationUid = destinationUid
+                alarmDTO.userId = FirebaseAuth.getInstance().currentUser?.email
+                alarmDTO.uid = FirebaseAuth.getInstance().currentUser?.uid
+                alarmDTO.timestamp = System.currentTimeMillis()
+                alarmDTO.message = message
+                FirebaseFirestore.getInstance().collection("alarm").document().set(alarmDTO)
         }
 }
