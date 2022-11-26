@@ -61,7 +61,7 @@ class FriendAdapter(itemList: ArrayList<HashMap<String,String>>)
     @SuppressLint("RestrictedApi", "ResourceAsColor")
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.friendName.text =itemList[position].get("name")
-        itemList[position].get("profileImg")?.let { loadImage(holder.friendImg, it) }
+        itemList[position].get("profile_img")?.let { loadImage(holder.friendImg, it) }
         itemList[position].get("name")?.let { setFollowingBtn(it,holder) }
 
         // 친구 프로필 사진 클릭시
@@ -80,10 +80,11 @@ class FriendAdapter(itemList: ArrayList<HashMap<String,String>>)
             else {
                 holder.deleteBtn.text = "팔로잉"
                 holder.deleteBtn.setBackgroundResource(R.drawable.following_button)
-
             }
             itemList[position].get("email")?.let { it1 -> prefs.setString("watchUser", it1) }
+            itemList[position].get("email")?.let { it1 -> Log.d("email:" , it1) }
             itemClickListener?.onClick(holder.deleteBtn.text.toString(), position)
+
         }
 
     }
@@ -101,21 +102,6 @@ class FriendAdapter(itemList: ArrayList<HashMap<String,String>>)
 
     // firebase storage에서 이미지 불러오기
     fun loadImage(imageView: ImageView, url: String){
-//        val storage: FirebaseStorage = FirebaseStorage.getInstance("gs://hongseokchun-1f848.appspot.com")
-//        val storageRef: StorageReference = storage.reference
-//        storageRef.child("userProfileImage/$fileName").downloadUrl.addOnCompleteListener { task ->
-//            if (task.isSuccessful) {
-//                Glide.with(context)
-//                    .load(task.result)
-//                    .fitCenter()
-//                    .diskCacheStrategy(DiskCacheStrategy.NONE)
-//                    .into(imageView)
-//            }
-//        }
-//            .addOnFailureListener { exception ->
-//                Log.d(ContentValues.TAG, "get failed with ", exception)
-//
-//        }
         Glide.with(context)
             .load(url)
             .fitCenter()

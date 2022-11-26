@@ -5,28 +5,37 @@ import android.content.ContentValues.TAG
 import android.graphics.Color
 import android.util.Log
 import android.widget.ImageView
+import androidx.core.os.bundleOf
+import androidx.fragment.app.setFragmentResult
+import androidx.fragment.app.setFragmentResultListener
+import androidx.navigation.NavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.android.example.hongseokchun.MainActivity
 import com.android.example.hongseokchun.MyApplication.Companion.prefs
 import com.android.example.hongseokchun.R
 import com.android.example.hongseokchun.base.BaseFragment
 import com.android.example.hongseokchun.databinding.FragmentFriendPageBinding
+import com.android.example.hongseokchun.model.FollowUser
 import com.android.example.hongseokchun.model.User
 import com.android.example.hongseokchun.ui.mypage.MyPageAdapter
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 
-class FriendPageFragment : BaseFragment<FragmentFriendPageBinding>(R.layout.fragment_friend_page) {
+class FriendPageFragment() : BaseFragment<FragmentFriendPageBinding>(R.layout.fragment_friend_page) {
     private lateinit var fPageAdapter: MyPageAdapter
+    val db = Firebase.firestore
+    lateinit var userData : HashMap<String,String>
+    val loginUser = prefs.getString("email","null")
 
     override fun initStartView() {
         super.initStartView()
-        (activity as MainActivity).setNavShow("view")
+        (activity as MainActivity).setNavShow("")
 
 //        getUserInfo()
     }
@@ -43,7 +52,8 @@ class FriendPageFragment : BaseFragment<FragmentFriendPageBinding>(R.layout.frag
         binding.accountRecyclerview.adapter = fPageAdapter
 
         binding.accountIvProfile.setImageResource(R.drawable.sample) //user profile
-        val mActivity = activity as MainActivity
+
+
 
         //팔로잉 버튼 클릭시
         binding.accountBtnFollowSignout.setOnClickListener {
@@ -51,13 +61,20 @@ class FriendPageFragment : BaseFragment<FragmentFriendPageBinding>(R.layout.frag
                 binding.accountBtnFollowSignout.text = "팔로우"
                 binding.accountBtnFollowSignout.setBackgroundResource(R.drawable.follow_button)
                 //db following 목록에서 삭제
+                db.collection("users").document(prefs.getString("email","null"))
+                    .update("following", FieldValue.arrayRemove(userData))
+                changeFollowState(false)
             }
             else{
                 binding.accountBtnFollowSignout.text = "팔로잉"
                 binding.accountBtnFollowSignout.setBackgroundResource(R.drawable.following_button)
                 //db following 목록에 추가
+                db.collection("users").document(prefs.getString("email","null"))
+                    .update("following", FieldValue.arrayUnion(userData))
+                changeFollowState(true)
             }
         }
+
     }
 
 
@@ -77,6 +94,12 @@ class FriendPageFragment : BaseFragment<FragmentFriendPageBinding>(R.layout.frag
                     binding.userName.text= user.name
                     binding.accountTvFollowingCount.text=user.following.size.toString()
                     binding.accountTvFollowerCount.text = user.follower.size.toString()
+
+                    userData = HashMap()
+                    userData.put("name",user.name)
+                    userData.put("profile_img",user.profile_img)
+                    userData.put("email",user.email)
+
                     isFollow(user.name)
                     loadImage(binding.accountIvProfile,user.profile_img)
                 }
@@ -114,24 +137,31 @@ class FriendPageFragment : BaseFragment<FragmentFriendPageBinding>(R.layout.frag
     }
 
     // firebase storage에서 이미지 불러오기
-    fun loadImage(imageView: ImageView, fileName: String){
-        val storage: FirebaseStorage = FirebaseStorage.getInstance("gs://hongseokchun-1f848.appspot.com")
-        val storageRef: StorageReference = storage.reference
-        storageRef.child("userProfileImage/$fileName").downloadUrl.addOnCompleteListener { task ->
-            if (task.isSuccessful) {
-                context?.let {
-                    Glide.with(it)
-                        .load(task.result)
-                        .fitCenter()
-                        .diskCacheStrategy(DiskCacheStrategy.NONE)
-                        .into(imageView)
-                }
-            }
-        }
-            .addOnFailureListener { exception ->
-                Log.d(ContentValues.TAG, "get failed with ", exception)
 
-            }
+    //image 불러오기
+    fun loadImage(imageView: ImageView, url: String){
+        context?.let {
+            Glide.with(it)
+                .load(url)
+                .fitCenter()
+                .diskCacheStrategy(DiskCacheStrategy.NONE)
+                .into(imageView)
+        }
+    }
+
+    fun changeFollowState(following:Boolean){
+        val myProfile = FollowUser(loginUser, prefs.getString("name","null"), prefs.getString("profileImg","null"))
+
+        if(following) {
+            // 친구 팔로워 목록에 내 정보 업로드 -> 팔로잉
+            db.collection("users").document(prefs.getString("watchUser", "null"))
+                .update("follower", FieldValue.arrayUnion(myProfile))
+
+        }else {
+            // 친구 팔로워 목록에 내 정보 삭제 -> 팔로잉 취소
+            db.collection("users").document(prefs.getString("watchUser", "null"))
+                .update("follower", FieldValue.arrayRemove(myProfile))
+        }
     }
 
 }

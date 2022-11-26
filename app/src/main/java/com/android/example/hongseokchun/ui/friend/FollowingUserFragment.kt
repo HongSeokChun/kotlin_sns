@@ -4,6 +4,8 @@ import android.annotation.SuppressLint
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
+import androidx.core.os.bundleOf
+import androidx.fragment.app.setFragmentResult
 import androidx.lifecycle.ViewModelProvider
 import com.android.example.hongseokchun.MainActivity
 import com.android.example.hongseokchun.MyApplication
@@ -101,11 +103,7 @@ class FollowingUserFragment  : BaseFragment<FragmentFollowingListBinding>(R.layo
 
                 }
                 else{
-                    parentFragmentManager.beginTransaction().apply{
-                        replace(R.id.container, FriendPageFragment())
-                        addToBackStack(null)
-                        commit()
-                    }
+                    navController.navigate(R.id.action_friendFragment_to_friendPageFragment)
                 }
             }
 

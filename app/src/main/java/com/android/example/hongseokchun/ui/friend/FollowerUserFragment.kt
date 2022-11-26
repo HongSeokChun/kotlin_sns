@@ -109,11 +109,7 @@ class FollowerUserFragment  : BaseFragment<FragmentFollowerListBinding>(R.layout
                 }
                 else{
                     // 친구 프로필 보기
-                    parentFragmentManager.beginTransaction().apply{
-                        replace(R.id.container, FriendPageFragment())
-                        addToBackStack(null)
-                        commit()
-                    }
+                    navController.navigate(R.id.action_friendFragment_to_friendPageFragment)
                 }
             }
 

@@ -36,8 +36,9 @@ class UploadPostFragment : BaseFragment<FragmentEditPostBinding>(R.layout.fragme
     private lateinit var imageAdapter: ImageAdapter
     private var imageUrlList: ArrayList<Uri> = ArrayList()
     val PERMISSION_Album = 101 // 앨범 권한 처리
-    private val db = Firebase.firestore
     val storage: FirebaseStorage = FirebaseStorage.getInstance("gs://hongseokchun-1f848.appspot.com")
+    private val db = Firebase.firestore
+
     val storageRef: StorageReference = storage.reference
     private lateinit var layoutIndicator: LinearLayout
 

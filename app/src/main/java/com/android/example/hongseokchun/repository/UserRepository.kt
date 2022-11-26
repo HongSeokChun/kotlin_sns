@@ -15,7 +15,7 @@ class UserRepository {
         val db = Firebase.firestore
         val mutableData = MutableLiveData<User>()
 
-        val email = MyApplication.prefs.getString("email","null")
+        val email = MyApplication.prefs.getString("email","test@naver.com")
 
         db.collection("users").document(email).get()
             .addOnSuccessListener { documentSnapshot ->
@@ -23,6 +23,7 @@ class UserRepository {
                 mutableData.value=data!!
                 MyApplication.prefs.setString("name",data.name)
                 MyApplication.prefs.setString("profileImg",data.profile_img)
+                MyApplication.prefs.setString("birth",data.birth)
                 Log.d("friend repo",data.toString())
             }
             .addOnFailureListener { exception ->

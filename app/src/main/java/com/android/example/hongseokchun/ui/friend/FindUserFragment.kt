@@ -11,6 +11,7 @@ import com.android.example.hongseokchun.MyApplication.Companion.prefs
 import com.android.example.hongseokchun.R
 import com.android.example.hongseokchun.base.BaseFragment
 import com.android.example.hongseokchun.databinding.FragmentFindUserBinding
+import com.android.example.hongseokchun.model.FollowUser
 import com.android.example.hongseokchun.viewmodel.UserViewModel
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.ktx.firestore
@@ -20,6 +21,8 @@ class FindUserFragment : BaseFragment<FragmentFindUserBinding>(R.layout.fragment
     private lateinit var friendAdapter: FriendAdapter
     val db = Firebase.firestore
     val UserList : ArrayList<HashMap<String,String>> = ArrayList()
+    lateinit var user : HashMap<String,String>
+    val loginUser = prefs.getString("email","null")
 
     override fun initStartView() {
         super.initStartView()
@@ -67,59 +70,78 @@ class FindUserFragment : BaseFragment<FragmentFindUserBinding>(R.layout.fragment
                     }
                     friendAdapter = FriendAdapter(searchItemList)
                     binding.recyclerView.adapter = friendAdapter
+
+                    //팔로우,팔로잉 버튼 클릭
+                    friendAdapter.setItemClickListener(object: FriendAdapter.OnItemClickListener {
+                        @SuppressLint("SuspiciousIndentation")
+                        override fun onClick(btn: String, position: Int) {
+                            // 클릭 시 이벤트 작성
+                            val friendName = friendAdapter.itemList[position].get("name")
+                            val dataOrigin = friendAdapter.itemList[position]
+
+                            if(btn =="팔로우") {
+                                // 원래 친구목록에 있으면 삭제
+                                db.collection("users").document(prefs.getString("email","null"))
+                                    .update("following", FieldValue.arrayRemove(dataOrigin))
+                                changeFollowState(false)
+                            }
+                            else if(btn=="팔로잉"){
+                                //없으면 추가
+                                db.collection("users").document(prefs.getString("email","null"))
+                                    .update("following", FieldValue.arrayUnion(dataOrigin))
+                                changeFollowState(true)
+
+                            }
+                            else{
+                                navController.navigate(R.id.action_findUserFragment_to_friendPageFragment)
+                            }
+
+                        }
+
+                    })
+
                 }
             }
         })
 
-        //팔로우,팔로잉 버튼 클릭
-        friendAdapter.setItemClickListener(object: FriendAdapter.OnItemClickListener {
-            @SuppressLint("SuspiciousIndentation")
-            override fun onClick(btn: String, position: Int) {
-                // 클릭 시 이벤트 작성
-                val friendName = friendAdapter.itemList[position].get("name")
-                val dataOrigin = friendAdapter.itemList[position]
-
-                if(btn =="팔로우") {
-                    // 원래 친구목록에 있으면 삭제
-                    db.collection("users").document(prefs.getString("email","null"))
-                        .update("following", FieldValue.arrayRemove(dataOrigin))
-                }
-                else if(btn=="팔로잉"){
-                    //없으면 추가
-                    db.collection("users").document(prefs.getString("email","null"))
-                        .update("following", FieldValue.arrayUnion(dataOrigin))
-
-                }
-                else{
-                    parentFragmentManager.beginTransaction().apply{
-                        replace(R.id.container, FriendPageFragment())
-                        addToBackStack(null)
-                        commit()
-                    }
-                }
-            }
-
-        })
 
 
     }
 
 
+    // 전체 유저 목록 가져오기
     fun getUserList(){
         db.collection("users")
             .get()
             .addOnSuccessListener { result ->
                 UserList.clear()
                 for (document in result) {
-                    val user : HashMap<String,String> = HashMap()
+                    user = HashMap()
                     user.put("name",document.data.get("name").toString())
                     user.put("profile_img",document.data.get("profile_img").toString())
+                    user.put("email",document.data.get("email").toString())
                     UserList.add(user)
                     Log.d("UserList", UserList.toString())
                 }
             }
             .addOnFailureListener { exception ->
                 Log.d(TAG, "Error getting documents: ", exception) }
+    }
+
+
+    fun changeFollowState(following:Boolean){
+        val myProfile = FollowUser(loginUser, prefs.getString("name","null"), prefs.getString("profileImg","null"))
+
+        if(following) {
+            // 친구 팔로워 목록에 내 정보 업로드 -> 팔로잉
+            db.collection("users").document(prefs.getString("watchUser", "null"))
+                .update("follower", FieldValue.arrayUnion(myProfile))
+
+        }else {
+            // 친구 팔로워 목록에 내 정보 삭제 -> 팔로잉 취소
+            db.collection("users").document(prefs.getString("watchUser", "null"))
+                .update("follower", FieldValue.arrayRemove(myProfile))
+        }
     }
 
     override fun initAfterBinding() {

@@ -57,6 +57,7 @@
 
                 <EditText
                     android:id="@+id/tv_pw"
+                    android:inputType="textPassword"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="25dp"
@@ -72,6 +73,7 @@
 
                 <EditText
                     android:id="@+id/tv_pwcheck"
+                    android:inputType="textPassword"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="25dp"
@@ -104,10 +106,9 @@
                 <Spinner
                     android:id="@+id/spinner"
                     android:layout_width="match_parent"
-                    android:layout_marginStart="10dp"
-                    android:spinnerMode="dropdown"
+                    android:layout_height="41dp"
                     android:entries="@array/spinner_data"
-                    android:layout_height="wrap_content" />
+                    android:spinnerMode="dropdown" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout

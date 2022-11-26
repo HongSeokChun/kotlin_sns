@@ -4,6 +4,7 @@ import android.content.ContentValues
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.ImageView
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import androidx.navigation.Navigator
@@ -19,6 +20,8 @@ import com.android.example.hongseokchun.model.User
 import com.android.example.hongseokchun.ui.PeedAdapter
 import com.android.example.hongseokchun.viewmodel.PeedViewModel
 import com.android.example.hongseokchun.viewmodel.UserViewModel
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
@@ -62,14 +65,14 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>(R.layout.fragment_my_
         binding.accountRecyclerview.layoutManager = GridLayoutManager(context, 3)
         binding.accountRecyclerview.adapter = myPageAdapter
 
-        binding.accountIvProfile.setImageResource(R.drawable.sample) //user profile
         val mActivity = activity as MainActivity
 
-        getFollowNum()
+        getUserInfo()
 
         binding.btnSetting.setOnClickListener {
             SettingDialog().show(parentFragmentManager, "preference")
         }
+
 
 
 
@@ -93,8 +96,8 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>(R.layout.fragment_my_
         super.initAfterBinding()
     }
 
-    // 팔로우 팔로워 수 가져오기
-    fun getFollowNum(){
+    // 유저 정보 가져오기
+    fun getUserInfo(){
         db.collection("users").document(prefs.getString("email","null")).get()
             .addOnSuccessListener { documentSnapshot ->
                 val data = documentSnapshot.toObject<User>()
@@ -102,11 +105,23 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>(R.layout.fragment_my_
                     binding.accountTvFollowingCount.text = data.following.size.toString()
                     binding.accountTvFollowerCount.text = data.follower.size.toString()
                     binding.userName.text=data.name
+                    loadImage(binding.accountIvProfile,data.profile_img)
                 }
             }
             .addOnFailureListener { exception ->
                 Log.d(ContentValues.TAG, "get failed with ", exception)
             }
 
+    }
+
+    //image 불러오기
+    fun loadImage(imageView: ImageView, url: String){
+        context?.let {
+            Glide.with(it)
+                .load(url)
+                .fitCenter()
+                .diskCacheStrategy(DiskCacheStrategy.NONE)
+                .into(imageView)
+        }
     }
 }

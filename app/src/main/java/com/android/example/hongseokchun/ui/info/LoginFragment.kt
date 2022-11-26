@@ -23,13 +23,10 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(R.layout.fragment_login
         (activity as MainActivity).setNavShow("none2")
 
 //        로그인 되어있는지 확인
-//        if (binding.checkId.isChecked) {
             val currentUser = auth.currentUser
             if (currentUser != null) {
                 navController.navigate(R.id.action_loginFragment_to_peedFragment)
-
             }
-//        }
     }
 
     override fun initDataBinding() {
@@ -77,7 +74,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(R.layout.fragment_login
             auth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener { task ->
                     if (task.isSuccessful) {
-                        //preferences에 유저 이메일 저장
+                        //preferences에% 유저 이메일 저장
                         prefs.setString("email",email)
 //                        Log.d("prefs",prefs.readAll().toString())
                         Toast.makeText(context, "로그인 성공", Toast.LENGTH_SHORT).show()

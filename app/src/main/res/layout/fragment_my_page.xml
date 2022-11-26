@@ -68,13 +68,14 @@
                 android:gravity="center"
                 android:orientation="horizontal">
 
-                <ImageView
+                <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/account_iv_profile"
                     android:layout_width="100dp"
                     android:layout_height="100dp"
                     android:layout_alignParentLeft="true"
+                    android:layout_margin="10dp"
                     android:contentDescription="profile"
-                    tools:src="@drawable/sample" />
+                    tools:src="@drawable/default_img" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
