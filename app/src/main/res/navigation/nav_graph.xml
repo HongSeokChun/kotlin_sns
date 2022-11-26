@@ -184,6 +184,9 @@
         <action
             android:id="@+id/action_peedFragment_to_findUserFragment"
             app:destination="@id/findUserFragment" />
+        <action
+            android:id="@+id/action_peedFragment_to_friendPageFragment"
+            app:destination="@id/friendPageFragment" />
     </fragment>
 
     <fragment

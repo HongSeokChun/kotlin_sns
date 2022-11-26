@@ -44,7 +44,6 @@ class EditProfileFragment :
     val PERMISSION_Album = 101 // 앨범 권한 처리
     val storage: FirebaseStorage = FirebaseStorage.getInstance("gs://hongseokchun-1f848.appspot.com")
     lateinit var uri:Uri
-    val choiceImage : Boolean = false
     lateinit var editName:String
     lateinit var editBirth:String
 
@@ -73,9 +72,10 @@ class EditProfileFragment :
         binding.profile.setOnClickListener {
             openGallery()
         }
+        binding.textView5.setOnClickListener {
+            openGallery()
+        }
         binding.modBtn.setOnClickListener {
-            if (choiceImage)
-                uploadImageToFirebase(uri)
             if(binding.editTextmodage.text.toString() == "")
                 editBirth = prefs.getString("birth","")
             else
@@ -137,6 +137,7 @@ class EditProfileFragment :
                     storage.reference.child("userProfileImage")
                         .child(fileName).downloadUrl
                         .addOnSuccessListener { uri ->
+                            uploadImageToFirebase(uri)
                             mSuccessHandler(uri.toString())
                         }.addOnFailureListener {
                             mErrorHandler()

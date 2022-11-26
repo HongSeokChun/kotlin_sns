@@ -8,6 +8,7 @@ import android.widget.ImageView
 import androidx.core.os.bundleOf
 import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.setFragmentResultListener
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.android.example.hongseokchun.MainActivity
@@ -18,8 +19,11 @@ import com.android.example.hongseokchun.databinding.FragmentFriendPageBinding
 import com.android.example.hongseokchun.model.FollowUser
 import com.android.example.hongseokchun.model.User
 import com.android.example.hongseokchun.ui.mypage.MyPageAdapter
+import com.android.example.hongseokchun.viewmodel.PeedViewModel
+import com.android.example.hongseokchun.viewmodel.UserViewModel
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.toObject
@@ -28,9 +32,10 @@ import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 
 class FriendPageFragment() : BaseFragment<FragmentFriendPageBinding>(R.layout.fragment_friend_page) {
-    private lateinit var fPageAdapter: MyPageAdapter
+    private lateinit var myPageAdapter: MyPageAdapter
     val db = Firebase.firestore
     lateinit var userData : HashMap<String,String>
+    private var cuurentUserEmail: String? = null
     val loginUser = prefs.getString("email","null")
 
     override fun initStartView() {
@@ -40,16 +45,59 @@ class FriendPageFragment() : BaseFragment<FragmentFriendPageBinding>(R.layout.fr
 //        getUserInfo()
     }
 
+
+    private val userViewModel by lazy {
+        ViewModelProvider(this)[UserViewModel::class.java]
+    }
+
+    private val peedViewModel by lazy {
+        ViewModelProvider(this)[PeedViewModel::class.java]
+    }
+
     override fun initDataBinding() {
         super.initDataBinding()
 
         getUserInfo()
 
-        fPageAdapter = MyPageAdapter(mutableListOf())
+        myPageAdapter = MyPageAdapter(mutableListOf())
+
+        cuurentUserEmail = prefs.getString("watchUser","")
+        cuurentUserEmail?.let { Log.d("currentUserEamil", it) }
+        myPageAdapter = MyPageAdapter(mutableListOf())
+
+
+
+        val currentUserName = ArrayList<String>()
+        cuurentUserEmail?.let {
+            currentUserName.add(it) //Peed Livedata 때매 list
+            userViewModel.getUser(it)
+        }
+//        userViewModel.userLiveData.observe(viewLifecycleOwner){
+//            loadProfileImage(binding.accountIvProfile,it.profile_img)
+//        }
+
+
+        var ref = db.collection("users").document(cuurentUserEmail!!)//currentUserName.get(0))
+
+        ref.collection("Post")
+            .get()
+            .addOnSuccessListener { documents->
+                binding.accountTvPostCount.setText(documents.size().toString())
+            }
+
+        peedViewModel.getPosts(currentUserName)//현재 user email
+
+        peedViewModel.peedLiveData.observe(viewLifecycleOwner) { itemList ->
+            myPageAdapter.itemList = itemList
+
+            Log.d("peeditemList", itemList.toString())
+        }
+
+
 
         binding.accountRecyclerview.setHasFixedSize(true)
         binding.accountRecyclerview.layoutManager = GridLayoutManager(context, 3)
-        binding.accountRecyclerview.adapter = fPageAdapter
+        binding.accountRecyclerview.adapter = myPageAdapter
 
         binding.accountIvProfile.setImageResource(R.drawable.sample) //user profile
 

@@ -57,9 +57,11 @@
         android:hint="글 입력..."
         android:textColorHint="#989797"
         android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@+id/btn_share"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/layoutIndicators" />
+        app:layout_constraintTop_toBottomOf="@+id/layoutIndicators"
+        app:layout_constraintVertical_bias="0.025" />
 
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/viewPager2"

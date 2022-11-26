@@ -64,6 +64,7 @@ class FriendAdapter(itemList: ArrayList<HashMap<String,String>>)
         itemList[position].get("profile_img")?.let { loadImage(holder.friendImg, it) }
         itemList[position].get("name")?.let { setFollowingBtn(it,holder) }
 
+
         // 친구 프로필 사진 클릭시
         holder.friendImg.setOnClickListener {
             itemList[position].get("email")?.let { it1 -> prefs.setString("watchUser", it1) }

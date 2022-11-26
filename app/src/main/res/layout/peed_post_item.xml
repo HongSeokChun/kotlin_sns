@@ -5,7 +5,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="632dp"
+        android:layout_height="wrap_content"
         android:orientation="vertical">
 
         <!-- Title Layout -->
@@ -16,14 +16,14 @@
             android:orientation="horizontal">
 
             <!--        <de.hdodenhof.circleimageview.CircleImageView-->
-            <ImageView
+            <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/detailviewitem_profile_image"
-                android:layout_width="35dp"
-                android:layout_height="35dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
                 android:layout_marginBottom="8dp"
+                android:src="@drawable/default_img"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -33,6 +33,7 @@
                 android:id="@+id/detailviewitem_profile_textview"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
                 tools:text="" />
         </LinearLayout>
         <!-- Content ImageView -->
@@ -46,13 +47,14 @@
         <!-- favorite & comment -->
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="wrap_content"
             android:layout_marginLeft="8dp">
 
             <ImageView
                 android:id="@+id/detailviewitem_favorite_imageview"
                 android:layout_width="39dp"
                 android:layout_height="30dp"
+                android:layout_marginTop="10dp"
                 android:contentDescription="like"
                 app:srcCompat="@drawable/ic_baseline_favorite_border_24" />
 
@@ -60,6 +62,7 @@
                 android:id="@+id/detailviewitem_comment_imageview"
                 android:layout_width="42dp"
                 android:layout_height="30dp"
+                android:layout_marginTop="10dp"
                 android:src="@drawable/comment" />
         </LinearLayout>
 
@@ -83,9 +86,8 @@
             android:id="@+id/detailviewitem_commentCount_textview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            tools:text="댓글 수"
             android:layout_marginLeft="16dp"
-            />
+            tools:text="댓글 수" />
 
 
         <TextView
@@ -95,7 +97,6 @@
             android:layout_marginLeft="16dp"
             android:layout_marginBottom="35dp"
             tools:text="일자" />
-
 
 
     </LinearLayout>

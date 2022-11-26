@@ -36,6 +36,7 @@ import kotlin.collections.ArrayList
 class UploadPostFragment : BaseFragment<FragmentEditPostBinding>(R.layout.fragment_edit_post) {
     private lateinit var imageAdapter: ImageAdapter
     private var imageUrlList: ArrayList<Uri> = ArrayList()
+    private var urlList: ArrayList<String> = ArrayList()
     val PERMISSION_Album = 101 // 앨범 권한 처리
     val storage: FirebaseStorage = FirebaseStorage.getInstance("gs://hongseokchun-1f848.appspot.com")
     private val db = Firebase.firestore
@@ -93,7 +94,6 @@ class UploadPostFragment : BaseFragment<FragmentEditPostBinding>(R.layout.fragme
             val now = Date()
             val dateFormat = SimpleDateFormat("yyyy년 MM월 dd일 HH시 mm분 ss초")
             val date= dateFormat.format(now)
-
 
                 if (imageUrlList.size > 0) {
                     uploadPhoto(date,message,
@@ -220,6 +220,7 @@ class UploadPostFragment : BaseFragment<FragmentEditPostBinding>(R.layout.fragme
         mSuccessHandler: (String) -> Unit,
         mErrorHandler: () ->Unit,
     ){
+        var newPost = Posts()
         val fileNames: ArrayList<String> =ArrayList()
         for((i,uri) in imageUrlList.withIndex()) {
             val fileName = "${date}_${i}"
@@ -232,6 +233,16 @@ class UploadPostFragment : BaseFragment<FragmentEditPostBinding>(R.layout.fragme
                         storage.reference.child("postImage/${prefs.getString("email","null")}")
                             .child(fileName).downloadUrl
                             .addOnSuccessListener { uri ->
+                                urlList.add(uri.toString())
+                                newPost = Posts(prefs.getString("email","null")
+                                    ,urlList,date,0,message,0,prefs.getString("profileImg","null"),
+                                    ArrayList()
+                                )
+
+                                // 파이어베이스에 게시물정보 저장
+                                db.collection("users").document(prefs.getString("email","null"))
+                                    .collection("Post").add(newPost)
+                                Log.d("urlList",urlList.toString())
                                 mSuccessHandler(uri.toString())
                             }.addOnFailureListener {
                                 mErrorHandler()
@@ -242,12 +253,9 @@ class UploadPostFragment : BaseFragment<FragmentEditPostBinding>(R.layout.fragme
                 }
         }
 //        val newPost = Posts("",fileNames,HashMap(),date,0,message)
-        val newPost = Posts(prefs.getString("email","null")
-            ,fileNames,date,0,message,0,prefs.getString("profileImg","null"),
-            ArrayList()
-        )
-        // 파이어베이스에 게시물정보 저장
-                db.collection("users").document(prefs.getString("email","null"))
-                    .collection("Post").add(newPost)
+
+//        // 파이어베이스에 게시물정보 저장
+//            db.collection("users").document(prefs.getString("email","null"))
+//                .collection("Post").add(newPost)
     }
 }

@@ -60,9 +60,9 @@ class OnePostFragment : BaseFragment<FragmentOnePostBinding>(R.layout.fragment_o
            .addOnSuccessListener {
                val data = it.toObject<Posts>()
                binding.apply {
-                   loadProfileImage(detailviewitemProfileImage,data!!.postAdminProfile)
+                   loadImage(detailviewitemProfileImage,data!!.postAdminProfile)
                    detailviewitemProfileTextview.setText(data!!.postAdmin)
-                   loadImage(detailviewitemImageviewContent,"postImage",data!!.imageNames[0],data!!.postAdmin)
+                   loadImage(detailviewitemImageviewContent,data!!.imageNames[0])
                    detailviewitemFavoritecounterTextview.setText("좋아요 "+data!!.like.toString()+"개")
                    detailviewitemExplainTextview.setText(data!!.mainText)
                    detailviewitemExplainTextview3.setText(data!!.uploadDate.substring(0,13))
@@ -219,46 +219,17 @@ class OnePostFragment : BaseFragment<FragmentOnePostBinding>(R.layout.fragment_o
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
     }
-    fun loadProfileImage(imageView: ImageView, fileName: String) {
-        val storage: FirebaseStorage =
-            FirebaseStorage.getInstance("gs://hongseokchun-1f848.appspot.com")
-        val storageRef: StorageReference = storage.reference
-        if (fileName != null) {
-            storageRef.child("userProfileImage/${fileName}").downloadUrl.addOnCompleteListener { task ->
-                if (task.isSuccessful) {
-                    Log.d("userProfileImage2", "userProfileImage3/${fileName}")
-                    Glide.with(mainActivity)
-                        .load(task.result)
-                        .fitCenter()
-                        .diskCacheStrategy(DiskCacheStrategy.NONE)
-                        .into(imageView)
-                }
-            }
-                .addOnFailureListener { exception ->
-                    Log.d(ContentValues.TAG, "get failed with ", exception)
 
-                }
-        }
-    }
     //image 불러오기
-    fun loadImage(imageView: ImageView, folderName: String, fileName: String, userName: String) {
-        val storage: FirebaseStorage =
-            FirebaseStorage.getInstance("gs://hongseokchun-1f848.appspot.com")
-        val storageRef: StorageReference = storage.reference
-        storageRef.child("${folderName}/${userName}/${fileName}").downloadUrl.addOnCompleteListener { task ->
-            Log.d("Imagepath = ", "${folderName}/${userName}/${fileName}")
-            if (task.isSuccessful) {
-                Glide.with(mainActivity)
-                    .load(task.result)
-                    .fitCenter()
-                    .diskCacheStrategy(DiskCacheStrategy.NONE)
-                    .into(imageView)
-            }
+    // firebase storage에서 이미지 불러오기
+    fun loadImage(imageView: ImageView, url: String){
+        context?.let {
+            Glide.with(it)
+                .load(url)
+                .fitCenter()
+                .diskCacheStrategy(DiskCacheStrategy.NONE)
+                .into(imageView)
         }
-            .addOnFailureListener { exception ->
-                Log.d(ContentValues.TAG, "get failed with ", exception)
-
-            }
     }
 
     override fun onAttach(context: Context) {

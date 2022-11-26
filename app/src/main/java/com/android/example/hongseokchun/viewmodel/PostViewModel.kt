@@ -13,7 +13,7 @@ class PostViewModel : ViewModel(){
     val postLiveData: LiveData<ArrayList<Posts>>
         get() = _postLiveData
     private val repo = PostRepository()
-
+//
 //    fun getPosts() {
 //        repo.getData().observeForever{
 //            _postLiveData.value = it

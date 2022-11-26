@@ -68,15 +68,13 @@ class PeedAdapter(itemList: List<Posts>) : RecyclerView.Adapter<MyViewHolder>() 
         val postAdminEmail = cpItemList[position].postAdmin
         val uploadDate = cpItemList[position].uploadDate.substring(0,13)
         //image 불러오기
-        loadProfileImage(
+        loadImage(
             holder.binding.detailviewitemProfileImage,
             cpItemList[position].postAdminProfile
         )
         loadImage(
             holder.binding.detailviewitemImageviewContent,
-            "postImage",
-            cpItemList[position].imageNames[0],
-            postAdminEmail
+            cpItemList[position].imageNames[0].toString()
         )
 
         //게시믈 이름, 설명, 좋아요 수, 업로드시간 설정
@@ -101,6 +99,12 @@ class PeedAdapter(itemList: List<Posts>) : RecyclerView.Adapter<MyViewHolder>() 
             holder.binding.detailviewitemFavoriteImageview.setImageResource(R.drawable.ic_baseline_favorite_24)
         } else {
             holder.binding.detailviewitemFavoriteImageview.setImageResource(R.drawable.ic_baseline_favorite_border_24)
+        }
+
+        // 친구 프로필 사진 클릭시
+        holder.binding.detailviewitemProfileImage.setOnClickListener {
+            prefs.setString("watchUser", postAdminEmail)
+            itemClickListener?.onClick("", position)
         }
 
         //댓글 모두보기 누르면
@@ -226,47 +230,27 @@ class PeedAdapter(itemList: List<Posts>) : RecyclerView.Adapter<MyViewHolder>() 
     }
 
     //image 불러오기
-    fun loadImage(imageView: ImageView, folderName: String, fileName: String, userName: String) {
-        val storage: FirebaseStorage =
-            FirebaseStorage.getInstance("gs://hongseokchun-1f848.appspot.com")
-        val storageRef: StorageReference = storage.reference
-        storageRef.child("${folderName}/${userName}/${fileName}").downloadUrl.addOnCompleteListener { task ->
-            Log.d("Imagepath = ", "${folderName}/${userName}/${fileName}")
-            if (task.isSuccessful) {
-                Glide.with(context)
-                    .load(task.result)
-                    .fitCenter()
-                    .diskCacheStrategy(DiskCacheStrategy.NONE)
-                    .into(imageView)
-            }
-        }
-            .addOnFailureListener { exception ->
-                Log.d(ContentValues.TAG, "get failed with ", exception)
-
-            }
+    // firebase storage에서 이미지 불러오기
+    fun loadImage(imageView: ImageView, url: String){
+        Glide.with(context)
+            .load(url)
+            .fitCenter()
+            .diskCacheStrategy(DiskCacheStrategy.NONE)
+            .into(imageView)
     }
 
-    fun loadProfileImage(imageView: ImageView, fileName: String) {
-        val storage: FirebaseStorage =
-            FirebaseStorage.getInstance("gs://hongseokchun-1f848.appspot.com")
-        val storageRef: StorageReference = storage.reference
-        if (fileName != null) {
-            storageRef.child("userProfileImage/${fileName}").downloadUrl.addOnCompleteListener { task ->
-                if (task.isSuccessful) {
-                    Log.d("userProfileImage", "userProfileImage2/${fileName}")
-                    Glide.with(context)
-                        .load(task.result)
-                        .fitCenter()
-                        .diskCacheStrategy(DiskCacheStrategy.NONE)
-                        .into(imageView)
-                }
-            }
-                .addOnFailureListener { exception ->
-                    Log.d(ContentValues.TAG, "get failed with ", exception)
-
-                }
-        }
+    // (2) 리스너 인터페이스
+    interface OnItemClickListener {
+        fun onClick(btn:String, position: Int)
     }
+    // (3) 외부에서 클릭 시 이벤트 설정
+    fun setItemClickListener(onItemClickListener: OnItemClickListener) {
+        this.itemClickListener = onItemClickListener
+    }
+
+    // (4) setItemClickListener로 설정한 함수 실행
+    private var itemClickListener : OnItemClickListener? = null
+
 
     override fun getItemCount(): Int {
         return itemList.size
@@ -328,6 +312,7 @@ class PeedAdapter(itemList: List<Posts>) : RecyclerView.Adapter<MyViewHolder>() 
                 }
             }
     }
+
 
     suspend fun getPostid(position: Int): String {
         var postId = ""

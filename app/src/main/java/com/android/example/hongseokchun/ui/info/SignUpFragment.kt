@@ -90,7 +90,7 @@ class SignUpFragment : BaseFragment<FragmentSignUpBinding>(R.layout.fragment_sig
                             Toast.makeText(context, "회원가입 성공", Toast.LENGTH_LONG).show()
 
 
-                            val data = User(email,name,birth,findIdQ,findIdA)
+                            val data = User(email,name,birth,findIdQ,findIdA,"https://firebasestorage.googleapis.com/v0/b/hongseokchun-1f848.appspot.com/o/userProfileImage%2Fprofile.png?alt=media&token=9a24970e-f7e6-43e1-8fd0-fb5750114320")
                             db.collection("users").document(email).set(data)
 
                             navController.navigate(R.id.action_signUpFragment_to_loginFragment)

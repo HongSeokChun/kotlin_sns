@@ -1,5 +1,6 @@
 package com.android.example.hongseokchun.ui.peed
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -13,12 +14,14 @@ import com.android.example.hongseokchun.databinding.FragmentPeedBinding
 import com.android.example.hongseokchun.model.AlarmDTO
 import com.android.example.hongseokchun.model.User
 import com.android.example.hongseokchun.ui.PeedAdapter
+import com.android.example.hongseokchun.ui.friend.FriendAdapter
 import com.android.example.hongseokchun.viewmodel.PeedViewModel
 
 import com.android.example.hongseokchun.viewmodel.UserViewModel
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
@@ -74,6 +77,11 @@ class PeedFragment : BaseFragment<FragmentPeedBinding>(R.layout.fragment_peed) {
         binding.recyclerview.adapter = peedAdapter
 
 
+        peedAdapter.setItemClickListener(object: PeedAdapter.OnItemClickListener {
+            override fun onClick(btn: String, position: Int) {
+                navController.navigate(R.id.action_peedFragment_to_friendPageFragment)
+            }
+        })
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

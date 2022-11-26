@@ -1,5 +1,7 @@
 package com.android.example.hongseokchun.model
 
+import android.net.Uri
+
 data class Posts (
 
     val postAdmin : String = "",

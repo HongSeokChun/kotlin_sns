@@ -48,6 +48,10 @@ class MyPageAdapter(itemList: List<Posts>) : RecyclerView.Adapter<MyPageViewHold
         val userName = cpItemList[position].postAdmin
         val countOfComments = cpItemList[position].commentCount
 
+        loadImage(
+            holder.binding.myPagePostImage,
+            cpItemList[position].imageNames[0]
+        )
 
         holder.binding.myPagePostTitle.text = "좋아요 ${countOfLikes}개"
         holder.binding.myPagePostComment.text = "댓글 ${countOfComments}개"
@@ -76,11 +80,11 @@ class MyPageAdapter(itemList: List<Posts>) : RecyclerView.Adapter<MyPageViewHold
                                                 document.id
                                             ) //userEmail, postid
                                             Log.d("postId3", usernameANDpostid.toString())
-                                            val action =
-                                                MyPageFragmentDirections.actionMyPageFragmentToOnePostFragment(
-                                                    usernameANDpostid.toTypedArray()
-                                                )
-                                            it.findNavController().navigate(action)
+//                                            val action =
+//                                                MyPageFragmentDirections.actionMyPageFragmentToOnePostFragment(
+//                                                    usernameANDpostid.toTypedArray()
+//                                                )
+//                                            it.findNavController().navigate(action)
                                         }
                                     }
                             }
@@ -90,6 +94,17 @@ class MyPageAdapter(itemList: List<Posts>) : RecyclerView.Adapter<MyPageViewHold
             }
 
 
+        }
+    }
+
+    //image 불러오기
+    fun loadImage(imageView: ImageView, url: String){
+        context?.let {
+            Glide.with(it)
+                .load(url)
+                .fitCenter()
+                .diskCacheStrategy(DiskCacheStrategy.NONE)
+                .into(imageView)
         }
     }
 
