@@ -6,6 +6,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
         android:orientation="vertical">
 
         <!-- Title Layout -->
@@ -16,6 +17,7 @@
             android:orientation="horizontal">
 
             <!--        <de.hdodenhof.circleimageview.CircleImageView-->
+
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/detailviewitem_profile_image"
                 android:layout_width="40dp"
@@ -31,10 +33,23 @@
 
             <TextView
                 android:id="@+id/detailviewitem_profile_textview"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="275dp"
+                android:layout_height="32dp"
                 android:layout_marginStart="10dp"
                 tools:text="" />
+
+            <android.widget.Button
+                android:id="@+id/btn_delete2"
+                android:layout_width="60dp"
+                android:layout_height="26dp"
+                android:layout_marginEnd="20dp"
+                android:layout_weight="1"
+                android:background="@drawable/following_button"
+                android:backgroundTintMode="add"
+                android:text="삭제"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
         </LinearLayout>
         <!-- Content ImageView -->
         <ImageView

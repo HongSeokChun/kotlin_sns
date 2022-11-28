@@ -11,4 +11,5 @@ class AlarmDTO {
     var kind : Int? = null
     var message : String? = null
     var timestamp : Long? = null
+    var uploadDate :String? =null
 }

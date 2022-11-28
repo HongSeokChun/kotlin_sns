@@ -117,6 +117,7 @@ class FollowerUserFragment  : BaseFragment<FragmentFollowerListBinding>(R.layout
                     alarmDTO.kind = 0
                     alarmDTO.message ="${prefs.getString("name","")}님이 팔로우 하였습니다."
                     alarmDTO.timestamp = System.currentTimeMillis()
+
                     FirebaseFirestore.getInstance().collection("users").document(prefs.getString("watchUser", "null"))
                         .collection("Alarm").document().set(alarmDTO)
 

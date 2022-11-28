@@ -16,6 +16,7 @@
             android:orientation="horizontal">
 
             <!--        <de.hdodenhof.circleimageview.CircleImageView-->
+
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/detailviewitem_profile_image"
                 android:layout_width="40dp"
@@ -31,10 +32,11 @@
 
             <TextView
                 android:id="@+id/detailviewitem_profile_textview"
-                android:layout_width="wrap_content"
+                android:layout_width="272dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 tools:text="" />
+
         </LinearLayout>
         <!-- Content ImageView -->
         <ImageView

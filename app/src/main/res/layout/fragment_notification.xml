@@ -29,18 +29,6 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.0" />
 
-        <android.widget.Button
-            android:id="@+id/btn_delete"
-            android:layout_width="50dp"
-            android:layout_height="24dp"
-            android:layout_marginEnd="8dp"
-            android:background="@drawable/following_button"
-            android:backgroundTintMode="add"
-            android:text="자세히"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
         <TextView
             android:id="@+id/tv_notification"
             android:layout_width="wrap_content"

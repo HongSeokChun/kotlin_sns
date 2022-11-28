@@ -42,7 +42,6 @@ class NotificationAdapter (itemList: ArrayList<AlarmDTO>)
         RecyclerView.ViewHolder(itemViewBinding.root) {
         val profileImg: ImageView = itemViewBinding.imageView
         val message: TextView = itemViewBinding.tvNotification
-        val detailBtn : Button = itemViewBinding.btnDelete
     }
 
     override fun onCreateViewHolder(

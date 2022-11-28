@@ -202,13 +202,15 @@ class PeedAdapter(itemList: List<Posts>) : RecyclerView.Adapter<MyViewHolder>() 
                     //알림 생성
 
                     //피드에서 좋아요 알림림 이 기능을 좋아요 카운트 하는곳에 넣어줌
-                    var alarmDTO = AlarmDTO()
+                    val alarmDTO = AlarmDTO()
                     alarmDTO.destinationUid =postAdminEmail
                     alarmDTO.userId = FirebaseAuth.getInstance().currentUser?.email
                     alarmDTO.uid = FirebaseAuth.getInstance().currentUser?.uid
                     alarmDTO.kind = 0
                     alarmDTO.message ="${prefs.getString("name","")}님이 좋아요를 눌렀습니다."
                     alarmDTO.timestamp = System.currentTimeMillis()
+
+
                     FirebaseFirestore.getInstance().collection("users").document(postAdminEmail)
                         .collection("Alarm").document().set(alarmDTO)
                 }

@@ -11,6 +11,7 @@ import androidx.navigation.fragment.navArgs
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.android.example.hongseokchun.MainActivity
 import com.android.example.hongseokchun.MyApplication
+import com.android.example.hongseokchun.MyApplication.Companion.prefs
 import com.android.example.hongseokchun.R
 import com.android.example.hongseokchun.base.BaseFragment
 import com.android.example.hongseokchun.databinding.FragmentOnePostBinding
@@ -68,6 +69,17 @@ class OnePostFragment : BaseFragment<FragmentOnePostBinding>(R.layout.fragment_o
                    detailviewitemExplainTextview3.setText(data!!.uploadDate.substring(0,13))
                    detailviewitemCommentCountTextview.setText("댓글 "+data!!.commentCount.toString()+ "개 모두 보기")
 
+                   //나의 피드인지 확인
+                   if(userName == prefs.getString("email","")){
+                       binding.btnDelete2.visibility=View.VISIBLE
+                       binding.btnDelete2.setOnClickListener {
+                           db.collection("users").document(userName).collection("Post").document(postid).delete()
+                           navController.navigate(R.id.action_onePostFragment_to_myPageFragment)
+                       }
+                   }else{
+                       binding.btnDelete2.visibility=View.GONE
+                   }
+
                    //Post속성 중 좋아요 누른 멤버리스트에서 현재유저가 있는지 확인
                    for (likeMemeber in data!!.likes) {
                        if (likeMemeber == currentUserEamil) {
@@ -85,7 +97,8 @@ class OnePostFragment : BaseFragment<FragmentOnePostBinding>(R.layout.fragment_o
                        binding.detailviewitemFavoriteImageview.setImageResource(R.drawable.ic_baseline_favorite_border_24)
                    }
 
-//댓글 모두보기 누르면
+
+                    //댓글 모두보기 누르면
                    binding.detailviewitemCommentCountTextview.setOnClickListener {
                        //navController.navigate(R.id.action_peedFragment_to_commentFragment)
                        var usernameANDpostid = listOf<String>()
@@ -160,6 +173,8 @@ class OnePostFragment : BaseFragment<FragmentOnePostBinding>(R.layout.fragment_o
 
 
                    }
+
+
 
                    //좋아요 버튼 누르면
                    binding.detailviewitemFavoriteImageview.setOnClickListener {

@@ -53,15 +53,14 @@
         android:id="@+id/postMessage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginBottom="100dp"
         android:hint="글 입력..."
         android:textColorHint="#989797"
         android:textSize="24sp"
         app:layout_constraintBottom_toTopOf="@+id/btn_share"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/layoutIndicators"
-        app:layout_constraintVertical_bias="0.025" />
+        app:layout_constraintHorizontal_bias="0.461"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/viewPager2"
@@ -69,6 +68,7 @@
         android:layout_height="404dp"
         android:layout_marginTop="32dp"
         android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@+id/layoutIndicators"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout">
@@ -79,14 +79,14 @@
         android:id="@+id/layoutIndicators"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginBottom="16dp"
         android:gravity="center"
         android:orientation="horizontal"
         android:paddingBottom="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/postMessage"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/viewPager2">
+        app:layout_constraintStart_toStartOf="parent">
 
     </LinearLayout>
 

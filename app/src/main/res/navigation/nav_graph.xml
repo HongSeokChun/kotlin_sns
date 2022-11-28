@@ -218,6 +218,9 @@
         <action
             android:id="@+id/action_onePostFragment_to_commentFragment"
             app:destination="@id/commentFragment" />
+        <action
+            android:id="@+id/action_onePostFragment_to_myPageFragment"
+            app:destination="@id/myPageFragment" />
     </fragment>
 
 

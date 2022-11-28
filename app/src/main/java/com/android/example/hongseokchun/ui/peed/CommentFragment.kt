@@ -1,6 +1,7 @@
 
 package com.android.example.hongseokchun.ui.peed
 
+import android.content.ContentValues
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -19,6 +20,7 @@ import com.android.example.hongseokchun.databinding.PeedPostItemBinding
 import com.android.example.hongseokchun.model.AlarmDTO
 import com.android.example.hongseokchun.model.Comment
 import com.android.example.hongseokchun.model.Notify
+import com.android.example.hongseokchun.model.Posts
 import com.android.example.hongseokchun.ui.MyViewHolder
 import com.android.example.hongseokchun.ui.PeedAdapter
 import com.android.example.hongseokchun.viewmodel.PeedViewModel
@@ -40,6 +42,7 @@ class CommentFragment : BaseFragment<FragmentCommentBinding>(R.layout.fragment_c
     private var comments = mutableListOf<Comment>()
      private lateinit var swipe: SwipeRefreshLayout
     private var currentUserEmail:String? = null
+    private var uploadDate:String? = null
 
     private val userViewModel by lazy {
         ViewModelProvider(this)[UserViewModel::class.java]
@@ -105,6 +108,19 @@ class CommentFragment : BaseFragment<FragmentCommentBinding>(R.layout.fragment_c
                     date
                 )
 
+                db.collection("Posts").document("cart@naver.com").get()
+                    .addOnSuccessListener { documentSnapshot ->
+                        val data = documentSnapshot.toObject<Posts>()
+                        if (data != null) {
+                            uploadDate=data.uploadDate
+                        }
+                        Log.d("posts repo",data.toString())
+                    }
+                    .addOnFailureListener { exception ->
+                        Log.d(ContentValues.TAG, "get failed with ", exception)
+                    }
+
+
                 //해당 게시물에 Comment 컬렉션 생성
                 db.collection("users").document(userName).collection("Post")
                     .document(postid).collection("Comments")
@@ -119,6 +135,8 @@ class CommentFragment : BaseFragment<FragmentCommentBinding>(R.layout.fragment_c
                 alarmDTO.kind = 0
                 alarmDTO.message ="${MyApplication.prefs.getString("name","")}님이 댓글을 달았습니다."
                 alarmDTO.timestamp = System.currentTimeMillis()
+                alarmDTO.uploadDate = uploadDate
+
                 FirebaseFirestore.getInstance().collection("users").document(userName)
                     .collection("Alarm").document().set(alarmDTO)
             }
@@ -126,6 +144,7 @@ class CommentFragment : BaseFragment<FragmentCommentBinding>(R.layout.fragment_c
             //해당 post에 댓글 수 증가
             db.collection("users").document(userName).collection("Post").document(postid)
                 .update("commentCount",FieldValue.increment(1))
+
 
             //새로고침
             initDataBinding()
