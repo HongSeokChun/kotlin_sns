@@ -109,6 +109,38 @@ class PeedAdapter(itemList: List<Posts>) : RecyclerView.Adapter<MyViewHolder>() 
             }
         }
 
+        // 좋아요갯수 누르면
+        holder.binding.detailviewitemFavoritecounterTextview.setOnClickListener {
+            //navController.navigate(R.id.action_peedFragment_to_commentFragment)
+            var usernameANDpostid = listOf<String>()
+            CoroutineScope(Dispatchers.IO).launch {
+                runBlocking {
+                    db.collection("users").get() //모든 유저
+                        .addOnSuccessListener { userdocuments ->
+                            for (userdocument in userdocuments) {
+                                Log.d("document.id", userdocument.id)
+                                db.collection("users").document(userdocument.id).collection("Post") //모든 유저 포스트에서
+                                    .whereEqualTo("uploadDate", cpItemList[position].uploadDate)//uploadDate가 같은, 즉 해당 position 포스트
+                                    .get()//가져와서
+                                    .addOnSuccessListener { documents ->
+                                        for (document in documents) { //for-in 이지만 포스트 하나임
+                                            Log.d("postId2", document.id)
+                                            usernameANDpostid = listOf(userdocument.id, document.id) //userEmail, postid
+                                            Log.d("postId3", usernameANDpostid.toString())
+                                            val action =
+                                                PeedFragmentDirections.actionPeedFragmentToFindFavoriteUserFragment(
+                                                    usernameANDpostid.toTypedArray()
+                                                )
+                                            it.findNavController().navigate(action)
+                                        }
+                                    }
+                            }
+                        }.await()
+                    Log.d("getPostId", usernameANDpostid.toString())
+                }
+            }
+        }
+
         //댓글 모두보기 누르면
         holder.binding.detailviewitemCommentCountTextview.setOnClickListener {
             //navController.navigate(R.id.action_peedFragment_to_commentFragment)
