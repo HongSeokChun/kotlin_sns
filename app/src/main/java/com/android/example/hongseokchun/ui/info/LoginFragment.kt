@@ -4,6 +4,7 @@ import android.content.Context.MODE_PRIVATE
 import android.content.Intent
 import android.util.Log
 import android.util.Patterns
+import android.widget.ImageView
 import android.widget.Toast
 import com.android.example.hongseokchun.MainActivity
 import com.android.example.hongseokchun.MyApplication.Companion.prefs
@@ -12,6 +13,7 @@ import com.android.example.hongseokchun.MyApplication.Companion.prefs
 import com.android.example.hongseokchun.R
 import com.android.example.hongseokchun.base.BaseFragment
 import com.android.example.hongseokchun.databinding.FragmentLoginBinding
+import com.bumptech.glide.Glide
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
@@ -26,10 +28,13 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(R.layout.fragment_login
         (activity as MainActivity).setNavShow("none2")
 //
 //        로그인 되어있는지 확인
-            val currentUser = auth.currentUser
-            if (currentUser != null) {
-                navController.navigate(R.id.action_loginFragment_to_peedFragment)
-            }
+//            val currentUser = auth.currentUser
+//            if (currentUser != null) {
+//                navController.navigate(R.id.action_loginFragment_to_peedFragment)
+//            }
+
+        val logo: ImageView = binding.imgLogo
+        Glide.with(this).load(R.raw.logo).into(logo)
     }
 
     override fun initDataBinding() {
