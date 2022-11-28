@@ -5,6 +5,7 @@ import android.content.ContentValues.TAG
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
+import android.view.View
 import androidx.lifecycle.ViewModelProvider
 import com.android.example.hongseokchun.MainActivity
 import com.android.example.hongseokchun.MyApplication.Companion.prefs
@@ -32,9 +33,7 @@ class FindUserFragment : BaseFragment<FragmentFindUserBinding>(R.layout.fragment
     override fun initDataBinding() {
         super.initDataBinding()
 
-        friendAdapter= FriendAdapter(ArrayList())
-
-        binding.recyclerView.adapter=friendAdapter
+        getUserList()
 
 
         //친구검색
@@ -52,57 +51,33 @@ class FindUserFragment : BaseFragment<FragmentFindUserBinding>(R.layout.fragment
                 val searchItemList: ArrayList<HashMap<String,String>> = ArrayList<HashMap<String,String>>()
                 val searchString = binding.etSearchFriend.text.toString()
 
-                getUserList()
 
                 if (binding.etSearchFriend.text.isEmpty()) {
                     searchItemList.clear()
-                    friendAdapter = FriendAdapter(searchItemList)
+                    binding.recommedFriend.visibility= View.VISIBLE
+                    friendAdapter = FriendAdapter(UserList)
                     binding.recyclerView.adapter = friendAdapter
 
-                }else{
-                    for(data in UserList){
+                }else {
+                    binding.recommedFriend.visibility = View.INVISIBLE
+                    for (data in UserList) {
                         val name = data.get("name");
                         if (name != null) {
-                            if(searchString in name){
+                            if (searchString in name) {
                                 searchItemList.add(data)
                             }
                         }
                     }
+
                     friendAdapter = FriendAdapter(searchItemList)
                     binding.recyclerView.adapter = friendAdapter
-
-                    //팔로우,팔로잉 버튼 클릭
-                    friendAdapter.setItemClickListener(object: FriendAdapter.OnItemClickListener {
-                        @SuppressLint("SuspiciousIndentation")
-                        override fun onClick(btn: String, position: Int) {
-                            // 클릭 시 이벤트 작성
-                            val friendName = friendAdapter.itemList[position].get("name")
-                            val dataOrigin = friendAdapter.itemList[position]
-
-                            if(btn =="팔로우") {
-                                // 원래 친구목록에 있으면 삭제
-                                db.collection("users").document(prefs.getString("email","null"))
-                                    .update("following", FieldValue.arrayRemove(dataOrigin))
-                                changeFollowState(false)
-                            }
-                            else if(btn=="팔로잉"){
-                                //없으면 추가
-                                db.collection("users").document(prefs.getString("email","null"))
-                                    .update("following", FieldValue.arrayUnion(dataOrigin))
-                                changeFollowState(true)
-
-                            }
-                            else{
-                                navController.navigate(R.id.action_findUserFragment_to_friendPageFragment)
-                            }
-
-                        }
-
-                    })
-
                 }
+
+
             }
         })
+
+
 
 
 
@@ -123,9 +98,44 @@ class FindUserFragment : BaseFragment<FragmentFindUserBinding>(R.layout.fragment
                     UserList.add(user)
                     Log.d("UserList", UserList.toString())
                 }
+                friendAdapter= FriendAdapter(UserList)
+
+                binding.recyclerView.adapter=friendAdapter
+
+                //팔로우,팔로잉 버튼 클릭
+                friendAdapter.setItemClickListener(object: FriendAdapter.OnItemClickListener {
+                    @SuppressLint("SuspiciousIndentation")
+                    override fun onClick(btn: String, position: Int) {
+                        // 클릭 시 이벤트 작성
+                        val friendName = friendAdapter.itemList[position].get("name")
+                        val dataOrigin = friendAdapter.itemList[position]
+
+                        if(btn =="팔로우") {
+                            // 원래 친구목록에 있으면 삭제
+                            db.collection("users").document(prefs.getString("email","null"))
+                                .update("following", FieldValue.arrayRemove(dataOrigin))
+                            changeFollowState(false)
+                        }
+                        else if(btn=="팔로잉"){
+                            //없으면 추가
+                            db.collection("users").document(prefs.getString("email","null"))
+                                .update("following", FieldValue.arrayUnion(dataOrigin))
+                            changeFollowState(true)
+
+                        }
+                        else{
+                            navController.navigate(R.id.action_findUserFragment_to_friendPageFragment)
+                        }
+
+                    }
+
+                })
             }
             .addOnFailureListener { exception ->
                 Log.d(TAG, "Error getting documents: ", exception) }
+
+
+
     }
 
 
