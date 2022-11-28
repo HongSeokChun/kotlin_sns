@@ -45,7 +45,7 @@ class MyPageAdapter(itemList: List<Posts>) : RecyclerView.Adapter<MyPageViewHold
     }
 
     override fun onBindViewHolder(holder: MyPageViewHolder, position: Int) {
-        val cpItemList = itemList.reversed() //최신 게시물이 위로
+        val cpItemList = itemList.sortedByDescending{ it.uploadDate} //최신 게시물이 위로
         val countOfLikes = cpItemList[position].like
         val userName = cpItemList[position].postAdmin
         val countOfComments = cpItemList[position].commentCount
@@ -54,7 +54,7 @@ class MyPageAdapter(itemList: List<Posts>) : RecyclerView.Adapter<MyPageViewHold
             holder.binding.myPagePostImage,
             cpItemList[position].imageNames[0]
         )
-
+        loadImage(holder.binding.myPagePostImage,cpItemList[position].imageNames[0])
         holder.binding.myPagePostTitle.text = "좋아요 ${countOfLikes}개"
         holder.binding.myPagePostComment.text = "댓글 ${countOfComments}개"
 
