@@ -45,7 +45,7 @@ class MyPageAdapter(itemList: List<Posts>) : RecyclerView.Adapter<MyPageViewHold
     }
 
     override fun onBindViewHolder(holder: MyPageViewHolder, position: Int) {
-        val cpItemList = itemList.reversed() //최신 게시물이 위로
+        val cpItemList = itemList.sortedByDescending { it.uploadDate } //최신 게시물이 위로
         val countOfLikes = cpItemList[position].like
         val userName = cpItemList[position].postAdmin
         val countOfComments = cpItemList[position].commentCount
