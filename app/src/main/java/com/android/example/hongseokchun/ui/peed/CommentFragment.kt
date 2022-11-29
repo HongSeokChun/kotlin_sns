@@ -148,6 +148,25 @@ class CommentFragment : BaseFragment<FragmentCommentBinding>(R.layout.fragment_c
 
             //새로고침
             initDataBinding()
+            initDataBinding()
+            initDataBinding()
+            db.collection("users").document(userName).collection("Post")
+                .document(postid).collection("Comments") //해당 포스트 댓글 가져오기
+                .get()
+                .addOnSuccessListener { documents ->
+                    val data = arrayListOf<Comment>()
+                    Log.d("Comment.documents.size()",documents.size().toString())
+                    for (document in documents) {
+                        Log.d("comment_id",document.id)
+                        Log.d("document.toObject<Comment>()",document.toObject<Comment>().comment.toString())
+                        if(document.toObject<Comment>().comment != "") //"" Comment 제외
+                            data.add(document.toObject<Comment>())
+                    }
+                    commentAdapter = CommentAdapter(data) // 가져온 COmment로 adpater 구성
+                    binding.commentRecyclerview.setHasFixedSize(true)
+                    binding.commentRecyclerview.layoutManager = LinearLayoutManager(context)
+                    binding.commentRecyclerview.adapter = commentAdapter
+                }
 
         }
 
