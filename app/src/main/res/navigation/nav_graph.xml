@@ -190,6 +190,9 @@
         <action
             android:id="@+id/action_peedFragment_to_friendPageFragment"
             app:destination="@id/friendPageFragment" />
+        <action
+            android:id="@+id/action_peedFragment_to_findFavoriteUserFragment"
+            app:destination="@id/findFavoriteUserFragment" />
     </fragment>
 
     <fragment
@@ -221,6 +224,18 @@
         <action
             android:id="@+id/action_onePostFragment_to_myPageFragment"
             app:destination="@id/myPageFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/findFavoriteUserFragment"
+        android:name="com.android.example.hongseokchun.ui.friend.FindFavoriteUserFragment"
+        android:label="FindFavoriteUserFragment">
+        <argument
+            android:name="nameANDpostId2"
+            app:argType="string[]"/>
+        <action
+            android:id="@+id/action_findFavoriteUserFragment_to_friendPageFragment"
+            app:destination="@id/friendPageFragment" />
     </fragment>
 
 
